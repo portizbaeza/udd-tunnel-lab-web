@@ -15,5 +15,4 @@ Sitio estático inicial para UDD Tunnel Lab.
 4. Cambiar el email del formulario en `mailto:contacto@uddtunnellab.cl`.
 5. Agregar renders/fotos en `Nuestra máquina`.
 
-## Publicación rápida
-Puedes subir esta carpeta a GitHub Pages, Netlify, Vercel o al servidor de la universidad.
+
