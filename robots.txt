@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portizbaeza.github.io/udd-tunnel-lab-web/sitemap.xml

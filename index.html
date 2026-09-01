@@ -3,264 +3,493 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UDD Tunnel Lab</title>
-  <meta name="description" content="UDD Tunnel Lab: equipo chileno de la Universidad del Desarrollo para The Not-a-Boring Competition." />
+  <title>UDD Tunnel Lab — B.I.C.H.O</title>
+  <meta name="description" content="UDD Tunnel Lab: el primer y único equipo sudamericano de la Not-a-Boring Competition. Facultad de Ingeniería, Universidad del Desarrollo." />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+  <link rel="canonical" href="https://portizbaeza.github.io/udd-tunnel-lab-web/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="UDD Tunnel Lab" />
+  <meta property="og:url" content="https://portizbaeza.github.io/udd-tunnel-lab-web/" />
+  <meta property="og:title" content="UDD Tunnel Lab — B.I.C.H.O" />
+  <meta property="og:description" content="El primer y único equipo sudamericano de la Not-a-Boring Competition. Facultad de Ingeniería, Universidad del Desarrollo." />
+  <meta property="og:image" content="https://portizbaeza.github.io/udd-tunnel-lab-web/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="UDD Tunnel Lab — B.I.C.H.O" />
+  <meta name="twitter:description" content="El primer y único equipo sudamericano de la Not-a-Boring Competition." />
+  <meta name="twitter:image" content="https://portizbaeza.github.io/udd-tunnel-lab-web/assets/og-image.jpg" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <header class="site-header" id="top">
-    <nav class="nav container">
-      <a class="brand" href="#inicio" aria-label="UDD Tunnel Lab">
-        <img src="assets/udd-tunnel-lab-logo.png" alt="UDD Tunnel Lab logo" class="brand-logo" />
-        <span class="brand-text">UDD Tunnel Lab</span>
+<body class="page-home">
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#inicio">
+        <img class="brand-udd" src="assets/udd-blanco.png" alt="Universidad del Desarrollo" />
+        <span class="brand-sep"></span>
+        <span class="brand-team-logo"><img src="assets/logo-equipo.png" alt="Logo UDD Tunnel Lab" /></span>
+        <span class="brand-name">Tunnel Lab</span>
       </a>
-      <a class="udd-header-logo" href="https://www.udd.cl/" aria-label="Universidad del Desarrollo">
-        <img src="assets/logo-universidad-desarrollo.png" alt="Universidad del Desarrollo" />
-      </a>
-      <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
-      <div class="nav-links" data-nav-links>
-        <a href="#inicio">Inicio</a>
-        <a href="#quienes-somos">Quiénes somos</a>
-        <a href="#maquina">Nuestra máquina</a>
-        <a href="#faq">FAQ</a>
-        <a href="#prensa">Prensa</a>
-        <a class="nav-cta" href="#contacto">Contacto</a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-panel" id="main-nav">
+        <nav class="main-nav">
+          <a href="#competencia">Competencia</a>
+          <a href="#propuesta">Propuesta</a>
+          <a href="#avances">Avances</a>
+          <a href="equipo.html">Equipo <span style="font-size:11px;opacity:.7">↗</span></a>
+          <a href="#socios">Socios</a>
+        </nav>
+        <a class="nav-cta" href="#unete">Únete</a>
       </div>
-    </nav>
+    </div>
   </header>
 
   <main>
-    <section class="hero" id="inicio">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Facultad de Ingeniería · Universidad del Desarrollo</p>
-          <h1>Diseñando la primera tuneladora universitaria sudamericana para competir en The Not-a-Boring Competition.</h1>
-          <p class="lead">Somos UDD Tunnel Lab, un equipo interdisciplinario de estudiantes y profesores que busca diseñar, fabricar y validar una máquina tuneladora experimental para enfrentar uno de los desafíos de ingeniería más entretenidos del mundo.</p>
-          <p class="lead secondary-lead">La Not-a-Boring Competition reúne equipos de todo el mundo para diseñar, construir y probar sus propias tuneladoras durante el año, y luego competir presencialmente intentando superar el desafío de <strong>“beat the snail”</strong>. Desde Chile queremos levantar el primer equipo sudamericano en llegar a esta competencia.</p>
-          <div class="hero-actions">
-            <a class="button primary" href="#quienes-somos">Conoce al equipo</a>
-            <a class="button secondary" href="#maquina">Ver la máquina</a>
+    <section id="inicio" class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <img class="blur" src="assets/reunion-01.jpeg" alt="">
+        <img class="sharp" src="assets/reunion-01.jpeg" alt="">
+        <div class="tint"></div>
+        <div class="gradient-1"></div>
+        <div class="gradient-2"></div>
+        <div class="gradient-3"></div>
+        <div class="gradient-4"></div>
+        <div class="scanlines"></div>
+      </div>
+
+      <div class="hero-inner">
+        <div class="hero-eyebrow">
+          <span class="pulse-dot"></span>
+          Facultad de Ingeniería · Universidad del Desarrollo
+          <span class="hero-flag"><img src="assets/chile.png" alt="Chile"><span>Chile</span></span>
+        </div>
+
+        <h1>El primer y único<br>equipo <span class="accent">sudamericano</span><br>de la competencia</h1>
+
+        <div class="hero-lead-grid">
+          <p class="hero-lead">Somos <strong>UDD Tunnel Lab</strong>: 80 estudiantes y profesores de todas las carreras diseñando, fabricando y probando una tuneladora a escala funcional para competir en la <strong>Not-a-Boring Competition</strong> en Bastrop, Texas.</p>
+          <p class="hero-note">Proyecto en etapa preliminar.<br>Primer boceto de la máquina en camino a los organizadores.</p>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#propuesta">Conoce el proyecto</a>
+          <a class="btn btn-outline" href="#socios">Ser socio del equipo</a>
+        </div>
+
+        <div class="gallery">
+          <div class="gallery-head">
+            <div class="gallery-meta">Primera reunión general · <span class="accent">Ago 2026 · Sala Maker Campus UDD</span></div>
+            <div class="gallery-controls">
+              <span class="gallery-pos" data-gallery-pos></span>
+              <button type="button" class="gallery-btn" data-gallery-prev aria-label="Fotos anteriores">←</button>
+              <button type="button" class="gallery-btn" data-gallery-next aria-label="Fotos siguientes">→</button>
+            </div>
           </div>
-          <div class="hero-badge">
-            <span class="snail">🐌</span>
-            <span><strong>Beat the snail.</strong> Excavar más rápido, aprender más rápido, construir mejor.</span>
+          <div class="gallery-viewport">
+            <div class="gallery-track" data-gallery-track></div>
+          </div>
+        </div>
+
+        <div class="countdown">
+          <div class="countdown-label">
+            <div class="eyebrow-mono">Cuenta atrás · Texas 2027</div>
+            <strong>Deadline de entrega</strong>
+            <span>FEB 2027 · BASTROP, TX</span>
+          </div>
+          <div class="countdown-units">
+            <div class="countdown-unit"><div class="value" data-cd-days>—</div><div class="label">días</div></div>
+            <div class="countdown-unit"><div class="value" data-cd-hours>—</div><div class="label">horas</div></div>
+            <div class="countdown-unit"><div class="value" data-cd-minutes>—</div><div class="label">min</div></div>
+            <div class="countdown-unit"><div class="value" data-cd-seconds>—</div><div class="label">seg</div></div>
           </div>
         </div>
       </div>
     </section>
 
-
-    <section class="section competition" id="competencia">
-      <div class="container competition-grid">
-        <div>
-          <p class="eyebrow">La competencia</p>
-          <h2>Un desafío internacional para acelerar la tecnología subterránea.</h2>
+    <div class="lightbox" data-lightbox hidden>
+      <div class="lightbox-head">
+        <div class="lightbox-label">Primera reunión general · Ago 2026</div>
+        <button type="button" class="lightbox-close" data-lightbox-close>Cerrar ✕</button>
+      </div>
+      <div class="lightbox-stage" data-lightbox-stage></div>
+      <div class="lightbox-foot">
+        <div class="lightbox-info">
+          <div class="lightbox-num" data-lightbox-num></div>
+          <div class="lightbox-title" data-lightbox-title></div>
         </div>
-        <div class="competition-copy">
-          <p>The Not-a-Boring Competition es una competencia organizada por The Boring Company que desafía a equipos universitarios y técnicos a desarrollar nuevas soluciones de excavación subterránea. El objetivo es claro y provocador: construir máquinas tuneladoras capaces de competir, aprender rápido y acercarse al famoso lema <strong>“Beat the snail”</strong>.</p>
-          <p>Los equipos trabajan durante el año en el diseño, construcción y prueba de sus máquinas. Luego participan en una competencia presencial, donde se evalúan aspectos como avance de excavación, diseño, innovación, seguridad, navegación y desempeño del sistema completo.</p>
-          <p>Para UDD Tunnel Lab, esta competencia es una plataforma de aprendizaje aplicado: integra mecánica, minería, obras civiles, informática, automatización, control, sensores, manufactura, gestión de proyectos y vinculación con la industria.</p>
-          <div class="competition-cards">
-            <div><strong>Diseñar</strong><span>subsistemas reales de una tuneladora experimental.</span></div>
-            <div><strong>Fabricar</strong><span>prototipos, mecanismos y componentes testeables.</span></div>
-            <div><strong>Competir</strong><span>representando a Chile y Sudamérica en un desafío global.</span></div>
-          </div>
+        <div class="lightbox-nav">
+          <span class="lightbox-pos" data-lightbox-pos></span>
+          <button type="button" class="lightbox-btn" data-lightbox-prev aria-label="Foto anterior">←</button>
+          <button type="button" class="lightbox-btn" data-lightbox-next aria-label="Foto siguiente">→</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>B.I.C.H.O · Big Intelligent Chilean Hole Opener</span>
+        <span class="accent">Beat the snail</span>
+        <span>Talento chileno construyendo tecnología bajo tierra</span>
+        <span class="accent">Not-a-Boring Competition 2026–2027</span>
+        <span>B.I.C.H.O · Big Intelligent Chilean Hole Opener</span>
+        <span class="accent">Beat the snail</span>
+        <span>Talento chileno construyendo tecnología bajo tierra</span>
+        <span class="accent">Not-a-Boring Competition 2026–2027</span>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stats-grid">
+        <div class="stat"><div class="value accent">80</div><p>estudiantes inscritos de todas las carreras</p></div>
+        <div class="stat"><div class="value">6</div><p>subsistemas en desarrollo paralelo</p></div>
+        <div class="stat">
+          <div class="value-row"><div class="value">1º</div><img src="assets/sudamerica.png" alt="Sudamérica"></div>
+          <p>y único equipo sudamericano en la competencia</p>
+        </div>
+        <div class="stat"><div class="value">7</div><p>disciplinas involucradas, de geología a informática</p></div>
+      </div>
+    </section>
+
+    <section class="badges">
+      <div class="badges-grid">
+        <div class="badge">
+          <img src="assets/udd-blanco.png" alt="Universidad del Desarrollo">
+          <p>Proyecto oficial de la Facultad de Ingeniería de la Universidad del Desarrollo.</p>
+        </div>
+        <div class="badge">
+          <img src="assets/chile.png" alt="Chile">
+          <p>Diseñado y fabricado en Chile, con industria y talento local.</p>
+        </div>
+        <div class="badge">
+          <img src="assets/sudamerica.png" alt="Sudamérica">
+          <p>Representando a Sudamérica en una competencia global de ingeniería.</p>
         </div>
       </div>
     </section>
-    <section class="sponsors section compact" aria-labelledby="sponsors-title">
+
+    <section id="competencia" class="competencia section-light">
       <div class="container">
-        <div class="section-heading horizontal">
+        <div class="competencia-grid">
           <div>
-            <p class="eyebrow">Partners</p>
-            <h2 id="sponsors-title">Patrocinadores y colaboradores</h2>
+            <div class="eyebrow-teal">01 · La competencia</div>
+            <h2>Un desafío mundial para acelerar la tecnología subterránea.</h2>
           </div>
-          <p>Espacio reservado para instituciones, empresas y laboratorios que apoyen el desarrollo del equipo.</p>
-        </div>
-        <div class="sponsor-grid">
-          <div class="sponsor-logo">Sponsor 01</div>
-          <div class="sponsor-logo">Sponsor 02</div>
-          <div class="sponsor-logo">Sponsor 03</div>
-          <div class="sponsor-logo">Sponsor 04</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="quienes-somos">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Quiénes somos</p>
-          <h2>Un equipo interdisciplinario para un desafío real de ingeniería.</h2>
-          <p>Estudiantes y profesores de distintas carreras trabajando en sistemas mecánicos, control, software, minería, obras civiles, gestión y vinculación con la industria.</p>
-        </div>
-        <div class="team-grid">
-          <article class="member-card">
-            <div class="avatar">PO</div>
-            <div class="member-meta"><span>Coordinación</span><span>Software & sensores</span></div>
-            <h3>Pablo Ortiz</h3>
-            <p>Coordinación general del equipo, integración tecnológica, sensores, comunicaciones y visualización de datos.</p>
-            <div class="member-links"><a href="#">LinkedIn</a><a href="#">Instagram</a></div>
-          </article>
-          <article class="member-card">
-            <div class="avatar">BG</div>
-            <div class="member-meta"><span>Mecánica</span><span>Diseño</span></div>
-            <h3>Bruno Grozzi</h3>
-            <p>Diseño mecánico, prototipado, análisis de componentes y desarrollo de subsistemas de la máquina.</p>
-            <div class="member-links"><a href="#">LinkedIn</a><a href="#">Instagram</a></div>
-          </article>
-          <article class="member-card placeholder">
-            <div class="avatar">+</div>
-            <div class="member-meta"><span>Cabezal</span><span>Equipo técnico</span></div>
-            <h3>Integrante del equipo</h3>
-            <p>Reemplazar por foto, bio breve, grupo de trabajo y enlaces personales.</p>
-            <div class="member-links"><a href="#">LinkedIn</a><a href="#">Instagram</a></div>
-          </article>
-          <article class="member-card placeholder">
-            <div class="avatar">+</div>
-            <div class="member-meta"><span>Dirección</span><span>Control</span></div>
-            <h3>Integrante del equipo</h3>
-            <p>Reemplazar por foto, bio breve, grupo de trabajo y enlaces personales.</p>
-            <div class="member-links"><a href="#">LinkedIn</a><a href="#">Instagram</a></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section machine" id="maquina">
-      <div class="container machine-grid">
-        <div>
-          <p class="eyebrow">Nuestra máquina</p>
-          <h2>Un prototipo modular, instrumentado y testeable.</h2>
-          <p>Esta sección será actualizada con fotografías, renders, diagramas CAD y resultados de pruebas a medida que avance el desarrollo.</p>
-          <div class="system-list">
-            <span>Cabezal erosionador</span>
-            <span>Dirección</span>
-            <span>Propulsión</span>
-            <span>Casing / soporte</span>
-            <span>Muck removal</span>
-            <span>Software y control</span>
+          <div class="competencia-copy">
+            <p>La <strong>Not-a-Boring Competition</strong> es organizada por The Boring Company y desafía a equipos universitarios de todo el mundo a construir máquinas tuneladoras capaces de excavar más rápido, más seguro y más barato. El lema lo dice todo: <strong>beat the snail</strong> — superar a un caracol.</p>
+            <p>Los equipos trabajan durante el año en diseño, fabricación y pruebas, y luego compiten presencialmente en Bastrop, Texas. Se evalúa avance de excavación, diseño, innovación, seguridad, navegación y desempeño del sistema completo.</p>
+            <p class="competencia-note">UDD Tunnel Lab es un proyecto independiente de la Universidad del Desarrollo. No es patrocinado ni respaldado por The Boring Company.</p>
           </div>
         </div>
-        <div class="machine-placeholder machine-image-card">
-          <img src="assets/microtuneladora-realista.svg" alt="Imagen referencial de microtuneladora" />
-          <p>Imagen referencial: reemplazaremos esto por renders y fotos de nuestra máquina.</p>
+        <div class="phases">
+          <div class="phase">
+            <div class="phase-tag">FASE 01</div>
+            <h3>Diseñar</h3>
+            <p>Subsistemas reales de una tuneladora experimental: corte, propulsión, extracción, control.</p>
+          </div>
+          <div class="phase">
+            <div class="phase-tag">FASE 02</div>
+            <h3>Fabricar</h3>
+            <p>Prototipos, mecanismos y componentes testeables, con industria chilena como aliada.</p>
+          </div>
+          <div class="phase">
+            <div class="phase-tag">FASE 03</div>
+            <h3>Competir</h3>
+            <p>Representando a la UDD, a Chile y a Sudamérica en un desafío global de ingeniería.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="faq">
-      <div class="container narrow">
-        <div class="section-heading">
-          <p class="eyebrow">FAQ</p>
-          <h2>Preguntas frecuentes</h2>
-        </div>
-        <div class="faq-list">
-          <details open>
-            <summary>¿Qué es UDD Tunnel Lab?</summary>
-            <p>UDD Tunnel Lab es un equipo interdisciplinario de estudiantes y profesores de la Universidad del Desarrollo. Nuestro propósito es diseñar, fabricar y probar una micro-tuneladora para representar a Chile en The Not-a-Boring Competition.</p>
-          </details>
-          <details>
-            <summary>¿Qué es The Not-a-Boring Competition?</summary>
-            <p>Es una competencia internacional organizada por The Boring Company que invita a equipos de distintas universidades a desarrollar máquinas tuneladoras experimentales. El desafío busca impulsar nuevas ideas para excavar túneles de forma más rápida, eficiente, segura e innovadora.</p>
-          </details>
-          <details>
-            <summary>¿Cuándo se realiza la competencia?</summary>
-            <p>La edición 2027 está anunciada para desarrollarse en Bastrop, Texas. Aunque la competencia presencial ocurre durante una semana de pruebas y desafíos, el trabajo real comienza mucho antes: investigación, diseño, fabricación, validación y preparación del equipo.</p>
-          </details>
-          <details>
-            <summary>¿Cómo puedo sumarme al equipo?</summary>
-            <p>Puedes completar el <a href="https://forms.cloud.microsoft/r/rLkU1Ei4Jc?origin=lprLink" target="_blank" rel="noopener">formulario de inscripción del equipo</a>. Buscamos estudiantes con ganas de aprender, aportar y comprometerse con alguno de los subsistemas o áreas de apoyo del proyecto.</p>
-          </details>
-          <details>
-            <summary>¿Necesito experiencia previa?</summary>
-            <p>No es indispensable tener experiencia técnica previa. Hay tareas para distintos niveles de formación y el equipo funciona como un espacio de aprendizaje aplicado. Lo más importante es la motivación, la responsabilidad y la disposición a trabajar colaborativamente.</p>
-          </details>
-          <details>
-            <summary>¿Puedo participar si estoy en primer año?</summary>
-            <p>Sí. El equipo está abierto a estudiantes de distintos años y carreras. Quienes tienen más experiencia pueden apoyar como mentores, mientras que quienes recién comienzan pueden integrarse a tareas progresivas de investigación, diseño, fabricación, documentación o gestión.</p>
-          </details>
-          <details>
-            <summary>¿Cuánto tiempo debo dedicarle?</summary>
-            <p>La dedicación dependerá del área de trabajo, la etapa del proyecto y la disponibilidad de cada integrante. En general, esperamos una participación constante durante el semestre, con mayor intensidad cerca de entregables, pruebas, hitos técnicos y actividades de difusión.</p>
-          </details>
-          <details>
-            <summary>¿Contra quién compite UDD Tunnel Lab?</summary>
-            <p>La competencia reúne equipos universitarios de distintos países. Para nosotros, el desafío es representar a la Universidad del Desarrollo, a Chile y eventualmente a Sudamérica en una instancia internacional de ingeniería aplicada.</p>
-          </details>
-          <details>
-            <summary>¿Cómo se evalúa el desempeño de los equipos?</summary>
-            <p>No se trata solo de excavar más rápido. También importan la calidad del diseño, la seguridad, la navegación, el control, la innovación, la confiabilidad, la documentación técnica y la capacidad del equipo para operar la máquina en condiciones reales de prueba.</p>
-          </details>
-          <details>
-            <summary>¿Qué gana el equipo al participar?</summary>
-            <p>Además de los premios y reconocimientos de la competencia, participar abre oportunidades de aprendizaje, colaboración internacional, contacto con empresas, desarrollo de tecnología propia y visibilidad para estudiantes, profesores, sponsors y la universidad.</p>
-          </details>
-          <details>
-            <summary>¿Qué puedo aprender siendo parte del proyecto?</summary>
-            <p>Podrás desarrollar habilidades técnicas y profesionales en diseño mecánico, automatización, sensores, software, fabricación, minería, obras civiles, gestión de proyectos, comunicación, búsqueda de sponsors y resolución de problemas complejos en equipo.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <section class="section press" id="prensa">
+    <section id="propuesta" class="propuesta">
       <div class="container">
-        <div class="section-heading horizontal">
+        <div class="eyebrow-teal" style="color:var(--accent)">02 · Nuestra propuesta</div>
+        <div class="propuesta-grid">
           <div>
-            <p class="eyebrow">Prensa</p>
-            <h2>Noticias y apariciones</h2>
+            <h2>B.I.C.H.O</h2>
+            <div class="propuesta-sub">BIG INTELLIGENT CHILEAN HOLE OPENER</div>
+            <p class="propuesta-lead">Una micro-tuneladora modular, instrumentada y testeable. Hoy estamos en etapa preliminar: evaluando arquitecturas y preparando el primer boceto formal para presentarlo a los organizadores de la competencia.</p>
+            <p class="propuesta-note">Cada subsistema es un frente de trabajo abierto: un equipo de estudiantes, un profesor guía y —cuando la ingeniería lo pide— una empresa aliada aportando conocimiento, componentes o fabricación.</p>
+            <a class="propuesta-link" href="#avances">Ver estado de cada subsistema</a>
           </div>
-          <p>Sección reservada para notas, entrevistas, comunicados y publicaciones sobre el avance del equipo.</p>
-        </div>
-        <div class="press-grid">
-          <article class="press-card">
-            <span>Próximamente</span>
-            <h3>Lanzamiento oficial de UDD Tunnel Lab</h3>
-            <p>Publicaremos aquí las primeras noticias del equipo.</p>
-          </article>
-          <article class="press-card">
-            <span>Próximamente</span>
-            <h3>Avances técnicos y prototipos</h3>
-            <p>Registro de hitos de diseño, fabricación y pruebas.</p>
-          </article>
+          <div>
+            <div class="render-placeholder">
+              <p>[ RENDER / CAD DE LA MÁQUINA ]<br>arrastra aquí el boceto de B.I.C.H.O</p>
+            </div>
+            <div class="render-subgrid">
+              <div class="render-sub"><span>[ FOTO TALLER ]</span></div>
+              <div class="render-sub"><span>[ DIAGRAMA CABEZAL ]</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section contact" id="contacto">
-      <div class="container contact-grid">
-        <div>
-          <p class="eyebrow">Contacto</p>
-          <h2>Conversemos</h2>
-          <p>Buscamos estudiantes, mentores, empresas e instituciones que quieran sumarse a este desafío.</p>
+    <section id="avances" class="avances section-light">
+      <div class="container">
+        <div class="avances-head">
+          <div>
+            <div class="eyebrow-teal">03 · Avances del proyecto</div>
+            <h2>Todo el proyecto, a la vista.</h2>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Vista de avances">
+            <button type="button" class="tab" role="tab" data-tab="roadmap" aria-selected="true">Roadmap</button>
+            <button type="button" class="tab" role="tab" data-tab="board" aria-selected="false">Subsistemas</button>
+            <button type="button" class="tab" role="tab" data-tab="log" aria-selected="false">Bitácora</button>
+          </div>
         </div>
-        <form class="contact-form" action="mailto:contacto@uddtunnellab.cl" method="post" enctype="text/plain">
-          <label>Nombre<input type="text" name="nombre" placeholder="Tu nombre" /></label>
-          <label>Email<input type="email" name="email" placeholder="tu@email.com" /></label>
-          <label>Mensaje<textarea name="mensaje" rows="5" placeholder="Cuéntanos cómo te gustaría participar"></textarea></label>
-          <button class="button primary" type="submit">Enviar mensaje</button>
+
+        <div class="roadmap" data-tab-panel="roadmap">
+          <div class="roadmap-item">
+            <div class="status done"><span class="dot"></span>Completado</div>
+            <h3>Convocatoria</h3>
+            <time>2026 · S2</time>
+            <p>50 estudiantes inscritos e identidad del equipo definida.</p>
+          </div>
+          <div class="roadmap-item current">
+            <div class="status current"><span class="dot"></span>En curso</div>
+            <h3>Diseño preliminar</h3>
+            <time>2026 · S2</time>
+            <p>Arquitectura por subsistemas y primer boceto para los organizadores.</p>
+          </div>
+          <div class="roadmap-item">
+            <div class="status blocked"><span class="dot"></span>Bloqueado · falta financiamiento</div>
+            <h3>Fabricación</h3>
+            <time>2026–2027</time>
+            <p>Mecanizado, estructura y componentes. Aquí entran nuestros socios.</p>
+          </div>
+          <div class="roadmap-item">
+            <div class="status planned"><span class="dot"></span>Planificado</div>
+            <h3>Pruebas en terreno</h3>
+            <time>2027 · S1</time>
+            <p>Excavación controlada, navegación y validación del sistema completo.</p>
+          </div>
+          <div class="roadmap-item">
+            <div class="status planned"><span class="dot"></span>Planificado</div>
+            <h3>Texas</h3>
+            <time>FEB 2027</time>
+            <p>Traslado del prototipo y competencia presencial en Bastrop.</p>
+          </div>
+        </div>
+
+        <div class="board" data-tab-panel="board" hidden>
+          <div class="board-item">
+            <div class="board-head"><h3>Cabezal erosionador</h3><span class="pct ok">35%</span></div>
+            <div class="progress-bar"><span style="width:35%"></span></div>
+            <div class="board-foot"><span>Investigación de mecanismos de corte</span><span>4 personas</span></div>
+          </div>
+          <div class="board-item">
+            <div class="board-head"><h3>Propulsión e hidráulica</h3><span class="pct ok">25%</span></div>
+            <div class="progress-bar"><span style="width:25%"></span></div>
+            <div class="board-foot"><span>Dimensionamiento de empuje</span><span>5 personas</span></div>
+          </div>
+          <div class="board-item">
+            <div class="board-head"><h3>Extracción de material</h3><span class="pct warn">15%</span></div>
+            <div class="progress-bar"><span class="warn" style="width:15%"></span></div>
+            <div class="board-foot"><span>Buscando asesoría de industria</span><span>3 personas</span></div>
+          </div>
+          <div class="board-item">
+            <div class="board-head"><h3>Estructura y casing</h3><span class="pct ok">30%</span></div>
+            <div class="progress-bar"><span style="width:30%"></span></div>
+            <div class="board-foot"><span>Layout modular en evaluación</span><span>6 personas</span></div>
+          </div>
+          <div class="board-item">
+            <div class="board-head"><h3>Control y navegación</h3><span class="pct ok">20%</span></div>
+            <div class="progress-bar"><span style="width:20%"></span></div>
+            <div class="board-foot"><span>Selección de sensores e instrumentación</span><span>7 personas</span></div>
+          </div>
+          <div class="board-item">
+            <div class="board-head"><h3>Software y simulación</h3><span class="pct ok">40%</span></div>
+            <div class="progress-bar"><span style="width:40%"></span></div>
+            <div class="board-foot"><span>Telemetría y visualización de datos</span><span>5 personas</span></div>
+          </div>
+        </div>
+
+        <div class="log" data-tab-panel="log" hidden>
+          <div class="log-item">
+            <div class="log-date">2026 · AGO<span class="tag">#006 · PROTOTIPO</span></div>
+            <div class="log-body">
+              <h3>Primeros prototipos de tracción a escala</h3>
+              <p>Construimos y probamos los primeros módulos de oruga a escala para validar el sistema de tracción antes de pasar al diseño a tamaño real.</p>
+            </div>
+            <div class="log-photo"><img src="assets/prototipo-modulos-bitacora.jpeg" alt="Módulos de oruga del prototipo ensamblados" loading="lazy"></div>
+          </div>
+          <div class="log-item">
+            <div class="log-date">2026 · AGO<span class="tag">#005 · PROTOTIPO</span></div>
+            <div class="log-body">
+              <h3>Nacen B.I.C.H.O y MARK-O</h3>
+              <p>Los dos primeros prototipos rodantes del equipo, construidos para iterar rápido sobre el sistema de tracción antes de comprometer diseño final.</p>
+            </div>
+            <div class="log-photo"><img src="assets/prototipo-bicho-bitacora.jpeg" alt="Prototipo de tracción a escala bautizado B.I.C.H.O" loading="lazy"></div>
+          </div>
+          <div class="log-item">
+            <div class="log-date">2026 · AGO<span class="tag">#004 · DISEÑO</span></div>
+            <div class="log-body">
+              <h3>Primer boceto de B.I.C.H.O en preparación</h3>
+              <p>Consolidamos las propuestas de arquitectura de los equipos en un único boceto para presentar a los organizadores de la competencia.</p>
+            </div>
+            <div class="log-photo"><img src="assets/equipo-soldando-electronica-bitacora.jpeg" alt="Integrantes soldando electrónica en el taller" loading="lazy"></div>
+          </div>
+          <div class="log-item">
+            <div class="log-date">2026 · AGO<span class="tag">#003 · EQUIPO</span></div>
+            <div class="log-body">
+              <h3>Se forman los 6 frentes de trabajo</h3>
+              <p>Cada subsistema queda con un equipo de estudiantes y un profesor guía. Empieza la investigación técnica en paralelo.</p>
+            </div>
+            <div class="log-photo"><img src="assets/integrante-armando-oruga-bitacora.jpeg" alt="Integrante del equipo armando piezas del prototipo" loading="lazy"></div>
+          </div>
+          <div class="log-item">
+            <div class="log-date">2026 · JUL<span class="tag">#002 · COMUNIDAD</span></div>
+            <div class="log-body">
+              <h3>50 estudiantes se inscriben al proyecto</h3>
+              <p>La convocatoria abierta a todas las carreras cierra con 50 inscritos: ingeniería, minería, geología, obras civiles, industrial e informática.</p>
+            </div>
+            <div class="log-photo"><img src="assets/equipo-selfie-taller-bitacora.jpeg" alt="Selfie grupal del equipo en el taller" loading="lazy"></div>
+          </div>
+          <div class="log-item">
+            <div class="log-date">2026 · JUL<span class="tag">#001 · HITO</span></div>
+            <div class="log-body">
+              <h3>Nace UDD Tunnel Lab</h3>
+              <p>La Facultad de Ingeniería impulsa el equipo y define su identidad: UDD Tunnel Lab, con B.I.C.H.O como nombre de la máquina.</p>
+            </div>
+            <div class="log-photo"><span>[ FOTO ]</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="socios" class="socios">
+      <div class="socios-box">
+        <div class="eyebrow-teal" style="color:var(--accent)">04 · Socios del proyecto</div>
+        <div class="socios-grid">
+          <div>
+            <h2>No buscamos un logo en una polera. Buscamos socios de ingeniería.</h2>
+            <p class="socios-copy">Una empresa puede financiar un subsistema completo, aportar materiales, mecanizado, software, sensores, asesoría técnica, campo de pruebas o logística hacia Texas. En cambio obtiene contacto temprano con talento, un desafío técnico real donde probar sus capacidades y presencia en un proyecto chileno con proyección internacional.</p>
+            <div class="socios-actions">
+              <a class="btn btn-accent" href="#contacto">Conversemos</a>
+              <a class="btn btn-outline" href="#contacto">Descargar dossier (PDF)</a>
+            </div>
+          </div>
+          <div class="socios-benefits">
+            <div class="benefit"><h3>Talento</h3><p>Contacto temprano con 80 estudiantes de 7 disciplinas.</p></div>
+            <div class="benefit"><h3>Innovación</h3><p>Un banco de pruebas real para tecnología, componentes y software.</p></div>
+            <div class="benefit"><h3>Visibilidad</h3><p>Presencia en la máquina, la bitácora, los hitos y el viaje a Texas.</p></div>
+            <div class="benefit"><h3>Vinculación</h3><p>Relación directa con la Facultad de Ingeniería UDD y su ecosistema.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="equipo" class="equipo-teaser">
+      <div class="container">
+        <div class="eyebrow-teal" style="color:var(--accent)">05 · Equipo</div>
+        <h2>Interdisciplinario por diseño, no por accidente.</h2>
+        <div class="equipo-grid">
+          <div class="member">
+            <div class="member-photo"><img src="assets/team/daniel-merino-dezar.jpg" alt="Daniel Merino Dezar"></div>
+            <div class="member-body">
+              <h3>Daniel Merino Dezar</h3>
+              <div class="member-role">Gestión y sponsors · Software</div>
+              <p>Gestión de sponsors, software y control del proyecto.</p>
+            </div>
+          </div>
+          <div class="member">
+            <div class="member-photo"><img src="assets/team/vicente-seckel.jpeg" alt="Vicente Seckel"></div>
+            <div class="member-body">
+              <h3>Vicente Seckel</h3>
+              <div class="member-role">Software y control</div>
+              <p>Codificador en Python que busca grandes desafíos.</p>
+            </div>
+          </div>
+          <div class="member">
+            <div class="member-photo"><img src="assets/team/fernanda-zuniga.jpeg" alt="María Fernanda Zúñiga Hernández"></div>
+            <div class="member-body">
+              <h3>María Fernanda Zúñiga</h3>
+              <div class="member-role">Gestión y sponsors · Casing/Soporte</div>
+              <p>Ingeniería en Obras Civiles, gestión y soporte estructural.</p>
+            </div>
+          </div>
+          <div class="member member-more">
+            <div class="member-more-inner">
+              <div class="value">+77</div>
+              <p>cupos del equipo, 12 ya con rostro y frase propia.</p>
+              <a href="equipo.html">Ver los 80 rostros →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="unete" class="unete">
+      <div class="unete-grid">
+        <div>
+          <div class="eyebrow-mono">06 · Únete al equipo</div>
+          <h2>No necesitas experiencia.<br>Necesitas ganas.</h2>
+          <p>Buscamos estudiantes de todas las carreras y todos los años: diseño, fabricación, control, geología, gestión, comunicaciones y búsqueda de sponsors. Hay tareas para cada nivel.</p>
+        </div>
+        <div class="unete-actions">
+          <a class="btn-join" href="https://forms.cloud.microsoft/r/rLkU1Ei4Jc?origin=lprLink" target="_blank" rel="noopener">Inscribirme al equipo →</a>
+          <div class="unete-note">Formulario oficial de Ingeniería UDD.<br>Dudas: pablo.ortiz@udd.cl</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="contacto">
+      <div class="contacto-grid">
+        <div>
+          <div class="eyebrow-teal" style="color:var(--accent)">07 · Contacto</div>
+          <h2>Conversemos.</h2>
+          <p class="contacto-copy">Empresas, mentores, laboratorios, medios y estudiantes: escríbenos y contamos cómo puedes ser parte.</p>
+          <div class="contacto-info">
+            pablo.ortiz@udd.cl<br>Facultad de Ingeniería · Universidad del Desarrollo<br>Santiago · Chile
+          </div>
+        </div>
+        <form class="contact-form" action="mailto:pablo.ortiz@udd.cl" method="post" enctype="text/plain">
+          <div class="field">
+            <label for="nombre">Nombre / empresa</label>
+            <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="tu@email.com" required>
+          </div>
+          <div class="field">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5" placeholder="Cuéntanos cómo te gustaría aportar" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Enviar mensaje</button>
         </form>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand-block">
-        <span class="footer-logo-card"><img src="assets/udd-tunnel-lab-logo.png" alt="UDD Tunnel Lab" class="footer-logo" /></span>
-        <p>UDD Tunnel Lab · Universidad del Desarrollo · Chile</p>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/udd-blanco.png" alt="Universidad del Desarrollo">
+        <span class="footer-sep"></span>
+        <span>UDD TUNNEL LAB</span>
       </div>
-      <div class="footer-university">
-        <span>Proyecto impulsado desde</span>
-        <span class="udd-footer-card"><img src="assets/logo-universidad-desarrollo.png" alt="Universidad del Desarrollo" /></span>
+      <div class="footer-flags">
+        <img src="assets/chile.png" alt="Chile">
+        <img src="assets/sudamerica.png" alt="Sudamérica">
+        <span>Facultad de Ingeniería UDD · Chile</span>
       </div>
-      <a href="#top">Volver arriba ↑</a>
+      <a href="#inicio">Volver arriba ↑</a>
     </div>
   </footer>
 
+  <script src="nav-toggle.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
