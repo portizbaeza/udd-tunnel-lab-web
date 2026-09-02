@@ -3,7 +3,7 @@ const TOTAL_EQUIPO = 80;
 // Frentes reales tomados de "Sección de trabajo" en data/miembrosList1.csv.
 const FRENTES = [
   "Cabezal erosionador", "Propulsión", "Muck removal", "Casing/Soporte",
-  "Software y control", "Gestión y sponsors", "Redes sociales",
+  "Software y control", "Gestión y sponsors", "Redes sociales", "Dirección",
 ];
 
 // Carreras que participan en el equipo (7 disciplinas, ver index.html #competencia).
@@ -87,6 +87,36 @@ const MIEMBROS_REALES = [
     frase: "Nos esse quasi nanos gigantum humeris insidentes", frentes: ["Gestión y sponsors", "Software y control"],
     foto: "assets/team/lucas-riquelme.jpg", linkedin: "https://www.linkedin.com/in/lucas-riquelme-133378343",
     correo: "l.riquelmet@udd.cl",
+  },
+  {
+    nombre: "Andrés Edgardo Henry Guerrero", carreras: ["Ingeniería Civil Informática", "Ingeniería Civil Industrial"],
+    frase: "No tengo tiempo para rendirme. Apenas estamos comenzando", frentes: ["Propulsión", "Dirección"],
+    foto: "assets/team/andres-henry.jpeg", linkedin: "https://www.linkedin.com/in/andr%C3%A9s-henry-0032b8321",
+    correo: "A.henryg@udd.cl",
+  },
+  {
+    nombre: "Joaquín Matías Almeida Aguayo", carreras: ["Ingeniería Civil Informática"],
+    frase: "La curiosidad me lleva más lejos que la certeza", frentes: ["Software y control", "Dirección"],
+    foto: "assets/team/joaquin-almeida.jpg", linkedin: "https://www.linkedin.com/in/joaqu%C3%ADn-mat%C3%ADas-almeida-aguayo-b233a8433",
+    correo: "joacoflooalmeida@gmail.com",
+  },
+  {
+    nombre: "Juan Agustín Muxi", carreras: ["Ingeniería Civil en Minería"],
+    frase: "De Chile para el mundo", frentes: ["Casing/Soporte", "Cabezal erosionador"],
+    foto: "assets/team/juan-muxi.jpg", linkedin: null,
+    correo: "J.muxif@udd.cl",
+  },
+  {
+    nombre: "David Alfonso Sánchez Ramírez", carreras: ["Ingeniería Civil Informática"],
+    frase: "El esfuerzo y perseverancia son la base de todo", frentes: ["Software y control", "Dirección"],
+    foto: "assets/team/david-sanchez.jpg", linkedin: "https://www.linkedin.com/in/david-sanchez-ramirez-11b9b1401",
+    correo: "davo.san.ram@gmail.com",
+  },
+  {
+    nombre: "Aleksander Constanzo Belmar", carreras: ["Ingeniería Civil Informática"],
+    frase: "Aprendiendo, construyendo y cavando el futuro", frentes: ["Software y control"],
+    foto: "assets/team/aleksander-constanzo.jpeg", linkedin: "https://www.linkedin.com/in/aleksander-constanzo",
+    correo: "aleksanderconstanzo60@gmail.com",
   },
 ];
 
