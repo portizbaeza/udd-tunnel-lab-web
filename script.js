@@ -39,8 +39,16 @@ function initGalleryAndLightbox() {
   const posLabel = document.querySelector("[data-gallery-pos]");
   const prevBtn = document.querySelector("[data-gallery-prev]");
   const nextBtn = document.querySelector("[data-gallery-next]");
-  const visibleCount = 4;
-  const maxIndex = Math.max(0, PHOTOS.length - visibleCount);
+
+  function getVisibleCount() {
+    const w = window.innerWidth;
+    if (w <= 560) return 1;
+    if (w <= 900) return 2;
+    return 4;
+  }
+
+  let visibleCount = getVisibleCount();
+  let maxIndex = Math.max(0, PHOTOS.length - visibleCount);
   let galleryIndex = 0;
 
   track.innerHTML = PHOTOS.map((photo, i) => `
@@ -55,7 +63,8 @@ function initGalleryAndLightbox() {
   `).join("");
 
   function renderGallery() {
-    track.style.transform = `translateX(-${galleryIndex * 25}%)`;
+    const stepPercent = 100 / visibleCount;
+    track.style.transform = `translateX(-${galleryIndex * stepPercent}%)`;
     posLabel.textContent = `${galleryIndex + 1}–${Math.min(PHOTOS.length, galleryIndex + visibleCount)} / ${PHOTOS.length}`;
     prevBtn.disabled = galleryIndex === 0;
     nextBtn.disabled = galleryIndex === maxIndex;
@@ -68,6 +77,18 @@ function initGalleryAndLightbox() {
   nextBtn.addEventListener("click", () => {
     galleryIndex = Math.min(maxIndex, galleryIndex + 1);
     renderGallery();
+  });
+
+  let resizeRaf = null;
+  window.addEventListener("resize", () => {
+    if (resizeRaf) return;
+    resizeRaf = requestAnimationFrame(() => {
+      resizeRaf = null;
+      visibleCount = getVisibleCount();
+      maxIndex = Math.max(0, PHOTOS.length - visibleCount);
+      galleryIndex = Math.min(galleryIndex, maxIndex);
+      renderGallery();
+    });
   });
 
   const lightbox = document.querySelector("[data-lightbox]");
