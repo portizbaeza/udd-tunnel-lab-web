@@ -6,11 +6,12 @@ const FRENTES = [
   "Software y control", "Gestión y sponsors", "Redes sociales", "Dirección",
 ];
 
-// Carreras que participan en el equipo (7 disciplinas, ver index.html #competencia).
+// Carreras que participan en el equipo (ver index.html #competencia).
 const CARRERAS = [
   "Ingeniería Civil Industrial", "Ingeniería Civil en Minería", "Geología",
   "Ingeniería en Obras Civiles", "Ingeniería Civil Informática", "Diseño",
-  "Ingeniería Comercial",
+  "Ingeniería Comercial", "Ingeniería Informática", "Global Business Administration",
+  "Profesor/Consultor",
 ];
 
 // Inscritos reales via formulario (data/miembrosList1.csv). Fotos en assets/team/.
@@ -37,9 +38,10 @@ const MIEMBROS_REALES = [
   },
   {
     nombre: "Constanza Chandia Martinez", carreras: ["Ingeniería Civil Industrial"],
-    frase: "La creatividad me obligó a ser parte de esto", frentes: ["Muck removal", "Redes sociales"],
+    frase: "La creatividad me trajo hasta acá, la ingeniería me impulsa hacia adelante.", frentes: ["Redes sociales", "Muck removal"],
     foto: "assets/team/constanza-chandia.jpg", linkedin: "https://www.linkedin.com/in/cony-chandia-m-a40161388",
     correo: "conychandiamartinez@gmail.com",
+    descripcion: "Me considero una persona creativa, con muchas ganas de aprender y siempre motivada por descubrir cosas nuevas. Disfruto trabajar en equipo, escuchar nuevas ideas y aportar desde mi propia perspectiva para encontrar soluciones en conjunto. Siempre estoy abierta a nuevos desafíos y aventuras que me permitan salir de mi zona de confort, vivir nuevas experiencias y seguir creciendo tanto personal como profesionalmente.",
   },
   {
     nombre: "Vicente Seckel", carreras: ["Ingeniería Civil Industrial", "Ingeniería Civil Informática"],
@@ -118,6 +120,38 @@ const MIEMBROS_REALES = [
     foto: "assets/team/aleksander-constanzo.jpeg", linkedin: "https://www.linkedin.com/in/aleksander-constanzo",
     correo: "aleksanderconstanzo60@gmail.com",
   },
+  {
+    nombre: "Antonia Paz Herrera Espiñeira", carreras: ["Ingeniería Civil Industrial"],
+    frase: "Cada obstáculo es una oportunidad para mejorar el diseño", frentes: ["Propulsión", "Casing/Soporte"],
+    foto: "assets/team/antonia-herrera.jpg", linkedin: "https://www.linkedin.com/in/antonia-paz-herrera-espiñeira-b584b238a",
+    correo: "A.herrerae@udd.cl",
+  },
+  {
+    nombre: "Franco Salinas Theler", carreras: ["Global Business Administration"],
+    frase: "Sleep is fleeting, glory is eternal", frentes: ["Gestión y sponsors", "Redes sociales"],
+    foto: "assets/team/franco-salinas.jpeg", linkedin: "https://www.linkedin.com/in/franco-salinas-theler",
+    correo: "f.salinast@udd.cl",
+  },
+  {
+    nombre: "María Emilia Salinas Theler", carreras: ["Ingeniería Comercial"],
+    frase: "Running on caffeine and ambitious", frentes: ["Gestión y sponsors", "Redes sociales"],
+    foto: "assets/team/maria-salinas.jpg", linkedin: "https://www.linkedin.com/in/maria-emilia-salinas-theler",
+    correo: "Emisalinas2612@gmail.com",
+  },
+  {
+    nombre: "Pablo Ortiz Baeza", carreras: ["Ingeniería Informática"],
+    frase: "Conectando sensores, datos, terreno y personas.", frentes: ["Software y control", "Dirección"],
+    foto: "assets/team/pablo-ortiz.jpg", linkedin: "https://www.linkedin.com/in/pablo-ortiz-baeza-13450a36",
+    correo: "pablo.ortiz@udd.cl",
+    descripcion: "Soy ingeniero informático y Team Leader de UDD Tunnel Lab. Trabajo en el Centro C+, donde participo en proyectos vinculados a calidad de aire y calidad de agua, liderando el desarrollo técnico de sistemas basados en sensores, comunicaciones, bases de datos y plataformas de visualización. Además, soy electricista certificado, guía de montaña, rescatista, técnico en trabajos verticales y paramédico. Mi perfil combina tecnología, trabajo en terreno, seguridad operacional y resolución práctica de problemas, con especial interés en desarrollar soluciones aplicadas que conecten la ingeniería con desafíos reales de la sociedad y el medio ambiente.",
+  },
+  {
+    nombre: "Bruno Grossi Córdova", carreras: ["Profesor/Consultor"],
+    frase: "innovación", frentes: ["Propulsión", "Redes sociales"],
+    foto: "assets/team/bruno-grossi.png", linkedin: null,
+    correo: "bruno.grossi@udd.cl",
+    descripcion: "Soy Bruno Grossi, Doctor en Biología con postdoctorado en metamateriales, experto en tecnologías bioinspiradas y académico de la Facultad de Ingeniería de la Universidad del Desarrollo. Mi trabajo integra investigación, innovación y desarrollo tecnológico interdisciplinario.",
+  },
 ];
 
 const LINKEDIN_ICON = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
@@ -142,6 +176,7 @@ function initEquipoPage() {
   const rosterWrap = document.querySelector("[data-roster]");
   const countLabel = document.querySelector("[data-roster-count]");
   const headerCount = document.querySelector("[data-equipo-count]");
+  const personModal = document.querySelector("[data-person-modal]");
   if (!chipsWrap || !rosterWrap) return;
 
   const roster = buildRoster();
@@ -164,7 +199,7 @@ function initEquipoPage() {
     const people = activeFilter === "Todos" ? roster : roster.filter((p) => p.frentes.includes(activeFilter));
     countLabel.textContent = `${people.length} fichas`;
     rosterWrap.innerHTML = people.map((p) => `
-      <div class="person${p.real ? " is-real" : ""}">
+      <div class="person${p.real ? " is-real" : ""}" data-person-idx="${Number(p.num) - 1}" role="button" tabindex="0">
         <div class="person-photo">
           ${p.foto ? `<img src="${p.foto}" alt="${p.nombre}" loading="lazy">` : `<span>[ RETRATO ]</span>`}
           <span class="person-num">${p.num}</span>
@@ -185,6 +220,39 @@ function initEquipoPage() {
     `).join("");
   }
 
+  function renderPersonModal(idx) {
+    if (!personModal) return;
+    const p = roster[idx];
+    if (!p) return;
+    personModal.querySelector("[data-person-modal-photo]").innerHTML = p.foto
+      ? `<img src="${p.foto}" alt="${p.nombre}" loading="lazy">`
+      : `<span>[ RETRATO ]</span>`;
+    personModal.querySelector("[data-person-modal-num]").textContent = `Ficha ${p.num}`;
+    personModal.querySelector("[data-person-modal-nombre]").textContent = p.nombre;
+    personModal.querySelector("[data-person-modal-carrera]").textContent = p.carreras.join(" · ");
+    personModal.querySelector("[data-person-modal-frentes]").innerHTML =
+      p.frentes.map((f) => `<span class="frente-tag">${f}</span>`).join("");
+    personModal.querySelector("[data-person-modal-frase]").textContent = p.frase;
+    personModal.querySelector("[data-person-modal-desc]").innerHTML = p.descripcion
+      ? `<p class="person-modal-desc">${p.descripcion}</p>`
+      : `<p class="person-modal-desc is-pending">La descripción pronto se subirá.</p>`;
+    personModal.querySelector("[data-person-modal-contact]").innerHTML = p.linkedin || p.correo ? `
+      ${p.linkedin ? `<a class="person-linkedin" href="${p.linkedin}" target="_blank" rel="noopener">${LINKEDIN_ICON}LinkedIn</a>` : ""}
+      ${p.correo ? `<a class="person-email" href="mailto:${p.correo}">${MAIL_ICON}Correo</a>` : ""}
+    ` : "";
+  }
+
+  function openPersonModal(idx) {
+    if (!personModal) return;
+    renderPersonModal(idx);
+    personModal.hidden = false;
+  }
+
+  function closePersonModal() {
+    if (!personModal) return;
+    personModal.hidden = true;
+  }
+
   chipsWrap.addEventListener("click", (e) => {
     const chip = e.target.closest("[data-filter]");
     if (!chip) return;
@@ -192,6 +260,30 @@ function initEquipoPage() {
     renderChips();
     renderRoster();
   });
+
+  rosterWrap.addEventListener("click", (e) => {
+    const card = e.target.closest("[data-person-idx]");
+    if (!card) return;
+    openPersonModal(Number(card.dataset.personIdx));
+  });
+
+  rosterWrap.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const card = e.target.closest("[data-person-idx]");
+    if (!card) return;
+    e.preventDefault();
+    openPersonModal(Number(card.dataset.personIdx));
+  });
+
+  if (personModal) {
+    personModal.addEventListener("click", (e) => {
+      if (e.target === personModal) closePersonModal();
+    });
+    personModal.querySelector("[data-person-modal-close]").addEventListener("click", closePersonModal);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !personModal.hidden) closePersonModal();
+    });
+  }
 
   renderChips();
   renderRoster();
