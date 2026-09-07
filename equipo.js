@@ -26,6 +26,20 @@ const MIEMBROS_REALES = [
     foto: "assets/team/daniel-merino-dezar.jpg", linkedin: "https://www.linkedin.com/in/daniel-eduardo-merino-dézar-969601201",
     correo: "danielmerino2003@gmail.com",
   },
+    {
+    nombre: "Pablo Ortiz Baeza", carreras: ["Ingeniería Informática"],
+    frase: "Conectando sensores, datos, terreno y personas.", frentes: ["Software y control", "Dirección"],
+    foto: "assets/team/pablo-ortiz.jpg", linkedin: "https://www.linkedin.com/in/pablo-ortiz-baeza-13450a36",
+    correo: "pablo.ortiz@udd.cl",
+    descripcion: "Soy ingeniero informático y Team Leader de UDD Tunnel Lab. Trabajo en el Centro C+, donde participo en proyectos vinculados a calidad de aire y calidad de agua, liderando el desarrollo técnico de sistemas basados en sensores, comunicaciones, bases de datos y plataformas de visualización. Además, soy electricista certificado, guía de montaña, rescatista, técnico en trabajos verticales y paramédico. Mi perfil combina tecnología, trabajo en terreno, seguridad operacional y resolución práctica de problemas, con especial interés en desarrollar soluciones aplicadas que conecten la ingeniería con desafíos reales de la sociedad y el medio ambiente.",
+  },
+  {
+    nombre: "Bruno Grossi Córdova", carreras: ["Profesor/Consultor"],
+    frase: "innovación", frentes: ["Propulsión", "Redes sociales"],
+    foto: "assets/team/bruno-grossi.png", linkedin: null,
+    correo: "bruno.grossi@udd.cl",
+    descripcion: "Soy Bruno Grossi, Doctor en Biología con postdoctorado en metamateriales, experto en tecnologías bioinspiradas y académico de la Facultad de Ingeniería de la Universidad del Desarrollo. Mi trabajo integra investigación, innovación y desarrollo tecnológico interdisciplinario.",
+  },
   {
     nombre: "Sofía Matus Prades", carreras: ["Ingeniería Civil Industrial"],
     frase: "El futuro es algo que uno mismo hace, tienes que creer en el", frentes: ["Cabezal erosionador"],
@@ -137,20 +151,6 @@ const MIEMBROS_REALES = [
     frase: "Running on caffeine and ambitious", frentes: ["Gestión y sponsors", "Redes sociales"],
     foto: "assets/team/maria-salinas.jpg", linkedin: "https://www.linkedin.com/in/maria-emilia-salinas-theler",
     correo: "Emisalinas2612@gmail.com",
-  },
-  {
-    nombre: "Pablo Ortiz Baeza", carreras: ["Ingeniería Informática"],
-    frase: "Conectando sensores, datos, terreno y personas.", frentes: ["Software y control", "Dirección"],
-    foto: "assets/team/pablo-ortiz.jpg", linkedin: "https://www.linkedin.com/in/pablo-ortiz-baeza-13450a36",
-    correo: "pablo.ortiz@udd.cl",
-    descripcion: "Soy ingeniero informático y Team Leader de UDD Tunnel Lab. Trabajo en el Centro C+, donde participo en proyectos vinculados a calidad de aire y calidad de agua, liderando el desarrollo técnico de sistemas basados en sensores, comunicaciones, bases de datos y plataformas de visualización. Además, soy electricista certificado, guía de montaña, rescatista, técnico en trabajos verticales y paramédico. Mi perfil combina tecnología, trabajo en terreno, seguridad operacional y resolución práctica de problemas, con especial interés en desarrollar soluciones aplicadas que conecten la ingeniería con desafíos reales de la sociedad y el medio ambiente.",
-  },
-  {
-    nombre: "Bruno Grossi Córdova", carreras: ["Profesor/Consultor"],
-    frase: "innovación", frentes: ["Propulsión", "Redes sociales"],
-    foto: "assets/team/bruno-grossi.png", linkedin: null,
-    correo: "bruno.grossi@udd.cl",
-    descripcion: "Soy Bruno Grossi, Doctor en Biología con postdoctorado en metamateriales, experto en tecnologías bioinspiradas y académico de la Facultad de Ingeniería de la Universidad del Desarrollo. Mi trabajo integra investigación, innovación y desarrollo tecnológico interdisciplinario.",
   },
 ];
 
