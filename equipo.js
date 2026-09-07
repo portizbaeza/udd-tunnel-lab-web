@@ -21,11 +21,7 @@ const CARRERAS = [
 // se agregó solo aquí, sin fila nueva en el CSV).
 const MIEMBROS_REALES = [
   {
-    nombre: "Daniel Merino Dezar", carreras: ["Ingeniería Civil Industrial"],
-    frase: "There is no path; you build it", frentes: ["Gestión y sponsors", "Software y control"],
-    foto: "assets/team/daniel-merino-dezar.jpg", linkedin: "https://www.linkedin.com/in/daniel-eduardo-merino-dézar-969601201",
-    correo: "danielmerino2003@gmail.com",
-  },
+
     {
     nombre: "Pablo Ortiz Baeza", carreras: ["Ingeniería Informática"],
     frase: "Conectando sensores, datos, terreno y personas.", frentes: ["Software y control", "Dirección"],
@@ -39,6 +35,11 @@ const MIEMBROS_REALES = [
     foto: "assets/team/bruno-grossi.png", linkedin: null,
     correo: "bruno.grossi@udd.cl",
     descripcion: "Soy Bruno Grossi, Doctor en Biología con postdoctorado en metamateriales, experto en tecnologías bioinspiradas y académico de la Facultad de Ingeniería de la Universidad del Desarrollo. Mi trabajo integra investigación, innovación y desarrollo tecnológico interdisciplinario.",
+  },
+    nombre: "Daniel Merino Dezar", carreras: ["Ingeniería Civil Industrial"],
+    frase: "There is no path; you build it", frentes: ["Gestión y sponsors", "Software y control"],
+    foto: "assets/team/daniel-merino-dezar.jpg", linkedin: "https://www.linkedin.com/in/daniel-eduardo-merino-dézar-969601201",
+    correo: "danielmerino2003@gmail.com",
   },
   {
     nombre: "Sofía Matus Prades", carreras: ["Ingeniería Civil Industrial"],
