@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&family=Source+Sans+3:wght@600&display=swap">
+<style>
+html,body{margin:0;padding:0;background:#0B0C1C;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:#2FE0C8}
+button{font:inherit}
+::selection{background:#2FE0C8;color:#0B0C1C}
+@keyframes tl-marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes tl-pulse{0%,100%{opacity:1}50%{opacity:.25}}
+</style>
+</helmet>
+
+<div style="font-family:'Geist',system-ui,sans-serif;color:#F5F4F0;background:#0B0C1C;min-height:100vh">
+
+<!-- HEADER -->
+<header style="position:sticky;top:0;z-index:50;background:rgba(11,12,28,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(245,244,240,.1)">
+  <div style="display:flex;height:3px">
+    <div style="flex:1;background:#13235F"></div><div style="flex:1;background:#F5F4F0"></div><div style="flex:2;background:#D52B1E"></div>
+  </div>
+  <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px);height:clamp(64px,6vw,84px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <button onClick="{{ goHome }}" aria-label="UDD Tunnel Lab · Inicio" style="display:flex;align-items:center;gap:clamp(14px,1.7vw,24px);background:none;border:0;padding:0;color:#F5F4F0;cursor:pointer">
+      <img src="assets/udd-blanco.png" alt="Universidad del Desarrollo" style="height:clamp(34px,3.6vw,51px);width:auto;display:block">
+      <span style="width:1px;height:clamp(26px,2.8vw,40px);flex:none;background:rgba(245,244,240,.28)"></span>
+      <img src="assets/logo-tunnel-lab.png" alt="" style="height:clamp(34px,3.6vw,51px);width:auto;display:block">
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+        <span style="font-family:'Source Sans 3','Myriad Pro',Frutiger,sans-serif;font-weight:600;font-size:clamp(22px,2.2vw,32px);line-height:1;letter-spacing:-.005em;white-space:nowrap">UDD Tunnel Lab</span>
+      </sc-if>
+    </button>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:22px">
+        <sc-for list="{{ nav }}" as="l" hint-placeholder-count="7">
+          <button onClick="{{ l.go }}" style="background:none;border:0;padding:0;cursor:pointer;color:rgba(245,244,240,.72);font-size:13px;letter-spacing:.01em" style-hover="color:#F5F4F0">{{ l.t }}</button>
+        </sc-for>
+        <button onClick="{{ goUnete }}" style="background:#F5F4F0;color:#0B0C1C;border:0;padding:10px 18px;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer" style-hover="background:#2FE0C8">Únete</button>
+      </nav>
+    </sc-if>
+    <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Menú" style="background:none;border:1px solid rgba(245,244,240,.25);color:#F5F4F0;padding:9px 14px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;cursor:pointer">{{ menuLabel }}</button>
+    </sc-if>
+  </div>
+</header>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;top:calc(clamp(64px,6vw,84px) + 4px);left:0;right:0;bottom:0;z-index:49;background:#0B0C1C;padding:32px 20px;display:flex;flex-direction:column;gap:4px;overflow:auto">
+    <sc-for list="{{ nav }}" as="l" hint-placeholder-count="7">
+      <button onClick="{{ l.go }}" style="text-align:left;background:none;border:0;border-bottom:1px solid rgba(245,244,240,.1);padding:16px 0;color:#F5F4F0;font-family:'Newsreader',Georgia,serif;font-size:34px;font-weight:300;cursor:pointer;display:flex;justify-content:space-between;align-items:baseline">
+        <span>{{ l.t }}</span><span style="font-family:'Geist Mono',monospace;font-size:11px;color:rgba(245,244,240,.5)">{{ l.n }}</span>
+      </button>
+    </sc-for>
+    <button onClick="{{ goUnete }}" style="margin-top:28px;background:#2FE0C8;color:#0B0C1C;border:0;padding:18px;font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Únete al equipo</button>
+  </div>
+</sc-if>
+
+<!-- ============ HOME ============ -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<main>
+
+  <!-- HERO -->
+  <section data-screen-label="Home · Hero" style="padding:0">
+    <div style="position:relative;overflow:hidden;padding:clamp(56px,9vw,140px) 0 clamp(48px,6vw,96px)">
+    <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
+      <img src="assets/hero-equipo.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 45%;filter:grayscale(.55) brightness(.62) contrast(1.05)">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 62% 58% at 55% 46%,rgba(11,12,28,.38) 0%,rgba(11,12,28,.72) 55%,rgba(11,12,28,.96) 100%)"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,12,28,.55) 0%,rgba(11,12,28,0) 30%,rgba(11,12,28,0) 62%,#0B0C1C 100%)"></div>
+    </div>
+    <div style="position:relative;max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <h1 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(46px,9.4vw,150px);line-height:.94;letter-spacing:-.025em;text-wrap:balance">
+        El primer equipo sudamericano <img src="assets/chile.png" alt="Bandera de Chile" style="height:.58em;width:auto;vertical-align:.04em;display:inline-block"> <em style="font-style:italic;color:rgba(245,244,240,.78)">bajo tierra.</em>
+      </h1>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,5vw,80px);margin-top:clamp(40px,5vw,72px);align-items:end">
+        <div style="display:flex;flex-direction:column;gap:28px">
+          <p style="margin:0;font-size:clamp(17px,1.4vw,20px);line-height:1.55;color:#F5F4F0;max-width:540px;text-wrap:pretty;background:rgba(11,12,28,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-left:2px solid #2FE0C8;padding:clamp(16px,1.8vw,22px) clamp(18px,2vw,26px)">Somos un equipo de estudiantes de la Universidad del Desarrollo construyendo una tuneladora para competir en Texas. Representamos a Chile y a Sudamérica por primera vez — y venimos a hacer la diferencia.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px">
+            <button onClick="{{ goAlbum }}" style="background:#F5F4F0;color:#0B0C1C;border:0;padding:16px 26px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#2FE0C8">Recorrer la máquina</button>
+            <button onClick="{{ goEquipo }}" style="background:transparent;color:#F5F4F0;border:1px solid rgba(245,244,240,.3);padding:16px 26px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#2FE0C8">Conocer al equipo</button>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,244,240,.6);margin-bottom:14px">Cuenta atrás · Entrega de diseño</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(245,244,240,.14)">
+            <sc-for list="{{ countdown }}" as="u" hint-placeholder-count="4">
+              <div style="padding:14px 0 0;border-right:1px solid rgba(245,244,240,.1);padding-left:14px">
+                <div style="font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(36px,4.4vw,64px);line-height:1;font-variant-numeric:tabular-nums">{{ u.v }}</div>
+                <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,244,240,.55);margin-top:8px">{{ u.l }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <figure style="margin:clamp(24px,3vw,48px) 0 0">
+      <div style="height:clamp(420px,54vw,780px);background:#14162E repeating-linear-gradient(135deg,rgba(245,244,240,.045) 0 1px,transparent 1px 12px);display:flex;align-items:center;justify-content:center">
+        <span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em;color:rgba(245,244,240,.5);text-transform:uppercase">[ Foto real del equipo · formato panorámico ]</span>
+      </div>
+      <figcaption style="max-width:1320px;margin:0 auto;padding:16px clamp(20px,5vw,64px) 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(245,244,240,.55);text-transform:uppercase">
+        <span>Fig. 01 — El equipo en el taller de Ingeniería UDD</span><span>Santiago, 2026</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- TICKER -->
+  <div style="margin-top:clamp(56px,7vw,96px);border-top:1px solid rgba(245,244,240,.12);border-bottom:1px solid rgba(245,244,240,.12);overflow:hidden;padding:18px 0">{{ ticker }}</div>
+
+  <!-- STATS + RESPALDO -->
+  <section data-screen-label="Home · Cifras" style="padding:clamp(72px,9vw,128px) 0">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1px;background:rgba(245,244,240,.13);border:1px solid rgba(245,244,240,.13)">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div style="background:#0B0C1C;padding:clamp(24px,3vw,40px)">
+            <div style="font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(52px,5.6vw,84px);line-height:1;letter-spacing:-.02em">{{ s.v }}</div>
+            <div style="margin-top:16px;font-size:14px;line-height:1.5;color:rgba(245,244,240,.65);max-width:220px">{{ s.l }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;margin-top:clamp(40px,5vw,64px)">
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,244,240,.55)">Con el respaldo de</span>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(28px,4vw,56px)">
+          <img src="assets/udd-blanco.png" alt="Universidad del Desarrollo" style="height:40px;width:auto;opacity:.9">
+          <div style="display:flex;align-items:center;gap:12px"><img src="assets/chile.png" alt="" style="height:22px;width:auto"><span style="font-size:13px;color:rgba(245,244,240,.8)">Hecho en Chile</span></div>
+          <div style="display:flex;align-items:center;gap:12px"><img src="assets/logo-tunnel-lab.png" alt="" style="height:34px;width:34px"><span style="font-size:13px;color:rgba(245,244,240,.8)">Facultad de Ingeniería</span></div>
+        </div>
+      </div>
+      <div data-screen-label="Home · Sponsors" style="margin-top:clamp(40px,5vw,64px);padding-top:clamp(28px,3vw,40px);border-top:1px solid rgba(245,244,240,.12)">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;margin-bottom:24px">
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,244,240,.55)">Nuestros sponsors</span>
+          <button onClick="{{ goContacto }}" style="background:none;border:0;padding:0;cursor:pointer;color:rgba(245,244,240,.75);font-size:13px" style-hover="color:#2FE0C8">Quiero ser sponsor →</button>
+        </div>
+      </div>
+    </div>
+    <div style="overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)">{{ sponsorsReel }}</div>
+  </section>
+
+  <!-- 01 COMPETENCIA -->
+  <section id="competencia" data-screen-label="Home · 01 Competencia" style="background:#F5F4F0;color:#14162E;padding:clamp(80px,11vw,160px) 0">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5A5C6E;margin-bottom:clamp(32px,4vw,56px)">01 — La competencia</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(40px,6vw,96px)">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(40px,5.2vw,80px);line-height:1;letter-spacing:-.02em;text-wrap:balance">Excavar un túnel. <em>Más rápido que un caracol.</em></h2>
+        <div>
+          <p style="margin:0 0 40px;font-size:18px;line-height:1.6;color:#33354A;text-wrap:pretty">Not-a-Boring Competition reúne a equipos universitarios de todo el mundo para diseñar, construir y operar una tuneladora. El desafío es excavar y revestir un túnel en el menor tiempo posible — y superar al caracol, el animal que inspira el lema del torneo.</p>
+          <dl style="margin:0;display:grid">
+            <sc-for list="{{ specs }}" as="r" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:140px 1fr;gap:16px;padding:16px 0;border-top:1px solid rgba(20,22,46,.16)">
+                <dt style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5A5C6E;padding-top:3px">{{ r.k }}</dt>
+                <dd style="margin:0;font-size:16px">{{ r.v }}</dd>
+              </div>
+            </sc-for>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 PROPUESTA -->
+  <section id="propuesta" data-screen-label="Home · 02 Propuesta" style="padding:clamp(80px,11vw,160px) 0">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(40px,6vw,96px);align-items:center">
+      <figure style="margin:0">
+        <div style="background:#F5F4F0;aspect-ratio:1;display:flex;align-items:center;justify-content:center">
+          <img src="assets/logo-tuneladora.png" alt="Logo de la tuneladora" style="width:72%;height:auto;display:block">
+        </div>
+        <figcaption style="margin-top:14px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,244,240,.55)">Fig. 02 — Emblema de la tuneladora</figcaption>
+      </figure>
+      <div>
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,244,240,.6);margin-bottom:32px">02 — La propuesta</div>
+        <h2 style="margin:0 0 28px;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(40px,4.8vw,72px);line-height:1;letter-spacing:-.02em;text-wrap:balance">Una máquina que avanza <em>como un organismo.</em></h2>
+        <p style="margin:0 0 40px;font-size:18px;line-height:1.6;color:rgba(245,244,240,.75);max-width:540px;text-wrap:pretty">Nuestra tuneladora se mueve por ciclos de agarre y empuje, como un gusano bajo tierra. Cinco subsistemas mecánicos — erosionar, avanzar, dirigir, extraer y sostener — coordinados por una capa de software y control que envuelve toda la máquina.</p>
+        <div style="display:grid;gap:1px;background:rgba(245,244,240,.13);border:1px solid rgba(245,244,240,.13)">
+          <sc-for list="{{ protos }}" as="p" hint-placeholder-count="2">
+            <div style="background:#0B0C1C;padding:20px 24px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap">
+              <span style="font-family:'Newsreader',Georgia,serif;font-size:26px">{{ p.t }}</span>
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,244,240,.6)">{{ p.d }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 ANATOMÍA -->
+  <section id="anatomia" data-screen-label="Home · 03 Anatomía" style="padding:clamp(80px,11vw,160px) 0;border-top:1px solid rgba(245,244,240,.12)">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:24px;margin-bottom:clamp(48px,6vw,88px)">
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,244,240,.6);margin-bottom:28px">03 — Anatomía de la máquina</div>
+          <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(40px,5.2vw,80px);line-height:1;letter-spacing:-.02em">Cinco partes. <em>Una sola inteligencia.</em></h2>
+        </div>
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,244,240,.55)">Sección longitudinal · toca una parte o el campo</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,244,240,.45);margin-bottom:12px"><span>← Frente de excavación</span><span>Retaguardia →</span></div>
+      <div onClick="{{ fieldDark.pick }}" role="button" aria-label="Software y control" style="position:relative;cursor:pointer;padding:clamp(34px,3.6vw,48px) clamp(12px,2vw,28px) clamp(14px,2vw,24px);border:1px dashed {{ fieldDark.bd }};background:{{ fieldDark.bg }};transition:background .25s">
+        <div style="position:absolute;top:12px;left:clamp(12px,2vw,28px);font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:{{ fieldDark.fg }}">06 · Software y control</div>
+      <div style="display:flex;align-items:center;gap:clamp(3px,.5vw,8px);height:clamp(100px,13vw,180px)">
+        <sc-for list="{{ zonesDark }}" as="z" hint-placeholder-count="6">
+          <button onClick="{{ z.pick }}" aria-label="{{ z.t }}" style="flex:{{ z.flex }} 1 0;min-width:0;height:{{ z.h }};clip-path:{{ z.clip }};background:{{ z.bg }};border:1px solid {{ z.bd }};color:{{ z.fg }};cursor:pointer;display:flex;align-items:flex-start;padding:10px;font-family:'Geist Mono',monospace;font-size:11px;transition:background .25s">{{ z.n }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:clamp(3px,.5vw,8px);margin-top:14px">
+        <sc-for list="{{ zonesDark }}" as="z" hint-placeholder-count="6">
+          <div onClick="{{ z.pick }}" style="flex:{{ z.flex }} 1 0;min-width:0;font-size:clamp(10px,1vw,13px);line-height:1.3;color:{{ z.lab }};overflow-wrap:anywhere">{{ z.short }}</div>
+        </sc-for>
+      </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(24px,5vw,80px);margin-top:clamp(48px,6vw,88px);padding-top:32px;border-top:1px solid rgba(245,244,240,.14)">
+        <div style="display:flex;align-items:baseline;gap:20px">
+          <span style="font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(64px,7vw,112px);line-height:.9;color:#2FE0C8">{{ zone.n }}</span>
+          <span style="font-family:'Newsreader',Georgia,serif;font-size:clamp(28px,2.6vw,40px);line-height:1.05">{{ zone.t }}</span>
+        </div>
+        <div>
+          <p style="margin:0 0 28px;font-size:17px;line-height:1.6;color:rgba(245,244,240,.75);text-wrap:pretty">{{ zone.lead }}</p>
+          <button onClick="{{ enterSala }}" style="background:transparent;color:#F5F4F0;border:1px solid rgba(245,244,240,.3);padding:14px 22px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="border-color:#2FE0C8;color:#2FE0C8">Entrar a la sala {{ zone.n }} →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 AVANCES -->
+  <section id="avances" data-screen-label="Home · 04 Avances" style="background:#F5F4F0;color:#14162E;padding:clamp(80px,11vw,160px) 0">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5A5C6E;margin-bottom:28px">04 — Avances</div>
+      <div style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:28px;margin-bottom:clamp(40px,5vw,72px)">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(40px,5.2vw,80px);line-height:1;letter-spacing:-.02em">Dónde estamos, <em>sin adornos.</em></h2>
+        <div role="tablist" style="display:flex;gap:28px">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+            <button role="tab" onClick="{{ t.pick }}" style="background:none;border:0;border-bottom:1px solid {{ t.bd }};padding:0 0 8px;color:{{ t.fg }};font-size:15px;cursor:pointer">{{ t.t }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ tabRoadmap }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <sc-for list="{{ roadmap }}" as="r" hint-placeholder-count="7">
+            <div style="display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:18px;align-items:baseline;padding:20px 0;border-top:1px solid rgba(20,22,46,.14)">
+              <span style="width:9px;height:9px;border-radius:50%;background:{{ r.dot }};border:1px solid {{ r.ring }};display:block;transform:translateY(-1px)"></span>
+              <div style="display:flex;flex-wrap:wrap;gap:6px 20px;align-items:baseline">
+                <span style="font-family:'Newsreader',Georgia,serif;font-size:clamp(20px,1.8vw,26px)">{{ r.t }}</span>
+                <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#5A5C6E">{{ r.f }}</span>
+              </div>
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:{{ r.sc }}">{{ r.s }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ tabSub }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:0 clamp(32px,5vw,80px)">
+          <sc-for list="{{ subs }}" as="s" hint-placeholder-count="6">
+            <div style="padding:22px 0;border-top:1px solid rgba(20,22,46,.14)">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+                <span style="font-family:'Newsreader',Georgia,serif;font-size:22px">{{ s.t }}</span>
+                <span style="font-family:'Geist Mono',monospace;font-size:13px;color:{{ s.c }}">{{ s.p }} %</span>
+              </div>
+              <div style="height:2px;background:rgba(20,22,46,.1)"><div style="height:2px;width:{{ s.w }};background:{{ s.c }}"></div></div>
+              <div style="margin-top:10px;font-size:13px;color:{{ s.nc }}">{{ s.note }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ tabLog }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <sc-for list="{{ bitacora }}" as="b" hint-placeholder-count="3">
+            <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px clamp(24px,4vw,64px);padding:28px 0;border-top:1px solid rgba(20,22,46,.14)">
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#5A5C6E">{{ b.f }}</span>
+              <span style="font-family:'Newsreader',Georgia,serif;font-size:24px;line-height:1.15">{{ b.t }}</span>
+              <span style="font-size:15px;line-height:1.6;color:#33354A">{{ b.d }}</span>
+            </article>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- 05 SOCIOS -->
+  <section id="socios" data-screen-label="Home · 05 Socios" style="padding:clamp(80px,11vw,160px) 0">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,244,240,.6);margin-bottom:32px">05 — Socios</div>
+      <blockquote style="margin:0 0 clamp(48px,6vw,96px);font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(36px,4.8vw,72px);line-height:1.05;letter-spacing:-.02em;max-width:1100px;text-wrap:balance">No buscamos un logo en una polera. <em style="color:rgba(245,244,240,.7)">Buscamos socios de ingeniería.</em></blockquote>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1px;background:rgba(245,244,240,.13);border:1px solid rgba(245,244,240,.13)">
+        <sc-for list="{{ beneficios }}" as="b" hint-placeholder-count="4">
+          <div style="background:#0B0C1C;padding:clamp(24px,3vw,36px)">
+            <div style="font-family:'Geist Mono',monospace;font-size:11px;color:rgba(245,244,240,.5);margin-bottom:28px">{{ b.n }}</div>
+            <div style="font-family:'Newsreader',Georgia,serif;font-size:28px;margin-bottom:12px">{{ b.t }}</div>
+            <div style="font-size:14px;line-height:1.6;color:rgba(245,244,240,.68)">{{ b.d }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <button onClick="{{ goContacto }}" style="margin-top:40px;background:#F5F4F0;color:#0B0C1C;border:0;padding:16px 26px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#2FE0C8">Conversemos →</button>
+    </div>
+  </section>
+
+  <!-- 06 EQUIPO TEASER -->
+  <section id="equipo" data-screen-label="Home · 06 Equipo" style="background:#EDEBE4;color:#14162E;padding:clamp(80px,11vw,160px) 0">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:24px;margin-bottom:clamp(40px,5vw,72px)">
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5A5C6E;margin-bottom:28px">06 — El equipo</div>
+          <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(40px,5.2vw,80px);line-height:1;letter-spacing:-.02em">Un equipo. <em>Un objetivo.</em></h2>
+        </div>
+        <button onClick="{{ goEquipo }}" style="background:none;border:0;border-bottom:1px solid #14162E;padding:0 0 6px;color:#14162E;font-size:15px;cursor:pointer" style-hover="color:#0E7F72;border-color:#0E7F72">Conocer al equipo →</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:clamp(16px,2vw,28px)">
+        <sc-for list="{{ teaser }}" as="p" hint-placeholder-count="3">
+          <figure style="margin:0">
+            <div style="aspect-ratio:4/5;background:#E2DFD6 repeating-linear-gradient(135deg,rgba(20,22,46,.05) 0 1px,transparent 1px 10px);display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6A6C7C">[ RETRATO ]</div>
+            <figcaption style="padding-top:14px">
+              <div style="font-family:'Newsreader',Georgia,serif;font-size:22px">{{ p.n }}</div>
+              <div style="font-size:13px;color:#5A5C6E;margin-top:4px">{{ p.r }}</div>
+            </figcaption>
+          </figure>
+        </sc-for>
+        <button onClick="{{ goEquipo }}" style="aspect-ratio:4/5;background:#14162E;color:#F5F4F0;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:24px;text-align:left" style-hover="background:#0B0C1C">
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,244,240,.6)">Equipo completo</span>
+          <span style="font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:44px;line-height:1.05">Un solo<br><em>objetivo.</em></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 ÚNETE -->
+  <section id="unete" data-screen-label="Home · 07 Únete" style="background:#2FE0C8;color:#0B0C1C;padding:clamp(80px,11vw,160px) 0">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:32px">07 — Únete</div>
+      <h2 style="margin:0 0 40px;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(46px,7.6vw,124px);line-height:.95;letter-spacing:-.025em">No necesitas experiencia. <em>Necesitas ganas.</em></h2>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:24px 40px">
+        <a href="#" style="background:#0B0C1C;color:#F5F4F0;padding:18px 28px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase" style-hover="color:#2FE0C8">Inscribirme al equipo →</a>
+        <span style="font-size:14px;line-height:1.5">Formulario oficial de Ingeniería UDD · Dudas: pablo.ortiz@udd.cl</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 CONTACTO -->
+  <section id="contacto" data-screen-label="Home · 08 Contacto" style="padding:clamp(80px,11vw,160px) 0">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(40px,6vw,96px)">
+      <div>
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,244,240,.6);margin-bottom:32px">08 — Contacto</div>
+        <h2 style="margin:0 0 24px;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(40px,4.8vw,72px);line-height:1;letter-spacing:-.02em">Hablemos.</h2>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:rgba(245,244,240,.72);max-width:440px">Para socios, prensa o universidades que quieran colaborar. Respondemos desde la Facultad de Ingeniería UDD.</p>
+      </div>
+      <form style="display:grid;gap:28px">
+        <sc-for list="{{ campos }}" as="c" hint-placeholder-count="3">
+          <label style="display:grid;gap:10px">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,244,240,.55)">{{ c.l }}</span>
+            <input placeholder="{{ c.p }}" style="background:transparent;border:0;border-bottom:1px solid rgba(245,244,240,.3);color:#F5F4F0;font-family:'Geist',sans-serif;font-size:18px;padding:8px 0 12px;outline:none" style-focus="border-color:#2FE0C8">
+          </label>
+        </sc-for>
+        <button type="button" style="justify-self:start;background:#F5F4F0;color:#0B0C1C;border:0;padding:16px 26px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer" style-hover="background:#2FE0C8">Enviar mensaje</button>
+      </form>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<!-- ============ ÁLBUM ============ -->
+<sc-if value="{{ isAlbum }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="Álbum mecánico" style="background:#F5F4F0;color:#14162E;min-height:100vh">
+  <section style="padding:clamp(56px,8vw,120px) 0 0">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5A5C6E;padding-bottom:28px;border-bottom:1px solid rgba(20,22,46,.16)">
+        <span>Álbum mecánico · Exposición permanente</span><span>6 salas · {{ totalPiezas }} piezas</span>
+      </div>
+      <h1 style="margin:clamp(32px,5vw,64px) 0 clamp(40px,5vw,72px);font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(46px,8vw,128px);line-height:.95;letter-spacing:-.025em">La máquina, <em>sala por sala.</em></h1>
+      <div onClick="{{ fieldLight.pick }}" role="button" aria-label="Software y control" style="position:relative;cursor:pointer;padding:clamp(34px,3.6vw,48px) clamp(12px,2vw,28px) clamp(14px,2vw,24px);border:1px dashed {{ fieldLight.bd }};background:{{ fieldLight.bg }};transition:background .25s">
+        <div style="position:absolute;top:12px;left:clamp(12px,2vw,28px);font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:{{ fieldLight.fg }}">06 · Software y control</div>
+      <div style="display:flex;align-items:center;gap:clamp(3px,.5vw,8px);height:clamp(64px,8vw,110px)">
+        <sc-for list="{{ zonesLight }}" as="z" hint-placeholder-count="6">
+          <button onClick="{{ z.pick }}" aria-label="{{ z.t }}" style="flex:{{ z.flex }} 1 0;min-width:0;height:{{ z.h }};clip-path:{{ z.clip }};background:{{ z.bg }};border:1px solid {{ z.bd }};color:{{ z.fg }};cursor:pointer;display:flex;align-items:flex-start;padding:8px;font-family:'Geist Mono',monospace;font-size:10px;transition:background .25s">{{ z.n }}</button>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:clamp(3px,.5vw,8px);margin-top:12px">
+        <sc-for list="{{ zonesLight }}" as="z" hint-placeholder-count="6">
+          <button onClick="{{ z.pick }}" style="flex:{{ z.flex }} 1 0;min-width:0;background:none;border:0;padding:0;text-align:left;cursor:pointer;font-size:clamp(10px,1vw,13px);line-height:1.3;color:{{ z.lab }};overflow-wrap:anywhere">{{ z.short }}</button>
+        </sc-for>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(64px,8vw,120px) 0">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(24px,5vw,80px);padding-top:32px;border-top:1px solid #14162E;margin-bottom:clamp(48px,6vw,88px)">
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5A5C6E;margin-bottom:16px">Sala {{ sala.n }} de 06</div>
+          <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(40px,5vw,76px);line-height:1;letter-spacing:-.02em">{{ sala.t }}</h2>
+        </div>
+        <p style="margin:0;align-self:end;font-size:18px;line-height:1.6;color:#33354A;text-wrap:pretty">{{ sala.lead }}</p>
+      </div>
+      <div data-screen-label="Álbum · Videos" style="margin-bottom:clamp(72px,9vw,128px)">
+        <div style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:16px;padding-bottom:20px;margin-bottom:clamp(24px,3vw,36px);border-bottom:1px solid rgba(20,22,46,.16)">
+          <div>
+            <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5A5C6E;margin-bottom:10px">Sala {{ sala.n }} · Proyección</div>
+            <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(30px,3vw,44px);line-height:1;letter-spacing:-.01em">En movimiento</h3>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;color:#5A5C6E;margin-right:8px">{{ videosCount }} VIDEOS</span>
+            <button onClick="{{ vidPrev }}" aria-label="Video anterior" style="width:44px;height:44px;background:transparent;border:1px solid #14162E;color:#14162E;cursor:pointer;font-size:16px" style-hover="background:#14162E;color:#F5F4F0">←</button>
+            <button onClick="{{ vidNext }}" aria-label="Video siguiente" style="width:44px;height:44px;background:transparent;border:1px solid #14162E;color:#14162E;cursor:pointer;font-size:16px" style-hover="background:#14162E;color:#F5F4F0">→</button>
+          </div>
+        </div>
+        <div data-vtrack="1" style="display:flex;gap:clamp(16px,2vw,28px);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 calc(-1 * clamp(20px,5vw,64px));padding:0 clamp(20px,5vw,64px);scroll-padding:0 clamp(20px,5vw,64px)">
+          <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
+            <figure style="flex:0 0 min(86%,760px);scroll-snap-align:start;margin:0">
+              <div style="position:relative;aspect-ratio:16/9;background:#0B0C1C;overflow:hidden">
+                <sc-if value="{{ v.playing }}" hint-placeholder-val="{{ false }}">
+                  <iframe src="{{ v.embed }}" title="{{ v.t }}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+                </sc-if>
+                <sc-if value="{{ v.poster }}" hint-placeholder-val="{{ true }}">
+                  <button onClick="{{ v.play }}" aria-label="Reproducir {{ v.t }}" style="position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;cursor:pointer;background:#14162E repeating-linear-gradient(135deg,rgba(245,244,240,.045) 0 1px,transparent 1px 12px);display:flex;align-items:center;justify-content:center">
+                    <sc-if value="{{ v.thumb }}" hint-placeholder-val="{{ false }}">
+                      <img src="{{ v.thumb }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85">
+                    </sc-if>
+                    <span style="position:relative;display:flex;align-items:center;gap:14px;background:rgba(11,12,28,.78);color:#F5F4F0;padding:14px 20px 14px 16px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase">
+                      <span style="width:0;height:0;border-left:12px solid #2FE0C8;border-top:7px solid transparent;border-bottom:7px solid transparent"></span>{{ v.cta }}
+                    </span>
+                  </button>
+                </sc-if>
+              </div>
+              <figcaption style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 24px;padding-top:18px">
+                <span style="grid-row:span 3;font-family:'Geist Mono',monospace;font-size:11px;color:#5A5C6E;padding-top:6px">V{{ v.id }}</span>
+                <span style="font-family:'Newsreader',Georgia,serif;font-size:24px;line-height:1.15">{{ v.t }}</span>
+                <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5A5C6E;margin:6px 0 8px">{{ v.k }} · {{ v.dur }} · YouTube</span>
+                <span style="font-size:15px;line-height:1.6;color:#33354A;text-wrap:pretty;max-width:560px">{{ v.d }}</span>
+              </figcaption>
+            </figure>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:16px;padding-bottom:20px;margin-bottom:clamp(32px,4vw,48px);border-bottom:1px solid rgba(20,22,46,.16)">
+        <div>
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#5A5C6E;margin-bottom:10px">Sala {{ sala.n }} · Colección</div>
+          <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(30px,3vw,44px);line-height:1;letter-spacing:-.01em">Piezas</h3>
+        </div>
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;color:#5A5C6E">{{ piezasCount }} PIEZAS</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(48px,5vw,72px) clamp(24px,4vw,56px)">
+        <sc-for list="{{ piezas }}" as="p" hint-placeholder-count="2">
+          <figure style="margin:0">
+            <button onClick="{{ p.open }}" aria-label="Ampliar {{ p.t }}" style="display:block;width:100%;aspect-ratio:4/3;border:0;padding:0;cursor:zoom-in;background:#FFFFFF;overflow:hidden">
+              <sc-if value="{{ p.img }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ p.img }}" alt="{{ p.t }}" style="width:100%;height:100%;object-fit:contain;padding:6%;display:block">
+              </sc-if>
+              <sc-if value="{{ p.noimg }}" hint-placeholder-val="{{ true }}">
+                <div style="width:100%;height:100%;background:#E7E4DC repeating-linear-gradient(135deg,rgba(20,22,46,.05) 0 1px,transparent 1px 10px);display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6A6C7C;padding:20px;text-align:center">[ {{ p.ph }} ]</div>
+              </sc-if>
+            </button>
+            <figcaption style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 24px;padding-top:20px">
+              <span style="grid-row:span 3;font-family:'Geist Mono',monospace;font-size:11px;color:#5A5C6E;padding-top:6px">Nº {{ p.id }}</span>
+              <span style="font-family:'Newsreader',Georgia,serif;font-size:26px;line-height:1.15">{{ p.t }}</span>
+              <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#5A5C6E;margin:6px 0 10px">{{ p.v }} · {{ p.f }} · {{ p.m }}</span>
+              <span style="font-size:15px;line-height:1.6;color:#33354A;text-wrap:pretty;max-width:520px">{{ p.d }}</span>
+            </figcaption>
+          </figure>
+        </sc-for>
+      </div>
+      <div style="display:flex;justify-content:space-between;gap:16px;margin-top:clamp(64px,8vw,120px);padding-top:24px;border-top:1px solid rgba(20,22,46,.16)">
+        <button onClick="{{ prevSala }}" style="background:none;border:0;padding:0;cursor:pointer;text-align:left;color:#14162E">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5A5C6E;margin-bottom:6px">← Sala anterior</div>
+          <div style="font-family:'Newsreader',Georgia,serif;font-size:clamp(20px,2vw,28px)">{{ salaPrev }}</div>
+        </button>
+        <button onClick="{{ nextSala }}" style="background:none;border:0;padding:0;cursor:pointer;text-align:right;color:#14162E">
+          <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5A5C6E;margin-bottom:6px">Sala siguiente →</div>
+          <div style="font-family:'Newsreader',Georgia,serif;font-size:clamp(20px,2vw,28px)">{{ salaNext }}</div>
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<!-- ============ EQUIPO ============ -->
+<sc-if value="{{ isEquipo }}" hint-placeholder-val="{{ false }}">
+<main data-screen-label="Equipo" style="background:#EDEBE4;color:#14162E;min-height:100vh">
+  <section style="padding:clamp(56px,8vw,120px) 0 clamp(40px,5vw,64px)">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#5A5C6E;padding-bottom:28px;border-bottom:1px solid rgba(20,22,46,.16)">
+        <span>Equipo · Temporada 2026–27</span><span>Un objetivo · Texas 2027</span>
+      </div>
+      <h1 style="margin:clamp(32px,5vw,64px) 0 0;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(46px,8vw,128px);line-height:.95;letter-spacing:-.025em">Un equipo. <em>Un objetivo.</em></h1>
+    </div>
+  </section>
+  <section style="padding:0 0 clamp(80px,10vw,140px)">
+    <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding:20px 0;border-top:1px solid rgba(20,22,46,.16);border-bottom:1px solid rgba(20,22,46,.16);margin-bottom:clamp(32px,4vw,56px)">
+        <div style="display:flex;gap:8px;overflow-x:auto;max-width:100%;padding-bottom:2px">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="7">
+            <button onClick="{{ c.pick }}" style="flex:none;background:{{ c.bg }};color:{{ c.fg }};border:1px solid #14162E;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap">{{ c.t }}</button>
+          </sc-for>
+        </div>
+        <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#5A5C6E">{{ fichasCount }} fichas</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:clamp(24px,3vw,40px) clamp(14px,2vw,28px)">
+        <sc-for list="{{ people }}" as="p" hint-placeholder-count="12">
+          <article onClick="{{ p.open }}" role="button" tabindex="0" style="margin:0;opacity:{{ p.op }};background:#F5F4F0;cursor:pointer;display:flex;flex-direction:column;transition:box-shadow .2s" style-hover="box-shadow:inset 0 0 0 1px #0E7F72">
+            <div style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#E2DFD6 repeating-linear-gradient(135deg,rgba(20,22,46,.05) 0 1px,transparent 1px 10px);display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;color:#6A6C7C">
+              <sc-if value="{{ p.foto }}" hint-placeholder-val="{{ false }}">
+                <img src="{{ p.foto }}" alt="{{ p.n }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+              </sc-if>
+              <sc-if value="{{ p.nofoto }}" hint-placeholder-val="{{ true }}"><span>[ RETRATO ]</span></sc-if>
+              <span style="position:absolute;top:10px;left:10px;background:#F5F4F0;color:#5A5C6E;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;padding:3px 6px">{{ p.num }}</span>
+            </div>
+            <div style="padding:16px 16px 14px;display:flex;flex-direction:column;flex:1">
+              <div style="font-family:'Newsreader',Georgia,serif;font-size:21px;line-height:1.15">{{ p.n }}</div>
+              <div style="font-size:13px;color:#5A5C6E;margin-top:4px">{{ p.r }}</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
+                <sc-for list="{{ p.tags }}" as="t" hint-placeholder-count="2">
+                  <span style="background:rgba(14,127,114,.12);color:#0E7F72;font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:4px 7px;border-radius:3px">{{ t }}</span>
+                </sc-for>
+              </div>
+              <p style="margin:12px 0 0;font-family:'Newsreader',Georgia,serif;font-style:italic;font-size:16px;line-height:1.35;color:#33354A;flex:1;text-wrap:pretty">{{ p.frase }}</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(20,22,46,.14);font-family:'Geist Mono',monospace;font-size:12px">
+                <a href="{{ p.linkedin }}" target="_blank" onClick="{{ stop }}" style="display:flex;align-items:center;gap:6px;color:#0A66C2"><span style="width:14px;height:14px;background:#0A66C2;color:#fff;font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;border-radius:2px;font-family:'Geist',sans-serif">in</span>LinkedIn</a>
+                <a href="{{ p.mailto }}" onClick="{{ stop }}" style="display:flex;align-items:center;gap:6px;color:#5A5C6E"><span style="width:14px;height:10px;border:1px solid currentColor;display:block"></span>Correo</a>
+              </div>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+      <div style="margin-top:clamp(64px,8vw,120px);background:#14162E;color:#F5F4F0;padding:clamp(32px,5vw,72px);display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:28px">
+        <h2 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(34px,4vw,60px);line-height:1;letter-spacing:-.02em">¿Tu ficha falta aquí? <em style="color:rgba(245,244,240,.7)">Hay un lugar para ti.</em></h2>
+        <a href="#" style="background:#2FE0C8;color:#0B0C1C;padding:16px 26px;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase" style-hover="background:#F5F4F0;color:#0B0C1C">Inscribirme →</a>
+      </div>
+    </div>
+  </section>
+</main>
+</sc-if>
+
+<!-- FOOTER -->
+<footer style="background:#0B0C1C;border-top:1px solid rgba(245,244,240,.12);padding:56px 0 40px">
+  <div style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,5vw,64px);display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:32px">
+    <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <img src="assets/logo-tunnel-lab.png" alt="UDD Tunnel Lab" style="width:44px;height:44px">
+      <img src="assets/udd-blanco.png" alt="Universidad del Desarrollo" style="height:32px;width:auto;opacity:.85">
+      <img src="assets/chile.png" alt="Chile" style="height:20px;width:auto">
+    </div>
+    <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,244,240,.5);text-align:right;line-height:1.8">UDD Tunnel Lab · Santiago, Chile<br>www.tunnel-lab.cl · 2026</div>
+  </div>
+</footer>
+
+<!-- MODAL PERSONA -->
+<sc-if value="{{ personOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Ficha de integrante" onClick="{{ closePerson }}" style="position:fixed;inset:0;z-index:100;background:rgba(11,12,28,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:clamp(16px,6vh,72px) clamp(12px,3vw,40px)">
+    <div onClick="{{ stop }}" style="position:relative;width:100%;max-width:880px;background:#F5F4F0;color:#14162E;display:flex;flex-wrap:wrap;box-shadow:0 24px 64px rgba(6,7,17,.35)">
+      <div style="flex:1 1 260px;min-width:0">
+        <div style="aspect-ratio:4/5;position:relative;background:#E2DFD6 repeating-linear-gradient(135deg,rgba(20,22,46,.05) 0 1px,transparent 1px 10px);display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6A6C7C">
+          <sc-if value="{{ pp.foto }}" hint-placeholder-val="{{ false }}">
+            <img src="{{ pp.foto }}" alt="{{ pp.n }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+          </sc-if>
+          <sc-if value="{{ pp.nofoto }}" hint-placeholder-val="{{ false }}"><span>[ RETRATO ]</span></sc-if>
+        </div>
+      </div>
+      <div style="flex:1.6 1 340px;min-width:0;padding:clamp(24px,3.5vw,40px);display:flex;flex-direction:column">
+        <button onClick="{{ closePerson }}" style="align-self:flex-end;margin:-8px -8px 4px 0;background:none;border:1px solid rgba(20,22,46,.3);color:#14162E;padding:8px 12px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;cursor:pointer">CERRAR ✕</button>
+        <div style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#0E7F72;margin-bottom:10px">Ficha {{ pp.num }}</div>
+        <h3 style="margin:0;font-family:'Newsreader',Georgia,serif;font-weight:400;font-size:clamp(30px,3vw,40px);line-height:1.05;letter-spacing:-.01em">{{ pp.n }}</h3>
+        <div style="font-size:14px;color:#5A5C6E;margin-top:6px">{{ pp.r }}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px">
+          <sc-for list="{{ pp.tags }}" as="t" hint-placeholder-count="2">
+            <span style="background:rgba(14,127,114,.12);color:#0E7F72;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;border-radius:3px">{{ t }}</span>
+          </sc-for>
+        </div>
+        <p style="margin:20px 0 0;font-family:'Newsreader',Georgia,serif;font-style:italic;font-size:21px;line-height:1.35;color:#33354A">{{ pp.frase }}</p>
+        <p style="margin:18px 0 0;font-size:15px;line-height:1.7;color:#33354A;text-wrap:pretty">{{ pp.desc }}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:24px;padding-top:16px;border-top:1px solid rgba(20,22,46,.14);font-family:'Geist Mono',monospace;font-size:13px">
+          <a href="{{ pp.linkedin }}" target="_blank" style="display:flex;align-items:center;gap:7px;color:#0A66C2"><span style="width:16px;height:16px;background:#0A66C2;color:#fff;font-size:10px;font-weight:600;display:flex;align-items:center;justify-content:center;border-radius:2px;font-family:'Geist',sans-serif">in</span>LinkedIn</a>
+          <a href="{{ pp.mailto }}" style="display:flex;align-items:center;gap:7px;color:#5A5C6E"><span style="width:16px;height:11px;border:1px solid currentColor;display:block"></span>Correo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- MODAL FOTO -->
+<sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Vista ampliada" onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:100;background:rgba(6,7,17,.96);overflow:auto;color:#F5F4F0">
+    <div onClick="{{ stop }}" style="max-width:1440px;margin:0 auto;padding:clamp(16px,3vw,40px) clamp(16px,3vw,48px)">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:clamp(16px,2vw,28px);font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,244,240,.6)">
+        <span>Sala {{ mp.sn }} · {{ mp.st }}</span>
+        <button onClick="{{ closeModal }}" style="background:none;border:1px solid rgba(245,244,240,.25);color:#F5F4F0;padding:9px 14px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;cursor:pointer">CERRAR ✕</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,3vw,56px)">
+        <div style="flex:2 1 560px;min-width:0;height:min(76vh,105vw);background:#FFFFFF;display:flex;align-items:center;justify-content:center">
+          <sc-if value="{{ mp.img }}" hint-placeholder-val="{{ false }}">
+            <img src="{{ mp.img }}" alt="{{ mp.t }}" style="max-width:100%;max-height:100%;object-fit:contain;padding:4%;display:block">
+          </sc-if>
+          <sc-if value="{{ mp.noimg }}" hint-placeholder-val="{{ false }}">
+            <div style="width:100%;height:100%;background:#E7E4DC repeating-linear-gradient(135deg,rgba(20,22,46,.05) 0 1px,transparent 1px 10px);display:flex;align-items:center;justify-content:center;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6A6C7C">[ {{ mp.ph }} ]</div>
+          </sc-if>
+        </div>
+        <aside style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:40px;padding-bottom:8px">
+          <div>
+            <div style="font-family:'Geist Mono',monospace;font-size:11px;color:#2FE0C8;margin-bottom:20px">Nº {{ mp.id }}</div>
+            <h3 style="margin:0 0 28px;font-family:'Newsreader',Georgia,serif;font-weight:300;font-size:clamp(32px,3vw,48px);line-height:1.05;letter-spacing:-.015em">{{ mp.t }}</h3>
+            <dl style="margin:0 0 28px">
+              <sc-for list="{{ mp.meta }}" as="r" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:96px 1fr;gap:12px;padding:11px 0;border-top:1px solid rgba(245,244,240,.14)">
+                  <dt style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,244,240,.5);padding-top:2px">{{ r.k }}</dt>
+                  <dd style="margin:0;font-size:14px">{{ r.v }}</dd>
+                </div>
+              </sc-for>
+            </dl>
+            <p style="margin:0;font-size:16px;line-height:1.65;color:rgba(245,244,240,.8);text-wrap:pretty">{{ mp.d }}</p>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(245,244,240,.14);padding-top:18px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase">
+            <button onClick="{{ prevPieza }}" style="background:none;border:0;color:#F5F4F0;cursor:pointer;padding:8px 0;font:inherit;letter-spacing:inherit" style-hover="color:#2FE0C8">← Anterior</button>
+            <span style="color:rgba(245,244,240,.5)">{{ mp.pos }}</span>
+            <button onClick="{{ nextPieza }}" style="background:none;border:0;color:#F5F4F0;cursor:pointer;padding:8px 0;font:inherit;letter-spacing:inherit" style-hover="color:#2FE0C8">Siguiente →</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const DEADLINE = new Date('2027-02-01T09:00:00-06:00').getTime();
+const PH = (ph, t, v, f, m, d) => ({ ph, t, v, f, m, d });
+const SALAS = [
+  { n:'01', t:'Cabezal erosionador', short:'Cabezal', fr:'Frente Cabezal', flex:1.1, h:'100%', clip:'polygon(0 16%,100% 0,100% 100%,0 84%)',
+    lead:'El frente de ataque. Un disco giratorio que erosiona el suelo y canaliza el material hacia el interior de la máquina.',
+    piezas:[
+      { img:'assets/cabezal-frontal.jpg', t:'Cara de corte, vista frontal', v:'v1.2', f:'Oct 2026', m:'Modelo CAD · render', d:'Ocho ranuras curvas guían el material erosionado hacia el centro mientras el disco gira. Los cuatro pares de insertos triangulares fijan la posición de las herramientas de corte.' },
+      PH('Prototipo impreso del cabezal','Primer prototipo físico','v0.4','Sep 2026','PLA · impresión 3D','Modelo a escala para validar la geometría de las ranuras antes de mecanizar. Permitió observar cómo fluye el material en pruebas con arena.') ] },
+  { n:'02', t:'Propulsión', short:'Propulsión', fr:'Frente Propulsión', flex:1.5, h:'94%',
+    lead:'El empuje. Un ciclo de agarre y avance que apoya la máquina contra el túnel y la impulsa hacia adelante.',
+    piezas:[
+      { img:'assets/propulsion.png', t:'Módulo de propulsión, simulación', v:'v0.9', f:'Oct 2026', m:'Captura de animación 3D', d:'Las zapatas laterales se expanden contra las paredes para anclar el cuerpo; luego los actuadores empujan el cabezal. El ciclo agarre–empuje–recogida se repite en cada avance.' },
+      PH('Actuadores en banco','Actuadores lineales en banco','v0.3','Nov 2026','Fotografía de taller','Pruebas de fuerza y carrera de los actuadores, para dimensionar el empuje máximo que puede entregar el módulo.') ] },
+  { n:'03', t:'Dirección', short:'Dirección', fr:'Frente Dirección', flex:0.9, h:'88%',
+    lead:'El rumbo. Corrige la orientación del cabezal para que el túnel siga la trayectoria planificada, sin desviarse.',
+    piezas:[
+      PH('Articulación de dirección','Articulación de dirección','v0.5','Oct 2026','Modelo CAD · render','Unión articulada entre el cabezal y el cuerpo. Pequeños ángulos de giro permiten corregir la trayectoria durante el avance.'),
+      PH('Prueba de giro','Ensayo de corrección de rumbo','v0.1','Nov 2026','Fotografía de taller','Banco de pruebas para medir cuánto puede corregir la máquina por metro excavado.') ] },
+  { n:'04', t:'Muck removal', short:'Muck removal', fr:'Frente Muck removal', flex:1, h:'90%',
+    lead:'Lo que se corta debe salir. El sistema de extracción evacua el material desde el cabezal hacia la retaguardia del túnel.',
+    piezas:[
+      { img:'assets/mock-removal.jpg', t:'Cámara de extracción, vista isométrica', v:'v1.0', f:'Oct 2026', m:'Modelo CAD · render', d:'La cámara cónica recibe el material del cabezal y lo concentra hacia el conducto central. La brida perimetral une el conjunto al casing mediante doce pernos.' },
+      PH('Banco de pruebas de evacuación','Banco de pruebas de evacuación','v0.1','Nov 2026','Fotografía de taller','El subsistema con mayor riesgo del proyecto. Aquí mediremos cuánto material puede retirar la máquina por minuto sin detener el avance.') ] },
+  { n:'05', t:'Casing / Soporte', short:'Casing', fr:'Frente Casing', flex:1.4, h:'80%', ring:true,
+    lead:'La piel y el esqueleto. El casing sostiene el terreno mientras la máquina avanza y da soporte a todos los sistemas internos.',
+    piezas:[
+      PH('Render del casing','Casing exterior, corte longitudinal','v0.8','Oct 2026','Modelo CAD · render','Tubo de acero que contiene los sistemas internos. Su diámetro define el del túnel y su largo, la estabilidad direccional de la máquina.'),
+      PH('Bastidor interno','Bastidor y soportes','v0.5','Sep 2026','Planos de fabricación','Estructura interna que reparte las cargas del empuje entre el cabezal y la propulsión, sin deformar el casing.') ] },
+  { n:'06', t:'Software y control', short:'Software y control', fr:'Software y control', field:true,
+    lead:'El sistema nervioso que envuelve toda la máquina. Sensores, comunicaciones y lógica que coordinan cada subsistema y cada ciclo de avance.',
+    piezas:[
+      PH('Interfaz de operación','Consola de operación','v0.6','Oct 2026','Captura de software','Panel desde el que se monitorea presión, torque y posición en tiempo real durante la excavación.'),
+      PH('Tablero eléctrico','Tablero de control','v0.2','Nov 2026','Fotografía de taller','Controlador, drivers y protecciones montados en un único tablero accesible para mantenimiento.') ] },
+];
+SALAS.forEach((s, si) => s.piezas.forEach((p, pi) => { p.id = s.n + '.' + (pi + 1); p.si = si; p.pi = pi; }));
+// Pega aquí los enlaces de YouTube de cada sala (url: 'https://youtu.be/XXXX' o 'https://www.youtube.com/watch?v=XXXX')
+const VIDEOS = {
+  '01': [], '02': [], '03': [], '04': [], '05': [], '06': [],
+};
+const VID_DEFAULT = (s) => [
+  { k:'Presentación', dur:'2:00', t:'Presentación de la sala: ' + s.t, d:'El equipo del frente explica qué hace esta parte de la máquina, por qué la diseñamos así y qué problema resuelve.' },
+  { k:'Prueba', dur:'1:30', t:'En prueba: ' + s.short, d:'Registro de ensayos en taller o simulación: lo que funcionó, lo que falló y lo que cambiamos después.' },
+  { k:'Taller', dur:'3:00', t:'Detrás de escena', d:'Fabricación, montaje y decisiones del día a día del frente ' + s.short.toLowerCase() + '.' },
+];
+const ytId = u => { if (!u) return null; const m = String(u).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/); return m ? m[1] : null; };
+const FLAT = SALAS.flatMap(s => s.piezas);
+const FRENTES = ['Todos','Cabezal','Propulsión','Dirección','Muck removal','Casing','Software y control'];
+const CARRERAS = ['Ing. Civil Mecánica','Ing. Civil Industrial','Ing. Civil en Informática','Ing. Civil Eléctrica','Ing. Civil en Minería','Ing. Comercial'];
+const PEOPLE = [
+  { real:true, n:'Pablo Ortiz Baeza', r:'Ingeniería Informática', tags:['Software y control','Dirección'], foto:'assets/team/pablo-ortiz-v2.png',
+    frase:'Conectando sensores, datos, terreno y personas.', linkedin:'https://www.linkedin.com/', correo:'pablo.ortiz@udd.cl',
+    desc:'Soy ingeniero informático y Team Leader de UDD Tunnel Lab. Trabajo en el Centro C+, donde participo en proyectos vinculados a calidad de aire y calidad de agua, liderando el desarrollo técnico de sistemas basados en sensores, comunicaciones, bases de datos y plataformas de visualización. Además, soy electricista certificado, guía de montaña, rescatista, técnico en trabajos verticales y paramédico. Mi perfil combina tecnología, trabajo en terreno, seguridad operacional y resolución práctica de problemas, con especial interés en desarrollar soluciones aplicadas que conecten la ingeniería con desafíos reales de la sociedad y el medio ambiente.' },
+  ...Array.from({ length: 23 }, (_, k) => {
+    const i = k + 1, real = i < 12;
+    return { real, n: real ? 'Nombre Apellido' : 'Cupo por completar', r: real ? CARRERAS[i % CARRERAS.length] : 'Por asignar',
+      tags: [FRENTES[1 + (i % 6)]], frase: real ? 'Frase fuerza del integrante.' : 'Este lugar espera a alguien con ganas.',
+      linkedin: real ? 'https://www.linkedin.com/' : null, correo: real ? 'correo@udd.cl' : null,
+      desc: real ? '' : '' };
+  }),
+];
+PEOPLE.forEach((p, i) => { p.num = String(i + 1).padStart(2, '0'); p.nofoto = !p.foto; p.mailto = p.correo ? 'mailto:' + p.correo : '#'; p.linkedin = p.linkedin || '#'; if (!p.desc) p.desc = 'La descripción pronto se subirá.'; });
+const NAV = [
+  { t:'Competencia', id:'competencia' }, { t:'Propuesta', id:'propuesta' }, { t:'Anatomía', id:'anatomia' },
+  { t:'Avances', id:'avances' }, { t:'Socios', id:'socios' }, { t:'Álbum', page:'album' }, { t:'Equipo', page:'equipo' },
+];
+const ST = {
+  done:{ dot:'#0E9E8C', ring:'#0E9E8C', s:'Completado', sc:'#0E7F72' },
+  current:{ dot:'#14162E', ring:'#14162E', s:'En curso', sc:'#14162E' },
+  blocked:{ dot:'#C08A00', ring:'#C08A00', s:'Bloqueado · falta financiamiento', sc:'#8A6300' },
+  planned:{ dot:'transparent', ring:'rgba(20,22,46,.4)', s:'Planificado', sc:'#5A5C6E' },
+};
+const ROADMAP = [
+  ['Formación del equipo','Mar 2026','done'], ['Diseño conceptual','Jun 2026','done'], ['Diseño de detalle','Oct 2026','current'],
+  ['Fabricación de prototipos','Nov 2026','blocked'], ['Pruebas integradas','Dic 2026','planned'], ['Entrega de diseño final','Feb 2027','planned'], ['Competencia en Texas','2027','planned'],
+];
+const SUBS = [['Cabezal erosionador',60],['Propulsión',45],['Dirección',35],['Muck removal',15,true],['Casing / Soporte',40],['Software y control',30]];
+const pad = n => String(n).padStart(2, '0');
+// Sponsors: agrega { logo:'assets/sponsors/archivo.png', name:'Empresa' } — el bloque { cta:true } es la invitación
+const SPONSORS = [
+  { name:'Sponsor 01' }, { name:'Sponsor 02' }, { cta:true }, { name:'Sponsor 03' }, { name:'Sponsor 04' }, { name:'Sponsor 05' },
+];
+
+class Component extends DCLogic {
+  state = { page:'home', narrow:false, menu:false, tab:'roadmap', zone:0, sala:0, modal:null, frente:'Todos', now:Date.now() };
+
+  componentDidMount() {
+    const q = new URLSearchParams(location.search);
+    const s = {};
+    if (q.get('p')) s.page = q.get('p');
+    if (q.get('sala')) s.sala = +q.get('sala');
+    if (q.get('zone')) s.zone = +q.get('zone');
+    if (q.get('modal')) s.modal = +q.get('modal');
+    if (q.get('person')) s.person = +q.get('person');
+    this.onR = () => this.setState({ narrow: window.innerWidth < 1180 });
+    this.onR();
+    window.addEventListener('resize', this.onR);
+    this.onK = e => {
+      if (e.key === 'Escape') this.setState({ modal:null, menu:false, person:null });
+      if (this.state.modal != null && e.key === 'ArrowRight') this.step(1);
+      if (this.state.modal != null && e.key === 'ArrowLeft') this.step(-1);
+    };
+    window.addEventListener('keydown', this.onK);
+    this.t = setInterval(() => this.setState({ now: Date.now() }), 1000);
+    this.setState(s, () => { if (q.get('at')) setTimeout(() => this.scrollTo(q.get('at'), false), 500); });
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onR);
+    window.removeEventListener('keydown', this.onK);
+    clearInterval(this.t);
+  }
+  scrollTo(id, smooth = true) {
+    const el = document.getElementById(id);
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 92, behavior: smooth ? 'smooth' : 'auto' });
+  }
+  goPage(page, extra = {}) { this.setState({ page, menu:false, modal:null, ...extra }); window.scrollTo(0, 0); }
+  goAnchor(id) { this.setState({ page:'home', menu:false }, () => setTimeout(() => this.scrollTo(id), 30)); }
+  vidScroll(e, d) {
+    const box = e.currentTarget.closest('[data-screen-label="Álbum · Videos"]');
+    const t = box && box.querySelector('[data-vtrack]');
+    if (t) t.scrollBy({ left: d * t.clientWidth * 0.8, behavior: 'smooth' });
+  }
+  step(d) { this.setState(s => ({ modal: (s.modal + d + FLAT.length) % FLAT.length })); }
+
+  zones(theme, active, onPick) {
+    const dark = theme === 'dark';
+    return SALAS.filter(s => !s.field).map((s, i) => {
+      const on = i === active;
+      const ring = 'repeating-linear-gradient(90deg,transparent 0 18px,' + (dark ? 'rgba(245,244,240,.22)' : 'rgba(20,22,46,.22)') + ' 18px 19px)';
+      let bg = on ? (dark ? 'rgba(47,224,200,.16)' : 'rgba(14,127,114,.14)') : (dark ? '#0B0C1C' : '#F5F4F0');
+      if (s.ring) bg = ring + ',' + bg;
+      return {
+        n: s.n, t: s.t, short: s.short, flex: s.flex, h: s.h, clip: s.clip || 'none', bg,
+        bd: on ? (dark ? '#2FE0C8' : '#0E7F72') : (dark ? 'rgba(245,244,240,.32)' : 'rgba(20,22,46,.35)'),
+        fg: on ? (dark ? '#2FE0C8' : '#0E7F72') : (dark ? 'rgba(245,244,240,.55)' : '#5A5C6E'),
+        lab: on ? (dark ? '#F5F4F0' : '#14162E') : (dark ? 'rgba(245,244,240,.5)' : '#6A6C7C'),
+        pick: e => { e && e.stopPropagation(); onPick(i); },
+      };
+    });
+  }
+  field(theme, active, onPick) {
+    const dark = theme === 'dark', i = SALAS.length - 1, on = active === i;
+    return {
+      bg: on ? (dark ? 'rgba(47,224,200,.08)' : 'rgba(14,127,114,.07)') : 'transparent',
+      bd: on ? (dark ? '#2FE0C8' : '#0E7F72') : (dark ? 'rgba(245,244,240,.28)' : 'rgba(20,22,46,.3)'),
+      fg: on ? (dark ? '#2FE0C8' : '#0E7F72') : (dark ? 'rgba(245,244,240,.55)' : '#5A5C6E'),
+      pick: () => onPick(i),
+    };
+  }
+  renderVals() {
+    const st = this.state;
+    const diff = Math.max(0, DEADLINE - st.now);
+    const sala = SALAS[st.sala] || SALAS[0];
+    const zone = SALAS[st.zone];
+    const mp = st.modal != null ? FLAT[st.modal] : null;
+    const people = PEOPLE.filter(p => st.frente === 'Todos' || p.tags.includes(st.frente));
+    const tickerItems = ['Primer equipo sudamericano en Not-a-Boring','Universidad del Desarrollo','Santiago → Bastrop, Texas','Un equipo · Un objetivo','Beat the snail'];
+    const tItem = (t, k) => React.createElement('span', { key:k, style:{ display:'inline-flex', alignItems:'center', gap:48 } },
+      React.createElement('span', { style:{ fontFamily:"'Newsreader',Georgia,serif", fontStyle:'italic', fontSize:22, color:'rgba(245,244,240,.82)' } }, t),
+      React.createElement('span', { style:{ width:5, height:5, background:'#2FE0C8', display:'inline-block' } }));
+    const all = [...tickerItems, ...tickerItems];
+    return {
+      wide: !st.narrow, narrow: st.narrow, menuOpen: st.narrow && st.menu, menuLabel: st.menu ? 'CERRAR' : 'MENÚ',
+      toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
+      isHome: st.page === 'home', isAlbum: st.page === 'album', isEquipo: st.page === 'equipo',
+      nav: NAV.map((l, i) => ({ t: l.t, n: pad(i + 1), go: () => l.page ? this.goPage(l.page) : this.goAnchor(l.id) })),
+      goHome: () => this.goPage('home'), goAlbum: () => this.goPage('album'), goEquipo: () => this.goPage('equipo'),
+      goUnete: () => this.goAnchor('unete'), goContacto: () => this.goAnchor('contacto'),
+      liveDot: React.createElement('span', { style:{ width:7, height:7, borderRadius:'50%', background:'#2FE0C8', display:'inline-block', animation:'tl-pulse 2s ease-in-out infinite' } }),
+      ticker: React.createElement('div', { style:{ display:'flex', gap:48, width:'max-content', whiteSpace:'nowrap', animation:'tl-marq 70s linear infinite', paddingLeft:48 } }, all.map(tItem)),
+      sponsorsReel: (() => {
+        const E = React.createElement;
+        const tile = (s, k) => s.cta
+          ? E('button', { key:k, onClick: () => this.goAnchor('contacto'), style:{ flex:'none', width:300, height:110, background:'#2FE0C8', color:'#0B0C1C', border:0, cursor:'pointer', display:'flex', flexDirection:'column', alignItems:'flex-start', justifyContent:'center', gap:6, padding:'0 24px', textAlign:'left' } },
+              E('span', { style:{ fontFamily:"'Geist Mono',monospace", fontSize:10, letterSpacing:'.16em', textTransform:'uppercase' } }, 'Próximo sponsor'),
+              E('span', { style:{ fontFamily:"'Newsreader',Georgia,serif", fontSize:26, lineHeight:1.05 } }, 'Tu marca, ', E('em', null, 'rumbo a Texas.')))
+          : E('div', { key:k, style:{ flex:'none', width:220, height:110, border:'1px solid rgba(245,244,240,.14)', display:'flex', alignItems:'center', justifyContent:'center', padding:24 } },
+              s.logo ? E('img', { src:s.logo, alt:s.name, style:{ maxWidth:'100%', maxHeight:'100%', objectFit:'contain', filter:'brightness(0) invert(1)', opacity:.85 } })
+                     : E('span', { style:{ fontFamily:"'Geist Mono',monospace", fontSize:10, letterSpacing:'.14em', textTransform:'uppercase', color:'rgba(245,244,240,.45)' } }, '[ Logo ' + s.name + ' ]'));
+        const list = [...SPONSORS, ...SPONSORS];
+        return E('div', { style:{ display:'flex', gap:16, width:'max-content', animation:'tl-marq 40s linear infinite', paddingLeft:16 } }, list.map(tile));
+      })(),
+      countdown: [
+        { v: Math.floor(diff / 864e5), l:'Días' }, { v: pad(Math.floor(diff / 36e5) % 24), l:'Horas' },
+        { v: pad(Math.floor(diff / 6e4) % 60), l:'Min' }, { v: pad(Math.floor(diff / 1e3) % 60), l:'Seg' },
+      ],
+      stats: [
+        { v:'1º', l:'Equipo sudamericano en la historia de la competencia' },         { v:'5', l:'Subsistemas mecánicos, unidos por software y control' }, { v:'2027', l:'Competencia en Bastrop, Texas' },
+      ],
+      specs: [
+        { k:'Organiza', v:'The Boring Company' }, { k:'Sede', v:'Bastrop, Texas, EE.UU.' },
+        { k:'Desafío', v:'Excavar y revestir un túnel en el menor tiempo' }, { k:'Nosotros', v:'Primer equipo de Sudamérica en participar' },
+      ],
+      protos: [{ t:'B.I.C.H.O', d:'Prototipo 01 · Concepto' }, { t:'MARK-O', d:'Prototipo 02 · En desarrollo' }],
+      zonesDark: this.zones('dark', st.zone, i => this.setState({ zone: i })),
+      zonesLight: this.zones('light', st.sala, i => this.setState({ sala: i })),
+      fieldDark: this.field('dark', st.zone, i => this.setState({ zone: i })),
+      fieldLight: this.field('light', st.sala, i => this.setState({ sala: i })),
+      zone, enterSala: () => this.goPage('album', { sala: st.zone }),
+      tabs: [['roadmap','Roadmap'],['sub','Subsistemas'],['log','Bitácora']].map(([k, t]) => ({
+        t, fg: st.tab === k ? '#14162E' : '#6A6C7C', bd: st.tab === k ? '#14162E' : 'transparent', pick: () => this.setState({ tab: k }),
+      })),
+      tabRoadmap: st.tab === 'roadmap', tabSub: st.tab === 'sub', tabLog: st.tab === 'log',
+      roadmap: ROADMAP.map(([t, f, s]) => ({ t, f, ...ST[s] })),
+      subs: SUBS.map(([t, p, w]) => ({ t, p, w: p + '%', c: w ? '#C08A00' : '#0E7F72', note: w ? 'En riesgo · requiere financiamiento' : 'En desarrollo', nc: w ? '#8A6300' : '#6A6C7C' })),
+      bitacora: [
+        { f:'14 Oct 2026', t:'Cara de corte v1.2 cerrada', d:'Se congeló la geometría de ranuras e insertos. Pasa a planos de fabricación.' },
+        { f:'02 Oct 2026', t:'Primera animación del ciclo de propulsión', d:'Simulación completa del ciclo agarre–empuje–recogida, validada con el frente de control.' },
+        { f:'18 Sep 2026', t:'Pruebas de flujo con arena', d:'El prototipo impreso del cabezal mostró acumulación en el centro; se rediseñaron las ranuras.' },
+      ],
+      beneficios: [
+        { n:'01', t:'Talento', d:'Acceso directo a estudiantes de ingeniería trabajando en un proyecto real.' },
+        { n:'02', t:'Innovación', d:'Co-desarrollo de soluciones de excavación, control y fabricación.' },
+        { n:'03', t:'Visibilidad', d:'Presencia en una competencia internacional, representando a Chile.' },
+        { n:'04', t:'Vinculación', d:'Una relación de largo plazo con la Facultad de Ingeniería UDD.' },
+      ],
+      teaser: [{ n:'Nombre Apellido', r:'Capitán · Ing. Civil Mecánica' }, { n:'Nombre Apellido', r:'Líder Cabezal · Ing. Civil Industrial' }, { n:'Nombre Apellido', r:'Líder Control · Ing. Civil en Informática' }],
+      campos: [{ l:'Nombre', p:'Tu nombre' }, { l:'Correo', p:'nombre@empresa.cl' }, { l:'Mensaje', p:'Cuéntanos cómo te gustaría colaborar' }],
+      totalPiezas: FLAT.length,
+      sala, salaPrev: SALAS[(st.sala + SALAS.length - 1) % SALAS.length].t, salaNext: SALAS[(st.sala + 1) % SALAS.length].t,
+      prevSala: () => { this.setState({ sala: (st.sala + SALAS.length - 1) % SALAS.length }); window.scrollTo(0, 0); },
+      nextSala: () => { this.setState({ sala: (st.sala + 1) % SALAS.length }); window.scrollTo(0, 0); },
+      videosCount: String((VIDEOS[sala.n] && VIDEOS[sala.n].length) || 3).padStart(2,'0'), piezasCount: String(sala.piezas.length).padStart(2,'0'),
+      vidPrev: e => this.vidScroll(e, -1), vidNext: e => this.vidScroll(e, 1),
+      videos: (VIDEOS[sala.n] && VIDEOS[sala.n].length ? VIDEOS[sala.n] : VID_DEFAULT(sala)).map((v, i) => {
+        const id = ytId(v.url), key = sala.n + '-' + i, playing = !!id && st.playing === key;
+        return { ...v, id: sala.n + '.' + (i + 1), playing, poster: !playing,
+          thumb: id ? 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg' : null,
+          embed: id ? 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0' : '',
+          cta: id ? 'Reproducir' : 'Video YouTube · pegar enlace',
+          play: () => id && this.setState({ playing: key }) };
+      }),
+      piezas: sala.piezas.map(p => ({ ...p, noimg: !p.img, open: () => this.setState({ modal: FLAT.indexOf(p) }) })),
+      modalOpen: !!mp, closeModal: () => this.setState({ modal: null }), stop: e => e.stopPropagation(),
+      prevPieza: () => this.step(-1), nextPieza: () => this.step(1),
+      mp: mp ? {
+        ...mp, noimg: !mp.img, sn: SALAS[mp.si].n, st: SALAS[mp.si].t, pos: pad(st.modal + 1) + ' / ' + pad(FLAT.length),
+        meta: [{ k:'Sala', v: SALAS[mp.si].t }, { k:'Versión', v: mp.v }, { k:'Fecha', v: mp.f }, { k:'Técnica', v: mp.m }, { k:'Autoría', v: SALAS[mp.si].fr }],
+      } : { meta: [] },
+      chips: FRENTES.map(f => ({ t: f, bg: st.frente === f ? '#14162E' : 'transparent', fg: st.frente === f ? '#F5F4F0' : '#14162E', pick: () => this.setState({ frente: f }) })),
+      people: people.map(p => ({ ...p, op: p.real ? 1 : 0.5, open: () => this.setState({ person: PEOPLE.indexOf(p) }) })), fichasCount: people.length,
+      personOpen: st.person != null, closePerson: () => this.setState({ person: null }),
+      pp: st.person != null ? PEOPLE[st.person] : { tags: [] },
+    };
+  }
+}
+</script>
+</body>
+</html>

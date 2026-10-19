@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Álbum mecánico — UDD Tunnel Lab</title>
+  <meta name="description" content="La tuneladora B.I.C.H.O, sala por sala: cabezal hidroescudo, direccionador, bolsa toroidal, propulsor y casing." />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+
+  <link rel="canonical" href="https://portizbaeza.github.io/udd-tunnel-lab-web/album.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="UDD Tunnel Lab" />
+  <meta property="og:title" content="Álbum mecánico — UDD Tunnel Lab" />
+  <meta property="og:description" content="La tuneladora B.I.C.H.O, sala por sala." />
+  <meta property="og:image" content="https://portizbaeza.github.io/udd-tunnel-lab-web/assets/og-image.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Geist:wght@300..600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="page-equipo page-album">
+
+  <header class="site-header equipo-site-header">
+    <div class="container">
+      <a class="brand" href="index.html">
+        <img class="brand-udd" src="assets/udd-blanco.png" alt="Universidad del Desarrollo" />
+        <span class="brand-sep"></span>
+        <span class="brand-team-logo"><img src="assets/logo-equipo.png" alt="Logo UDD Tunnel Lab" /></span>
+        <span class="brand-name">Tunnel Lab</span>
+      </a>
+      <div class="equipo-header-links">
+        <a href="index.html#anatomia">Anatomía</a>
+        <a href="equipo.html">Equipo</a>
+        <span class="equipo-count">6 salas · <span data-piezas-total>—</span> piezas</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="album-hero">
+      <div class="album-hero-top">
+        <span>Álbum mecánico · Exposición permanente</span>
+        <span>6 salas · <span data-piezas-total>—</span> piezas</span>
+      </div>
+      <h1>La máquina, <em>sala por sala.</em></h1>
+
+      <figure style="max-width:var(--container);margin:clamp(28px,4vw,56px) auto 0;padding:0 clamp(20px,5vw,64px)">
+        <div style="aspect-ratio:21/9;overflow:hidden">
+          <img src="assets/tuneladora/en-operacion.png" alt="B.I.C.H.O avanzando bajo tierra, cordón umbilical hacia la superficie" style="width:100%;height:100%;object-fit:cover">
+        </div>
+      </figure>
+
+      <div class="album-zones-wrap">
+        <nav aria-label="Ir a una sala" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1px;background:rgba(20,22,46,.15);border:1px solid rgba(20,22,46,.15)">
+          <a class="proto-row" style="background:var(--light);color:var(--dark-2);justify-content:space-between" href="#sala-01"><span class="name" style="font-size:16px">Cabezal erosionador</span><span class="tag" style="color:#5A5C6E">01</span></a>
+          <a class="proto-row" style="background:var(--light);color:var(--dark-2);justify-content:space-between" href="#sala-02"><span class="name" style="font-size:16px">Propulsión</span><span class="tag" style="color:#5A5C6E">02</span></a>
+          <a class="proto-row" style="background:var(--light);color:var(--dark-2);justify-content:space-between" href="#sala-03"><span class="name" style="font-size:16px">Dirección</span><span class="tag" style="color:#5A5C6E">03</span></a>
+          <a class="proto-row" style="background:var(--light);color:var(--dark-2);justify-content:space-between" href="#sala-04"><span class="name" style="font-size:16px">Muck removal</span><span class="tag" style="color:#5A5C6E">04</span></a>
+          <a class="proto-row" style="background:var(--light);color:var(--dark-2);justify-content:space-between" href="#sala-05"><span class="name" style="font-size:16px">Casing / Soporte</span><span class="tag" style="color:#5A5C6E">05</span></a>
+          <a class="proto-row" style="background:var(--light);color:var(--dark-2);justify-content:space-between" href="#sala-06"><span class="name" style="font-size:16px">Software y control</span><span class="tag" style="color:#5A5C6E">06</span></a>
+        </nav>
+      </div>
+    </section>
+
+    <!-- SALA 01 — Cabezal erosionador -->
+    <section id="sala-01" class="sala-section">
+      <div class="sala-head">
+        <div>
+          <div class="sala-eyebrow">Sala 01 de 06</div>
+          <h2>Cabezal erosionador</h2>
+        </div>
+        <p class="sala-lead">El frente de ataque: un disco hidroescudo que erosiona el suelo con chorros de agua a presión. Ocho piezas de erosión en cruz —cuatro internas, cuatro en el borde— guían el material hacia el interior de la máquina.</p>
+      </div>
+      <div class="videos-wrap"><div class="video-placeholder-row" data-videos data-sala="0"></div></div>
+      <div class="piezas-wrap">
+        <div class="piezas-head"><div><div class="label">Sala 01 · Colección</div><h3>Piezas</h3></div><span class="count" data-piezas-count data-sala="0"></span></div>
+        <div class="piezas-grid" data-piezas-grid data-sala="0"></div>
+      </div>
+      <div class="sala-nav">
+        <span></span>
+        <a class="next" href="#sala-02"><div class="dir">Sala siguiente →</div><div class="title">Propulsión</div></a>
+      </div>
+    </section>
+
+    <!-- SALA 02 — Propulsión -->
+    <section id="sala-02" class="sala-section section-light">
+      <div class="sala-head">
+        <div>
+          <div class="sala-eyebrow">Sala 02 de 06</div>
+          <h2>Propulsión</h2>
+        </div>
+        <p class="sala-lead">El avance. La bolsa toroidal —Ø500×1500mm, tela translúcida amarilla tipo aramida— rueda sobre las paredes del túnel impulsada por el propulsor: 10 orugas y 5 motores en el interior.</p>
+      </div>
+      <div class="videos-wrap"><div class="video-placeholder-row" data-videos data-sala="1"></div></div>
+      <div class="piezas-wrap">
+        <div class="piezas-head"><div><div class="label">Sala 02 · Colección</div><h3>Piezas</h3></div><span class="count" data-piezas-count data-sala="1"></span></div>
+        <div class="piezas-grid" data-piezas-grid data-sala="1"></div>
+      </div>
+      <div class="sala-nav">
+        <a href="#sala-01"><div class="dir">← Sala anterior</div><div class="title">Cabezal erosionador</div></a>
+        <a class="next" href="#sala-03"><div class="dir">Sala siguiente →</div><div class="title">Dirección</div></a>
+      </div>
+    </section>
+
+    <!-- SALA 03 — Dirección -->
+    <section id="sala-03" class="sala-section">
+      <div class="sala-head">
+        <div>
+          <div class="sala-eyebrow">Sala 03 de 06</div>
+          <h2>Dirección</h2>
+        </div>
+        <p class="sala-lead">El rumbo. El direccionador —2 anillos en cuña separados por una junta diagonal— articula hasta 10° en todas direcciones para corregir la trayectoria del túnel durante el avance.</p>
+      </div>
+      <div class="videos-wrap"><div class="video-placeholder-row" data-videos data-sala="2"></div></div>
+      <div class="piezas-wrap">
+        <div class="piezas-head"><div><div class="label">Sala 03 · Colección</div><h3>Piezas</h3></div><span class="count" data-piezas-count data-sala="2"></span></div>
+        <div class="piezas-grid" data-piezas-grid data-sala="2"></div>
+      </div>
+      <div class="sala-nav">
+        <a href="#sala-02"><div class="dir">← Sala anterior</div><div class="title">Propulsión</div></a>
+        <a class="next" href="#sala-04"><div class="dir">Sala siguiente →</div><div class="title">Muck removal</div></a>
+      </div>
+    </section>
+
+    <!-- SALA 04 — Muck removal -->
+    <section id="sala-04" class="sala-section section-light">
+      <div class="sala-head">
+        <div>
+          <div class="sala-eyebrow">Sala 04 de 06</div>
+          <h2>Muck removal</h2>
+        </div>
+        <p class="sala-lead">Lo que se corta debe salir. En esta arquitectura no hay tornillo de extracción: el material erosionado por el cabezal es transportado por el propio rodado de la bolsa toroidal sobre las paredes del túnel.</p>
+      </div>
+      <div class="videos-wrap"><div class="video-placeholder-row" data-videos data-sala="3"></div></div>
+      <div class="piezas-wrap">
+        <div class="piezas-head"><div><div class="label">Sala 04 · Colección</div><h3>Piezas</h3></div><span class="count" data-piezas-count data-sala="3"></span></div>
+        <div class="piezas-grid" data-piezas-grid data-sala="3"></div>
+      </div>
+      <div class="sala-nav">
+        <a href="#sala-03"><div class="dir">← Sala anterior</div><div class="title">Dirección</div></a>
+        <a class="next" href="#sala-05"><div class="dir">Sala siguiente →</div><div class="title">Casing / Soporte</div></a>
+      </div>
+    </section>
+
+    <!-- SALA 05 — Casing / Soporte -->
+    <section id="sala-05" class="sala-section">
+      <div class="sala-head">
+        <div>
+          <div class="sala-eyebrow">Sala 05 de 06</div>
+          <h2>Casing / Soporte</h2>
+        </div>
+        <p class="sala-lead">La piel y el esqueleto. Un tubo de acero con nervadura helicoidal interior, telescópico hasta 6 veces su largo. Es la parte trasera de la máquina, por donde sale el cordón umbilical.</p>
+      </div>
+      <div class="videos-wrap"><div class="video-placeholder-row" data-videos data-sala="4"></div></div>
+      <div class="piezas-wrap">
+        <div class="piezas-head"><div><div class="label">Sala 05 · Colección</div><h3>Piezas</h3></div><span class="count" data-piezas-count data-sala="4"></span></div>
+        <div class="piezas-grid" data-piezas-grid data-sala="4"></div>
+      </div>
+      <div class="sala-nav">
+        <a href="#sala-04"><div class="dir">← Sala anterior</div><div class="title">Muck removal</div></a>
+        <a class="next" href="#sala-06"><div class="dir">Sala siguiente →</div><div class="title">Software y control</div></a>
+      </div>
+    </section>
+
+    <!-- SALA 06 — Software y control -->
+    <section id="sala-06" class="sala-section section-light">
+      <div class="sala-head">
+        <div>
+          <div class="sala-eyebrow">Sala 06 de 06</div>
+          <h2>Software y control</h2>
+        </div>
+        <p class="sala-lead">El sistema nervioso que envuelve toda la máquina. Sensores, comunicaciones y lógica que coordinan cada módulo y cada ciclo de avance.</p>
+      </div>
+      <div class="videos-wrap"><div class="video-placeholder-row" data-videos data-sala="5"></div></div>
+      <div class="piezas-wrap">
+        <div class="piezas-head"><div><div class="label">Sala 06 · Colección</div><h3>Piezas</h3></div><span class="count" data-piezas-count data-sala="5"></span></div>
+        <div class="piezas-grid" data-piezas-grid data-sala="5"></div>
+      </div>
+      <div class="sala-nav">
+        <a href="#sala-05"><div class="dir">← Sala anterior</div><div class="title">Casing / Soporte</div></a>
+        <a class="next" href="equipo.html"><div class="dir">Conocer al equipo →</div><div class="title">El equipo</div></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="equipo-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/udd-blanco.png" alt="Universidad del Desarrollo">
+        <span class="footer-sep"></span>
+        <span>UDD TUNNEL LAB</span>
+      </div>
+      <div class="footer-flags">
+        <img src="assets/chile.png" alt="Chile">
+        <img src="assets/sudamerica.png" alt="Sudamérica">
+        <span>Álbum mecánico · Registro 001</span>
+      </div>
+      <a href="index.html">← Volver al sitio</a>
+    </div>
+  </footer>
+
+  <div class="pieza-modal" data-pieza-modal hidden>
+    <div class="pieza-modal-inner">
+      <div class="pieza-modal-head">
+        <span data-pieza-modal-sala></span>
+        <button type="button" class="pieza-modal-close" data-pieza-modal-close>Cerrar ✕</button>
+      </div>
+      <div class="pieza-modal-body">
+        <div class="pieza-modal-stage" data-pieza-modal-stage></div>
+        <aside class="pieza-modal-aside">
+          <div>
+            <div class="pid" data-pieza-modal-id></div>
+            <h3 data-pieza-modal-titulo></h3>
+            <dl class="pieza-meta" data-pieza-modal-meta></dl>
+            <p class="pieza-modal-desc" data-pieza-modal-desc></p>
+          </div>
+          <div class="pieza-modal-nav">
+            <button type="button" data-pieza-prev>← Anterior</button>
+            <span class="pos" data-pieza-modal-pos></span>
+            <button type="button" data-pieza-next>Siguiente →</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <script src="album.js"></script>
+</body>
+</html>

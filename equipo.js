@@ -3,7 +3,7 @@ const TOTAL_EQUIPO = 80;
 // Frentes reales tomados de "Sección de trabajo" en data/miembrosList1.csv.
 const FRENTES = [
   "Cabezal erosionador", "Propulsión", "Muck removal", "Casing/Soporte",
-  "Software y control", "Gestión y sponsors", "Redes sociales", "Dirección",
+  "Software y control", "Gestión y sponsors", "Redes sociales", "Dirección", "Consultores",
 ];
 
 // Carreras que participan en el equipo (ver index.html #competencia).
@@ -11,7 +11,7 @@ const CARRERAS = [
   "Ingeniería Civil Industrial", "Ingeniería Civil en Minería", "Geología",
   "Ingeniería en Obras Civiles", "Ingeniería Civil Informática", "Diseño",
   "Ingeniería Comercial", "Ingeniería Informática", "Global Business Administration",
-  "Profesor/Consultor",
+  "Profesor/Consultor", "Cine y Comunicación Audiovisual",
 ];
 
 // Inscritos reales via formulario (data/miembrosList1.csv). Fotos en assets/team/.
@@ -23,7 +23,7 @@ const MIEMBROS_REALES = [
     {
     nombre: "Pablo Ortiz Baeza", carreras: ["Ingeniería Informática"],
     frase: "Conectando sensores, datos, terreno y personas.", frentes: ["Software y control", "Dirección"],
-    foto: "assets/team/pablo-ortiz.jpg", linkedin: "https://www.linkedin.com/in/pablo-ortiz-baeza-13450a36",
+    foto: "assets/team/pablo-ortiz-v2.png", linkedin: "https://www.linkedin.com/in/pablo-ortiz-baeza-13450a36",
     correo: "pablo.ortiz@udd.cl",
     descripcion: "Soy ingeniero informático y Team Leader de UDD Tunnel Lab. Trabajo en el Centro C+, donde participo en proyectos vinculados a calidad de aire y calidad de agua, liderando el desarrollo técnico de sistemas basados en sensores, comunicaciones, bases de datos y plataformas de visualización. Además, soy electricista certificado, guía de montaña, rescatista, técnico en trabajos verticales y paramédico. Mi perfil combina tecnología, trabajo en terreno, seguridad operacional y resolución práctica de problemas, con especial interés en desarrollar soluciones aplicadas que conecten la ingeniería con desafíos reales de la sociedad y el medio ambiente.",
   },
@@ -151,6 +151,26 @@ const MIEMBROS_REALES = [
     frase: "Running on caffeine and ambitious", frentes: ["Gestión y sponsors", "Redes sociales"],
     foto: "assets/team/maria-salinas.jpg", linkedin: "https://www.linkedin.com/in/maria-emilia-salinas-theler",
     correo: "Emisalinas2612@gmail.com",
+  },
+  {
+    nombre: "Matías Nicolás Pino Sánchez", carreras: ["Ingeniería Civil Informática"],
+    frase: "HelloWorld(\"print\")", frentes: ["Software y control"],
+    foto: "assets/team/matias-pino.jpg", linkedin: "https://www.linkedin.com/in/matias-pino-s%C3%A1nchez-a62239376",
+    correo: "m.pinos@udd.cl",
+  },
+  {
+    nombre: "Yung Hsuan Chung", carreras: ["Ingeniería Civil Industrial"],
+    frase: "If you believe something is worth doing, you do it regardless of the odds.", frentes: ["Gestión y sponsors", "Consultores"],
+    foto: "assets/team/yung-chung.png", linkedin: "https://www.linkedin.com/in/yuchung",
+    correo: "yungzyx1@gmail.com",
+    descripcion: "¡Hola! me llamo Yung y vengo de Taiwán, me defino como alguien que conecta negocio, tecnología y personas para transformar problemas complejos en soluciones concretas. A lo largo de mi experiencia he trabajado en análisis de negocio, automatización, productos digitales e inteligencia artificial aplicada, siempre buscando entender qué se puede hacer mejor y cómo convertir una idea en algo realmente implementable e innovador.",
+  },
+  {
+    nombre: "Josefina Saphores Balmaceda", carreras: ["Cine y Comunicación Audiovisual"],
+    frase: "Cineasta y artista emergente con fuertes ansias de aprender, crear y compartir su visión.", frentes: ["Redes sociales", "Gestión y sponsors"],
+    foto: "assets/team/josefina-saphores.jpg", linkedin: "https://www.linkedin.com/in/josefina-saphores-balmaceda-31385a323",
+    correo: "saphoresjosefina@gmail.com",
+    descripcion: "Soy una cineasta, creadora de contenido y artista emergente, con el deseo de compartir mi sensibilidad y visión del mundo a través de la creatividad. Me siento especialmente atraída por temáticas medioambientales, innovación, desarrollo personal y humano. Quiero aprender otras disciplinas y nuevas formas de crear arte, colaborar con personas de distintas perspectivas y vivir experiencias que me enriquezcan tanto personal como profesionalmente. En este proyecto busco desafiarme, ampliar mis capacidades y adquirir nuevas habilidades que me ayuden a crear más proyectos en el futuro donde mis ideas puedan tener un profundo significado para las personas.",
   },
 ];
 
