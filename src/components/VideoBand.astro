@@ -1,0 +1,70 @@
+---
+import { BANDA_VIDEOS } from "../config/videos";
+---
+<section class="band bg-negro" aria-labelledby="band-title">
+  <div class="container band-grid">
+    <div class="band-copy">
+      <span class="tag-bar">En terreno</span>
+      <h2 id="band-title" class="h2">Probar, fallar, <span class="accent">iterar.</span></h2>
+      <p class="lead">Antes de la máquina real vienen las pruebas pequeñas. Así se ven nuestros primeros ensayos en el laboratorio.</p>
+    </div>
+    <div class="band-videos">
+      {BANDA_VIDEOS.map((v) => (
+        <figure class="band-item">
+          <div class="band-frame">
+            <video muted loop playsinline preload="none" poster={v.poster} data-inview-video aria-label={`${v.titulo}: ${v.texto}`}>
+              <source src={v.webm} type="video/webm" />
+              <source src={v.mp4} type="video/mp4" />
+            </video>
+            <span class="band-tag">{v.etiqueta}</span>
+          </div>
+          <figcaption>
+            <strong>{v.titulo}</strong>
+            <span>{v.texto}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .band { padding-block: clamp(64px, 9vw, 120px); }
+  .band-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: 48px 72px; align-items: center; }
+  .band-copy { display: grid; gap: 24px; }
+  .band-videos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .band-item { margin: 0; }
+  .band-item:nth-child(2) { margin-top: 64px; }
+  .band-frame { position: relative; aspect-ratio: 9 / 16; background: var(--azul); overflow: hidden; }
+  .band-frame video { width: 100%; height: 100%; object-fit: cover; }
+  .band-tag {
+    position: absolute; left: 0; top: 0; padding: 6px 12px; background: var(--naranjo); color: var(--azul);
+    font-weight: 800; font-size: 14px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  figcaption { display: grid; gap: 4px; margin-top: 14px; }
+  figcaption strong { font-family: var(--font-display); font-weight: 400; font-size: 20px; text-transform: uppercase; }
+  figcaption span { color: var(--gris-claro); font-size: 16px; }
+
+  @media (max-width: 900px) {
+    .band-grid { grid-template-columns: 1fr; }
+    .band-item:nth-child(2) { margin-top: 40px; }
+  }
+</style>
+
+<script>
+  // Los videos de la banda solo se cargan y reproducen cuando están en pantalla.
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const videos = document.querySelectorAll<HTMLVideoElement>("[data-inview-video]");
+  if (!reduce && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting) { v.preload = "auto"; v.play().catch(() => {}); }
+        else v.pause();
+      }
+    }, { threshold: 0.35 });
+    videos.forEach((v) => io.observe(v));
+  } else {
+    videos.forEach((v) => { v.controls = true; });
+  }
+</script>

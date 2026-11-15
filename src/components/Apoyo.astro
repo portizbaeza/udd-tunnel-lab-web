@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+import { PACKS, pagosActivos, formatCLP } from "../config/packs";
+import bichoAzul from "../assets/brand/bicho-azul.png";
+---
+<section id="apoya" class="section apoyo bg-niebla" aria-labelledby="apoyo-title">
+  <div class="container">
+    <div class="ap-head">
+      <div class="stack-m">
+        <span class="tag-bar">Apoya al equipo</span>
+        <h2 id="apoyo-title" class="h2">Cada aporte nos acerca a Texas.</h2>
+        <p class="lead">Además de las empresas socias, cualquier persona podrá apoyar al equipo con un pack. Los fondos van a materiales, fabricación y al traslado del prototipo a Bastrop.</p>
+      </div>
+      <Image src={bichoAzul} alt="" width={120} class="ap-bicho" />
+    </div>
+
+    {!pagosActivos && (
+      <p class="ap-banner"><strong>Packs en preparación.</strong> Los valores y beneficios definitivos se publicarán pronto. Si quieres aportar desde ya, escríbenos.</p>
+    )}
+
+    <ul class="packs">
+      {PACKS.map((p, i) => (
+        <li class={`pack ${p.destacado ? "is-featured" : ""}`}>
+          <div class="pack-top">
+            <span class="pack-num">{String(i + 1).padStart(2, "0")}</span>
+            {p.destacado && <span class="pack-flag">Recomendado</span>}
+          </div>
+          <h3 class="h3">{p.nombre}</h3>
+          <p class="pack-price">{p.monto != null ? formatCLP(p.monto) : "Por definir"}</p>
+          <ul class="bullets">
+            {p.beneficios.map((b) => <li>{b}</li>)}
+          </ul>
+          {pagosActivos
+            ? <a class="btn btn-azul pack-cta" href={`/apoyar/${p.id}`}>Elegir pack</a>
+            : <a class="btn btn-borde pack-cta" href="#contacto">Próximamente · Conversemos</a>}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .ap-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 32px; }
+  .ap-head .stack-m { max-width: 820px; }
+  .ap-head :global(.ap-bicho) { width: 90px; height: auto; flex: none; }
+  .ap-banner { border-left: 6px solid var(--naranjo); background: var(--blanco); padding: 16px 20px; margin-bottom: 24px; color: var(--texto); }
+  .ap-banner strong { color: var(--azul); }
+
+  .packs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .pack { background: var(--blanco); padding: 24px; display: flex; flex-direction: column; gap: 14px; border-top: 6px solid var(--azul); }
+  .pack.is-featured { background: var(--azul); color: var(--blanco); border-top-color: var(--naranjo); }
+  .pack-top { display: flex; justify-content: space-between; align-items: center; }
+  .pack-num { font-family: var(--font-display); font-size: 18px; }
+  .pack-flag { background: var(--naranjo); color: var(--azul); font-weight: 800; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; padding: 4px 8px; }
+  .pack-price { font-family: var(--font-display); font-size: clamp(1.6rem, 2.4vw, 2.1rem); line-height: 1; text-transform: uppercase; }
+  .pack .bullets { color: var(--texto); font-size: 16px; flex: 1; }
+  .pack.is-featured .bullets { color: var(--gris-claro); }
+  .pack-cta { width: 100%; margin-top: 8px; font-size: 14px; padding-inline: 12px; }
+  .pack.is-featured .btn-borde { color: var(--blanco); }
+  .pack.is-featured .btn-borde:hover { background: var(--blanco); color: var(--azul); border-color: var(--blanco); }
+
+  @media (max-width: 1000px) { .packs { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .packs { grid-template-columns: 1fr; } .ap-head :global(.ap-bicho) { display: none; } }
+</style>

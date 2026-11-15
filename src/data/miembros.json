@@ -1,0 +1,361 @@
+[
+  {
+    "slug": "daniel-merino",
+    "nombre": "Daniel Merino Dezar",
+    "carreras": [
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Gestión y sponsors",
+      "Software y control"
+    ],
+    "frase": "There is no path; you build it",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/daniel-eduardo-merino-dézar-969601201",
+    "correo": "danielmerino2003@gmail.com"
+  },
+  {
+    "slug": "sofia-matus-prades",
+    "nombre": "Sofía Matus Prades",
+    "carreras": [
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Cabezal erosionador"
+    ],
+    "frase": "El futuro es algo que uno mismo hace, tienes que creer en el",
+    "descripcion": null,
+    "linkedin": null,
+    "correo": "s.matusp@gmail.com"
+  },
+  {
+    "slug": "constanza-villanueva-pampilioni",
+    "nombre": "Constanza Villanueva Pampilioni",
+    "carreras": [
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Cabezal erosionador"
+    ],
+    "frase": "Con prueba y error, ¡la humanidad siempre seguirá avanzando!",
+    "descripcion": null,
+    "linkedin": null,
+    "correo": "constanza.villap@gmail.com"
+  },
+  {
+    "slug": "constanza-chandia-martinez",
+    "nombre": "Constanza Chandía Martinez",
+    "carreras": [
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Redes sociales",
+      "Muck removal"
+    ],
+    "frase": "La creatividad me trajo hasta acá, la ingeniería me impulsa hacia adelante.",
+    "descripcion": "Me considero una persona creativa, con muchas ganas de aprender y siempre motivada por descubrir cosas nuevas. Disfruto trabajar en equipo, escuchar nuevas ideas y aportar desde mi propia perspectiva para encontrar soluciones en conjunto. Siempre estoy abierta a nuevos desafíos y aventuras que me permitan salir de mi zona de confort, vivir nuevas experiencias y seguir creciendo tanto personal como profesionalmente.",
+    "linkedin": "https://www.linkedin.com/in/cony-chandia-m-a40161388",
+    "correo": "conychandiamartinez@gmail.com"
+  },
+  {
+    "slug": "vicente-seckel",
+    "nombre": "Vicente Seckel",
+    "carreras": [
+      "Ingeniería Civil Industrial",
+      "Ingeniería Civil en Informática e Innovación Tecnológica"
+    ],
+    "frentes": [
+      "Software y control",
+      "Gestión y sponsors"
+    ],
+    "frase": "Codificador en Python que busca grandes desafíos.",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/vicente-seckel-ticona-b77285334",
+    "correo": "vseckelt@udd.cl"
+  },
+  {
+    "slug": "renato-riquelme-munoz",
+    "nombre": "Renato Riquelme Muñoz",
+    "carreras": [
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Software y control",
+      "Gestión y sponsors"
+    ],
+    "frase": "Construir algo que valga la pena",
+    "descripcion": null,
+    "linkedin": "https://cl.linkedin.com/in/renato-riquelme-mu%C3%B1oz-b1a890228",
+    "correo": "r.riquelmem@udd.cl"
+  },
+  {
+    "slug": "juan-andres-mavarez-ponce",
+    "nombre": "Juan Andres Mavarez Ponce",
+    "carreras": [
+      "Ingeniería Civil en Informática e Inteligencia Artificial"
+    ],
+    "frentes": [
+      "Software y control"
+    ],
+    "frase": "Sin software, la máquina es metal ciego.",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/juan-undefined-38025b433",
+    "correo": "j.mavarezp@udd.cl"
+  },
+  {
+    "slug": "maria-fernanda-zuniga-hernandez",
+    "nombre": "María Fernanda Zúñiga Hernández",
+    "carreras": [
+      "Ingeniería Civil en Obras Civiles"
+    ],
+    "frentes": [
+      "Gestión y sponsors",
+      "Casing/Soporte"
+    ],
+    "frase": "Solo hace falta intentarlo para tenerlo todo por ganar.",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/fernanda-z%C3%BA%C3%B1iga-363b70332",
+    "correo": "mazunigah@udd.cl"
+  },
+  {
+    "slug": "diego-martin-medina-barrera",
+    "nombre": "Diego Martín Medina Barrera",
+    "carreras": [
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Muck removal",
+      "Casing/Soporte"
+    ],
+    "frase": "Las mejores lecciones ocurren cuando uno se tropieza.",
+    "descripcion": null,
+    "linkedin": "https://cl.linkedin.com/in/diego-medina-a59387251",
+    "correo": "d.medinab@udd.cl"
+  },
+  {
+    "slug": "juan-ignacio-rodriguez-nino",
+    "nombre": "Juan Ignacio Rodríguez Niño",
+    "carreras": [
+      "Ingeniería Civil en Informática e Innovación Tecnológica",
+      "Ingeniería Comercial"
+    ],
+    "frentes": [
+      "Software y control"
+    ],
+    "frase": "Toda gran idea comienza cuando alguien se atreve.",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/juan-ignacio-rodr%C3%ADguez-ni%C3%B1o-a46804271",
+    "correo": "ju.rodriguezn@udd.cl"
+  },
+  {
+    "slug": "macarena-ines-alonso-flores",
+    "nombre": "Macarena Ines Alonso Flores",
+    "carreras": [
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Propulsión",
+      "Gestión y sponsors"
+    ],
+    "frase": "Si no lo intentas, nunca verás la posibilidad que te espera.",
+    "descripcion": null,
+    "linkedin": null,
+    "correo": "m.alonsof@udd.cl"
+  },
+  {
+    "slug": "lucas-riquelme-torres",
+    "nombre": "Lucas Riquelme Torres",
+    "carreras": [
+      "Ingeniería Civil en Informática e Innovación Tecnológica",
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Gestión y sponsors",
+      "Software y control"
+    ],
+    "frase": "Nos esse quasi nanos gigantum humeris insidentes",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/lucas-riquelme-133378343",
+    "correo": "l.riquelmet@udd.cl"
+  },
+  {
+    "slug": "andres-edgardo-henry-guerrero",
+    "nombre": "Andrés Edgardo Henry Guerrero",
+    "carreras": [
+      "Ingeniería Civil en Informática e Innovación Tecnológica",
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Propulsión",
+      "Dirección"
+    ],
+    "frase": "No tengo tiempo para rendirme. Apenas estamos comenzando",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/andrés-henry-0032b8321",
+    "correo": "a.henryg@udd.cl"
+  },
+  {
+    "slug": "joaquin-matias-almeida-aguayo",
+    "nombre": "Joaquín Matías Almeida Aguayo",
+    "carreras": [
+      "Ingeniería Civil en Informática e Inteligencia Artificial"
+    ],
+    "frentes": [
+      "Software y control",
+      "Dirección"
+    ],
+    "frase": "La curiosidad me lleva más lejos que la certeza",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/joaquín-matías-almeida-aguayo-b233a8433",
+    "correo": "joacoflooalmeida@gmail.com"
+  },
+  {
+    "slug": "juan-agustin-muxi",
+    "nombre": "Juan Agustín Muxi",
+    "carreras": [
+      "Ingeniería Civil en Minería"
+    ],
+    "frentes": [
+      "Casing/Soporte",
+      "Cabezal erosionador"
+    ],
+    "frase": "De Chile para el mundo",
+    "descripcion": null,
+    "linkedin": null,
+    "correo": "j.muxif@udd.cl"
+  },
+  {
+    "slug": "david-alfonso-sanchez-ramirez",
+    "nombre": "David Alfonso Sánchez Ramírez",
+    "carreras": [
+      "Ingeniería Civil en Informática e Inteligencia Artificial"
+    ],
+    "frentes": [
+      "Software y control",
+      "Dirección"
+    ],
+    "frase": "El esfuerzo y perseverancia son la base de todo",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/david-sanchez-ramirez-11b9b1401",
+    "correo": "davo.san.ram@gmail.com"
+  },
+  {
+    "slug": "matias-nicolas-pino-sanchez",
+    "nombre": "Matías Nicolás Pino Sánchez",
+    "carreras": [
+      "Ingeniería Civil en Informática e Innovación Tecnológica"
+    ],
+    "frentes": [
+      "Software y control"
+    ],
+    "frase": "HelloWorld(\"print\")",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/matias-pino-s%C3%A1nchez-a62239376",
+    "correo": "m.pinos@udd.cl"
+  },
+  {
+    "slug": "antonia-paz-herrera-espineira",
+    "nombre": "Antonia Paz Herrera Espiñeira",
+    "carreras": [
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Propulsión",
+      "Casing/Soporte"
+    ],
+    "frase": "Cada obstáculo es una oportunidad para mejorar el diseño",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/antonia-paz-herrera-espiñeira-b584b238a",
+    "correo": "a.herrerae@udd.cl"
+  },
+  {
+    "slug": "franco-salinas-theler",
+    "nombre": "Franco Salinas Theler",
+    "carreras": [
+      "Global Business Administration"
+    ],
+    "frentes": [
+      "Gestión y sponsors",
+      "Redes sociales"
+    ],
+    "frase": "Sleep is fleeting, glory is eternal",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/franco-salinas-theler",
+    "correo": "f.salinast@udd.cl"
+  },
+  {
+    "slug": "maria-emilia-salinas-theler",
+    "nombre": "María Emilia Salinas Theler",
+    "carreras": [
+      "Ingeniería Comercial"
+    ],
+    "frentes": [
+      "Gestión y sponsors",
+      "Redes sociales"
+    ],
+    "frase": "Running on caffeine and ambitious",
+    "descripcion": null,
+    "linkedin": "https://www.linkedin.com/in/maria-emilia-salinas-theler",
+    "correo": "emisalinas2612@gmail.com"
+  },
+  {
+    "slug": "pablo-ortiz-baeza",
+    "nombre": "Pablo Ortiz Baeza",
+    "carreras": [
+      "Ingeniería Informática"
+    ],
+    "frentes": [
+      "Software y control",
+      "Dirección"
+    ],
+    "frase": "Conectando sensores, datos, terreno y personas.",
+    "descripcion": "Soy ingeniero informático y Team Leader de UDD Tunnel Lab. Trabajo en el Centro C+, donde participo en proyectos vinculados a calidad de aire y calidad de agua, liderando el desarrollo técnico de sistemas basados en sensores, comunicaciones, bases de datos y plataformas de visualización. Además, soy electricista certificado, guía de montaña, rescatista, técnico en trabajos verticales y paramédico. Mi perfil combina tecnología, trabajo en terreno, seguridad operacional y resolución práctica de problemas, con especial interés en desarrollar soluciones aplicadas que conecten la ingeniería con desafíos reales de la sociedad y el medio ambiente.",
+    "linkedin": "https://linkedin.com/in/pablo-ortiz-baeza-13450a36",
+    "correo": "pablo.ortiz@udd.cl"
+  },
+  {
+    "slug": "bruno-grossi-cordova",
+    "nombre": "Bruno Grossi Córdova",
+    "carreras": [
+      "Profesor/Consultor"
+    ],
+    "frentes": [
+      "Propulsión",
+      "Redes sociales"
+    ],
+    "frase": "innovación",
+    "descripcion": "Soy Bruno Grossi, Doctor en Biología con postdoctorado en metamateriales, experto en tecnologías bioinspiradas y académico de la Facultad de Ingeniería de la Universidad del Desarrollo. Mi trabajo integra investigación, innovación y desarrollo tecnológico interdisciplinario.",
+    "linkedin": null,
+    "correo": "bruno.grossi@udd.cl"
+  },
+  {
+    "slug": "yung-chung",
+    "nombre": "Yung Chung",
+    "carreras": [
+      "Ingeniería Civil Industrial"
+    ],
+    "frentes": [
+      "Gestión y sponsors",
+      "Consultores"
+    ],
+    "frase": "If you believe something is worth doing, you do it regardless of the odds.",
+    "descripcion": "¡Hola! me llamo Yung y vengo de Taiwán, me defino como alguien que conecta negocio, tecnología y personas para transformar problemas complejos en soluciones concretas. A lo largo de mi experiencia he trabajado en análisis de negocio, automatización, productos digitales e inteligencia artificial aplicada, siempre buscando entender qué se puede hacer mejor y cómo convertir una idea en algo realmente implementable e innovador.",
+    "linkedin": "https://www.linkedin.com/in/yuchung",
+    "correo": "yungzyx1@gmail.com"
+  },
+  {
+    "slug": "josefina-saphores-balmaceda",
+    "nombre": "Josefina Saphores Balmaceda",
+    "carreras": [
+      "Cine y Comunicación Audiovisual"
+    ],
+    "frentes": [
+      "Redes sociales",
+      "Gestión y sponsors"
+    ],
+    "frase": "Cineasta y artista emergente con fuertes ansías de aprender, crear y compartir su visión.",
+    "descripcion": "Soy una cineasta, creadora de contenido y artista emergente, con el deseo de compartir mi sensibilidad y visión del mundo a través de la creatividad. Me siento especialmente atraída por temáticas medioambientales, innovación, desarrollo personal y humano. Quiero aprender otras disciplinas y nuevas formas de crear arte, colaborar con personas de distintas perspectivas y vivir experiencias que me enriquezcan tanto personal como profesionalmente. En este proyecto busco desafiarme, ampliar mis capacidades y adquirir nuevas habilidades que me ayuden a crear más proyectos en el futuro donde mis ideas puedan tener un profundo significado para las personas.",
+    "linkedin": "https://www.linkedin.com/in/josefina-saphores-balmaceda-31385a323",
+    "correo": "saphoresjosefina@gmail.com"
+  }
+]

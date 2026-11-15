@@ -1,3 +1,197 @@
+# =============================================================================
+#  .gitignore — UDD Tunnel Lab Web (Astro + Vercel)
+# =============================================================================
+#  IMPORTANTE: las imágenes y videos que USA el sitio (src/assets/**, public/**)
+#  SÍ se versionan. Lo que se ignora es el material crudo/pesado de origen
+#  (carpeta material/, formatos de edición y video sin optimizar).
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Dependencias
+# -----------------------------------------------------------------------------
+node_modules/
+jspm_packages/
+bower_components/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# -----------------------------------------------------------------------------
+# Build / salidas generadas / caché de frameworks
+# -----------------------------------------------------------------------------
+dist/
+build/
+out/
+.astro/
+.vercel/
+.netlify/
+.next/
+.nuxt/
+.output/
+.svelte-kit/
+.cache/
+.parcel-cache/
+.turbo/
+.vite/
+*.tsbuildinfo
+
+# -----------------------------------------------------------------------------
+# Variables de entorno y secretos
+# -----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+secrets/
+credentials*.json
+service-account*.json
+
+# -----------------------------------------------------------------------------
+# Logs y reportes
+# -----------------------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+coverage/
+.nyc_output/
+*.lcov
+playwright-report/
+test-results/
+
+# -----------------------------------------------------------------------------
+# Bases de datos locales
+# -----------------------------------------------------------------------------
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.sql
+*.dump
+*.bak
+*.mdb
+*.accdb
+dump.rdb
+
+# -----------------------------------------------------------------------------
+# Entornos virtuales (Python, etc.)
+# -----------------------------------------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+.python-version
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# -----------------------------------------------------------------------------
+# Media cruda / pesada (NO la optimizada que usa el sitio)
+# -----------------------------------------------------------------------------
+# Material de origen sin procesar (fotos y videos originales)
+material/
+
+# Archivos de diseño y edición
+*.psd
+*.psb
+*.ai
+*.xcf
+*.sketch
+*.fig
+*.indd
+*.aep
+*.prproj
+*.drp
+*.kra
+
+# Fotografía RAW
+*.raw
+*.cr2
+*.cr3
+*.nef
+*.arw
+*.dng
+*.orf
+*.heic
+*.heif
+
+# Video/audio sin optimizar (el sitio usa .mp4/.webm ya comprimidos en public/)
+*.mov
+*.avi
+*.mkv
+*.wmv
+*.flv
+*.m4v
+*.mts
+*.wav
+*.aiff
+
+# Comprimidos y paquetes
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.tgz
+
+# -----------------------------------------------------------------------------
+# Datos sensibles del proyecto
+# -----------------------------------------------------------------------------
+# CSV crudo del formulario (contiene correos de login y fechas).
+# El sitio usa src/data/miembros.json
+src/data/miembros.csv
+
+# -----------------------------------------------------------------------------
+# Editores e IDEs
+# -----------------------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# -----------------------------------------------------------------------------
+# Sistema operativo
+# -----------------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# -----------------------------------------------------------------------------
+# Herramientas locales / IA
+# -----------------------------------------------------------------------------
 .claude/
 _bmad/
 _bmad-output/
+
+# -----------------------------------------------------------------------------
+# Temporales
+# -----------------------------------------------------------------------------
+tmp/
+temp/
+*.tmp
+*.temp

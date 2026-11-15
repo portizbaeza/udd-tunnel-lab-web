@@ -1,0 +1,110 @@
+---
+import { SITE } from "../config/site";
+---
+<section id="contacto" class="section contacto" aria-labelledby="contacto-title">
+  <div class="container ct-grid">
+    <div class="stack-m">
+      <span class="tag-bar">07 · Contacto</span>
+      <h2 id="contacto-title" class="h2">Conversemos.</h2>
+      <p class="lead">Empresas, mentores, laboratorios, medios y estudiantes: escríbenos y contamos cómo puedes ser parte.</p>
+      <address class="ct-info">
+        <a href={`mailto:${SITE.correoEquipo}`}>{SITE.correoEquipo}</a><br />
+        Facultad de Ingeniería · Universidad del Desarrollo<br />
+        Santiago · Chile
+      </address>
+    </div>
+
+    <form class="ct-form" action="/api/contacto" method="post" data-contact-form novalidate>
+      <div class="field">
+        <label for="ct-nombre">Nombre / empresa</label>
+        <input id="ct-nombre" name="nombre" type="text" autocomplete="name" required maxlength="120" />
+      </div>
+      <div class="field">
+        <label for="ct-email">Email</label>
+        <input id="ct-email" name="email" type="email" autocomplete="email" required maxlength="160" />
+      </div>
+      <div class="field">
+        <label for="ct-motivo">Motivo</label>
+        <select id="ct-motivo" name="motivo">
+          <option>Quiero ser socio / empresa</option>
+          <option>Quiero apoyar con un pack</option>
+          <option>Prensa y medios</option>
+          <option>Soy estudiante</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="ct-mensaje">Mensaje</label>
+        <textarea id="ct-mensaje" name="mensaje" rows="5" required maxlength="4000"></textarea>
+      </div>
+      <!-- Campo trampa anti-spam: las personas no lo ven ni lo completan -->
+      <div class="hp" aria-hidden="true">
+        <label for="ct-web">Sitio web</label>
+        <input id="ct-web" name="web" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+      <button type="submit" class="btn btn-azul ct-submit">Enviar mensaje</button>
+      <p class="ct-status" data-contact-status role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .ct-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px 80px; align-items: start; }
+  .ct-info { font-style: normal; font-weight: 600; color: var(--texto); line-height: 1.7; border-top: 2px solid var(--azul); padding-top: 18px; }
+  .ct-info a { color: var(--azul); font-weight: 800; }
+  .ct-form { display: grid; gap: 18px; background: var(--gris-niebla); padding: clamp(22px, 3vw, 36px); }
+  .field { display: grid; gap: 6px; }
+  label { font-weight: 800; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--azul); }
+  input, textarea, select {
+    width: 100%; min-height: 50px; padding: 12px 14px; border: 2px solid var(--azul); border-radius: 0;
+    background: var(--blanco); color: var(--azul); font: inherit; font-size: 17px;
+  }
+  textarea { resize: vertical; }
+  input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid var(--naranjo); outline-offset: 0; }
+  [aria-invalid="true"] { border-color: #b42318; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .ct-submit { justify-self: start; }
+  .ct-status { min-height: 1.5em; font-weight: 700; }
+  .ct-status.ok { color: var(--azul); }
+  .ct-status.err { color: #b42318; }
+  @media (max-width: 900px) { .ct-grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
+  const status = document.querySelector<HTMLElement>("[data-contact-status]");
+  if (form && status) {
+    const btn = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      status.className = "ct-status";
+      let valid = true;
+      form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[required]").forEach((el) => {
+        const ok = el.checkValidity();
+        el.setAttribute("aria-invalid", String(!ok));
+        if (!ok) valid = false;
+      });
+      if (!valid) {
+        status.textContent = "Revisa los campos marcados: nombre, un email válido y tu mensaje.";
+        status.classList.add("err");
+        form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+        return;
+      }
+      btn.disabled = true;
+      status.textContent = "Enviando…";
+      try {
+        const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || "No se pudo enviar el mensaje.");
+        form.reset();
+        status.textContent = "¡Gracias! Recibimos tu mensaje y te responderemos pronto.";
+        status.classList.add("ok");
+      } catch (err) {
+        status.textContent = `${(err as Error).message} También puedes escribirnos a notaboringbicho@gmail.com.`;
+        status.classList.add("err");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+</script>

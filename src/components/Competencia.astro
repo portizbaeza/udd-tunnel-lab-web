@@ -1,0 +1,60 @@
+---
+const fases = [
+  { tag: "Fase 01", titulo: "Diseñar", texto: "Subsistemas reales de una tuneladora experimental: corte, propulsión, extracción, control." },
+  { tag: "Fase 02", titulo: "Fabricar", texto: "Prototipos, mecanismos y componentes testeables, con industria chilena como aliada." },
+  { tag: "Fase 03", titulo: "Competir", texto: "Representando a la UDD, a Chile y a Sudamérica en un desafío global de ingeniería." },
+];
+---
+<section id="competencia" class="section competencia" aria-labelledby="competencia-title">
+  <div class="container">
+    <div class="comp-grid">
+      <div class="stack-m">
+        <span class="tag-bar">01 · La competencia</span>
+        <h2 id="competencia-title" class="h2">Un desafío mundial para acelerar la tecnología subterránea.</h2>
+      </div>
+      <div class="copy comp-copy">
+        <p>La <strong>Not-a-Boring Competition</strong> es organizada por The Boring Company y desafía a equipos universitarios de todo el mundo a construir máquinas tuneladoras capaces de excavar más rápido, más seguro y más barato. El lema lo dice todo: <strong>beat the snail</strong> — superar a un caracol.</p>
+        <p>Los equipos trabajan durante el año en diseño, fabricación y pruebas, y luego compiten presencialmente en Bastrop, Texas. Se evalúa avance de excavación, diseño, innovación, seguridad, navegación y desempeño del sistema completo.</p>
+        <p class="comp-note">UDD Tunnel Lab es un proyecto independiente de la Universidad del Desarrollo. No es patrocinado ni respaldado por The Boring Company.</p>
+      </div>
+    </div>
+
+    <ol class="phases">
+      {fases.map((f, i) => (
+        <li class="phase">
+          <span class="phase-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          <span class="kicker">{f.tag}</span>
+          <h3 class="h3">{f.titulo}</h3>
+          <p>{f.texto}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .comp-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px 72px; align-items: start; }
+  .comp-copy { font-size: 18px; padding-top: 56px; }
+  .comp-note { font-size: 15px; color: var(--texto); border-top: 1px solid var(--gris-claro); padding-top: 14px; }
+
+  .phases { list-style: none; margin: clamp(56px, 7vw, 96px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .phase { position: relative; overflow: hidden; padding: 28px 28px 32px; background: var(--gris-niebla); display: grid; gap: 10px; align-content: start; min-height: 260px; }
+  .phase:nth-child(2) { background: var(--azul); color: var(--blanco); }
+  .phase:nth-child(2) .kicker { color: var(--naranjo-claro); }
+  .phase:nth-child(2) p { color: var(--gris-claro); }
+  .phase p { color: var(--texto); max-width: 30ch; }
+  .phase .h3 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
+  .phase-num {
+    position: absolute; right: -6px; bottom: -22px; font-family: var(--font-display); font-size: 9rem; line-height: 1;
+    color: var(--blanco); transform: scaleX(1.35); transform-origin: right bottom; pointer-events: none;
+  }
+  .phase:nth-child(2) .phase-num { color: var(--azul-intenso); }
+  .phase > :not(.phase-num) { position: relative; }
+
+  @media (max-width: 900px) {
+    .comp-grid { grid-template-columns: 1fr; }
+    .comp-copy { padding-top: 0; }
+    .phases { grid-template-columns: 1fr; }
+    .phase { min-height: 0; }
+  }
+</style>

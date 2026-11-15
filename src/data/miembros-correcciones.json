@@ -1,0 +1,6 @@
+{
+  "_comentario": "Correcciones manuales sobre el CSV, indexadas por la columna Email (login del formulario). Cualquier campo de la ficha se puede sobrescribir aquí: nombre, frase, carreras, frentes, descripcion, linkedin, correo, fotoArchivo.",
+  "damerinod@udd.cl": { "nombre": "Daniel Merino Dezar" },
+  "vseckelt@udd.cl": { "frase": "Codificador en Python que busca grandes desafíos." },
+  "m.alonsof@udd.cl": { "frase": "Si no lo intentas, nunca verás la posibilidad que te espera." }
+}

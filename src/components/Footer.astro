@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import logoNegativo from "../assets/brand/logo-negativo.png";
+import uddBlanco from "../assets/brand/udd-blanco.png";
+import sudamerica from "../assets/brand/sudamerica-naranjo.png";
+import ChileFlag from "./ChileFlag.astro";
+
+interface Props { note?: string; backHref?: string; backLabel?: string }
+const { note = "Facultad de Ingeniería UDD · Chile", backHref = "#inicio", backLabel = "Volver arriba ↑" } = Astro.props;
+---
+<footer class="footer bg-azul">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <Image src={logoNegativo} alt="B.I.C.H.O by Tunnel Lab" width={260} class="f-logo" />
+      <span class="f-sep" aria-hidden="true"></span>
+      <Image src={uddBlanco} alt="Universidad del Desarrollo" width={140} class="f-udd" />
+    </div>
+    <div class="footer-flags">
+      <ChileFlag width={34} />
+      <Image src={sudamerica} alt="" width={24} class="f-sa" />
+      <span>{note}</span>
+    </div>
+    <a class="footer-back" href={backHref}>{backLabel}</a>
+  </div>
+  <div class="container footer-legal">
+    <span>© {new Date().getFullYear()} UDD Tunnel Lab · Universidad del Desarrollo</span>
+    <span>Proyecto independiente, no patrocinado ni respaldado por The Boring Company.</span>
+  </div>
+</footer>
+
+<style>
+  .footer { padding-block: 56px 32px; }
+  .footer-grid { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; }
+  .footer-brand { display: flex; align-items: center; gap: 18px; }
+  .footer-brand :global(.f-logo) { width: 200px; height: auto; }
+  .footer-brand :global(.f-udd) { width: 100px; height: auto; }
+  .f-sep { width: 1px; height: 36px; background: var(--gris-acero); }
+  .footer-flags { display: flex; align-items: center; gap: 14px; font-weight: 600; color: var(--gris-claro); }
+  .footer-flags :global(.f-sa) { width: 22px; height: auto; }
+  .footer-back { font-weight: 800; text-transform: uppercase; letter-spacing: .06em; text-decoration: none; border-bottom: 3px solid var(--naranjo); padding-bottom: 4px; }
+  .footer-back:hover { color: var(--naranjo-claro); }
+  .footer-legal {
+    margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--azul-intenso);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 15px; color: var(--gris-acero);
+  }
+</style>

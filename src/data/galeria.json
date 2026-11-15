@@ -1,0 +1,47 @@
+{
+  "_comentario": "Fotos de la galería. 'origen' = archivo en material/Galería (solo lo usa scripts/build-media.mjs); 'archivo' = imagen optimizada en src/assets/galeria. 'carrusel': true la muestra también en el carrusel bajo el hero. Categorías: prototipos | taller | industria | equipo.",
+  "categorias": {
+    "prototipos": "Prototipos",
+    "taller": "Charlas y taller",
+    "industria": "Visitas a industria",
+    "equipo": "Equipo"
+  },
+  "fotos": [
+    { "origen": "PHOTO-2026-11-13-20-06-43[11].jpg", "archivo": "visita-sew-grupo.jpg", "titulo": "Visita técnica a SEW-Eurodrive", "categoria": "industria", "carrusel": true },
+    { "origen": "PHOTO-2026-11-13-20-06-44[24].jpg", "archivo": "bolsa-toroidal-presentacion.jpg", "titulo": "Presentación de la bolsa toroidal al equipo", "categoria": "taller", "carrusel": true },
+    { "origen": "PHOTO-2026-11-13-20-05-40.jpg", "archivo": "prototipo-bicho.jpg", "titulo": "Prototipo de tracción B.I.C.H.O", "categoria": "prototipos", "carrusel": true },
+    { "origen": "PHOTO-2026-11-13-20-06-44[7].jpg", "archivo": "equipo-planta-sew.jpg", "titulo": "El equipo en la planta de SEW-Eurodrive", "categoria": "industria", "carrusel": true },
+    { "origen": "PHOTO-2026-11-13-20-06-44[40].jpg", "archivo": "prueba-mecanismo-tubo.jpg", "titulo": "Prueba de mecanismos sobre el tubo de ensayo", "categoria": "prototipos", "carrusel": true },
+    { "origen": "PHOTO-2026-11-13-20-06-44[14].jpg", "archivo": "charla-maker-campus.jpg", "titulo": "Sesión general en el Maker Campus", "categoria": "taller", "carrusel": true },
+    { "origen": "PHOTO-2026-11-13-20-06-43[6].jpg", "archivo": "mecanismo-impreso-3d.jpg", "titulo": "Maqueta impresa en 3D de un mecanismo de avance", "categoria": "prototipos", "carrusel": true },
+    { "origen": "PHOTO-2026-11-13-20-06-44[27].jpg", "archivo": "recorrido-planta-cascos.jpg", "titulo": "Recorrido por planta con equipo de seguridad", "categoria": "industria", "carrusel": true },
+
+    { "origen": "PHOTO-2026-11-13-20-05-40[2].jpg", "archivo": "prototipo-mark-o.jpg", "titulo": "Prototipo de tracción MARK-O", "categoria": "prototipos" },
+    { "origen": "PHOTO-2026-11-13-20-05-40[4].jpg", "archivo": "orugas-configuracion-radial.jpg", "titulo": "Orugas en configuración radial", "categoria": "prototipos" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[1].jpg", "archivo": "modulos-oruga-3d.jpg", "titulo": "Módulos de oruga impresos en 3D", "categoria": "prototipos" },
+    { "origen": "PHOTO-2026-11-13-20-06-43[13].jpg", "archivo": "montaje-mecanismo-tubo.jpg", "titulo": "Montaje del mecanismo impreso sobre el tubo", "categoria": "prototipos" },
+    { "origen": "PHOTO-2026-11-13-20-05-40[6].jpg", "archivo": "armado-piezas-oruga.jpg", "titulo": "Armado de piezas de oruga", "categoria": "prototipos" },
+    { "origen": "PHOTO-2026-11-13-20-05-40[5].jpg", "archivo": "electronica-prototipo.jpg", "titulo": "Electrónica del prototipo", "categoria": "prototipos" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[29].jpg", "archivo": "piezas-cabezal.jpg", "titulo": "Cortadores y piezas de prueba para el cabezal", "categoria": "prototipos" },
+
+    { "origen": "PHOTO-2026-11-13-20-06-43[12].jpg", "archivo": "presentacion-plan-trabajo.jpg", "titulo": "Presentación del plan de trabajo", "categoria": "taller" },
+    { "origen": "PHOTO-2026-11-13-20-06-44.jpg", "archivo": "reunion-general.jpg", "titulo": "Reunión general del equipo", "categoria": "taller" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[26].jpg", "archivo": "exposicion-maker-campus.jpg", "titulo": "Exposición técnica en el Maker Campus", "categoria": "taller" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[2].jpg", "archivo": "pizarra-calculos.jpg", "titulo": "Cálculos en la pizarra de la sala de proyectos", "categoria": "taller" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[25].jpg", "archivo": "explicacion-componentes.jpg", "titulo": "Explicación de componentes del prototipo", "categoria": "taller" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[16].jpg", "archivo": "sesion-taller.jpg", "titulo": "Sesión de trabajo en el taller", "categoria": "taller" },
+    { "origen": "PHOTO-2026-11-13-20-06-43.jpg", "archivo": "charla-apertura.jpg", "titulo": "Charla en el laboratorio de innovación", "categoria": "taller" },
+
+    { "origen": "PHOTO-2026-11-13-20-06-43[1].jpg", "archivo": "equipo-chalecos-planta.jpg", "titulo": "Integrantes durante la visita a planta", "categoria": "industria" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[19].jpg", "archivo": "equipo-anfitriones-planta.jpg", "titulo": "Con los anfitriones de la visita", "categoria": "industria" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[21].jpg", "archivo": "reductor-engranajes.jpg", "titulo": "Reductor de engranajes en corte", "categoria": "industria" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[20].jpg", "archivo": "motorreductor-seccionado.jpg", "titulo": "Motorreductor seccionado", "categoria": "industria" },
+    { "origen": "PHOTO-2026-11-13-20-06-43[9].jpg", "archivo": "vista-planta.jpg", "titulo": "Vista general de la planta de montaje", "categoria": "industria" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[15].jpg", "archivo": "revision-tablet.jpg", "titulo": "Revisión técnica junto a un ingeniero de planta", "categoria": "industria" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[3].jpg", "archivo": "despiece-motor.jpg", "titulo": "Despiece de un motor eléctrico", "categoria": "industria" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[39].jpg", "archivo": "bodega-planta.jpg", "titulo": "Bodega de componentes", "categoria": "industria" },
+
+    { "origen": "PHOTO-2026-11-13-20-05-40[3].jpg", "archivo": "integrantes-taller.jpg", "titulo": "Integrantes del equipo", "categoria": "equipo" },
+    { "origen": "PHOTO-2026-11-13-20-06-44[35].jpg", "archivo": "reunion-remota.jpg", "titulo": "Reunión remota del equipo", "categoria": "equipo" }
+  ]
+}

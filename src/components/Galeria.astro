@@ -1,0 +1,98 @@
+---
+import { Image, getImage } from "astro:assets";
+import { getFotos, CATEGORIAS } from "../lib/galeria";
+import { YOUTUBE_VIDEOS } from "../config/videos";
+import { SITE } from "../config/site";
+const SITE_YT = SITE.youtubeCanal;
+import YouTubeLite from "./YouTubeLite.astro";
+
+const fotos = await Promise.all(
+  getFotos().map(async (f) => ({ ...f, full: (await getImage({ src: f.img, width: 1600, format: "webp" })).src })),
+);
+const cats = Object.entries(CATEGORIAS).filter(([k]) => fotos.some((f) => f.categoria === k));
+---
+<section id="galeria" class="section galeria" aria-labelledby="galeria-title">
+  <div class="container">
+    <div class="gal-head">
+      <div class="stack-m">
+        <span class="tag-bar">Galería</span>
+        <h2 id="galeria-title" class="h2">Del taller a la planta.</h2>
+      </div>
+      <div class="chips" role="group" aria-label="Filtrar fotos por categoría">
+        <button type="button" class="chip" data-gal-filter="todas" aria-pressed="true">Todas <span>{fotos.length}</span></button>
+        {cats.map(([k, label]) => (
+          <button type="button" class="chip" data-gal-filter={k} aria-pressed="false">{label} <span>{fotos.filter((f) => f.categoria === k).length}</span></button>
+        ))}
+      </div>
+    </div>
+
+    <ul class="gal-grid">
+      {fotos.map((f, i) => (
+        <li class={`gal-item ${i % 7 === 0 ? "is-wide" : ""}`} data-cat={f.categoria}>
+          <button type="button" class="gal-card bn" data-lb-group="galeria" data-lb-src={f.full} data-lb-title={f.titulo}>
+            <Image src={f.img} alt={f.titulo} widths={[320, 480, 720]} sizes="(max-width: 560px) 46vw, (max-width: 900px) 31vw, 300px" loading="lazy" />
+            <span class="gal-title">{f.titulo}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+
+    {YOUTUBE_VIDEOS.length > 0 && (
+      <div class="gal-videos">
+        <div class="gv-head">
+          <h3 class="h3">En video</h3>
+          <a class="link-arrow" href={SITE_YT} target="_blank" rel="noopener">Ver en YouTube <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class={`gv-grid ${YOUTUBE_VIDEOS.length === 1 ? "is-single" : ""}`}>
+          {YOUTUBE_VIDEOS.map((v) => <YouTubeLite id={v.id} titulo={v.titulo} />)}
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .gal-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 40px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    min-height: 44px; padding: 8px 16px; background: var(--blanco); border: 2px solid var(--azul);
+    font-weight: 700; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; color: var(--azul);
+  }
+  .chip span { font-weight: 400; margin-left: 4px; }
+  .chip[aria-pressed="true"] { background: var(--azul); color: var(--blanco); }
+  .chip:hover:not([aria-pressed="true"]) { background: var(--gris-niebla); }
+
+  .gal-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-flow: dense; gap: 10px; }
+  .gal-item.is-wide { grid-column: span 2; grid-row: span 2; }
+  .gal-item[hidden] { display: none; }
+  .gal-card { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: var(--gris-niebla); overflow: hidden; }
+  .gal-card :global(img) { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; }
+  .gal-title {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; background: var(--azul); color: var(--blanco);
+    font-weight: 600; font-size: 15px; line-height: 1.3; text-align: left;
+    transform: translateY(100%); transition: transform .25s ease;
+  }
+  .gal-card:hover .gal-title, .gal-card:focus-visible .gal-title { transform: none; }
+  @media (hover: none) { .gal-title { transform: none; font-size: 13px; padding: 6px 8px; } }
+
+  .gal-videos { margin-top: clamp(56px, 7vw, 88px); }
+  .gv-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 20px; border-top: 2px solid var(--azul); padding-top: 18px; }
+  .gv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .gv-grid.is-single { grid-template-columns: minmax(0, 880px); }
+
+  @media (max-width: 900px) { .gal-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) {
+    .gal-grid { grid-template-columns: repeat(2, 1fr); }
+    .gv-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>("[data-gal-filter]");
+  const items = document.querySelectorAll<HTMLElement>(".gal-item");
+  chips.forEach((chip) => chip.addEventListener("click", () => {
+    const f = chip.dataset.galFilter;
+    chips.forEach((c) => c.setAttribute("aria-pressed", String(c === chip)));
+    items.forEach((it) => { it.hidden = f !== "todas" && it.dataset.cat !== f; });
+  }));
+</script>

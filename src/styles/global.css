@@ -1,0 +1,173 @@
+/* ==========================================================================
+   UDD Tunnel Lab · B.I.C.H.O — sistema visual
+   Fuente: Manual de identidad corporativa B.I.C.H.O by Tunnel Lab.
+   Reglas: colores sólidos y contrastes fuertes, sin degradados, sombras ni
+   esquinas redondeadas; títulos en Russo One (mayúsculas), textos en Blinker;
+   el naranjo nunca se usa para texto pequeño sobre blanco.
+   ========================================================================== */
+
+:root {
+  /* Principales */
+  --azul: #010d63;          /* Azul marino */
+  --naranjo: #ef8b01;       /* Naranjo */
+  --blanco: #ffffff;
+  --negro: #000000;
+  /* Secundarios */
+  --azul-intenso: #04137a;
+  --naranjo-claro: #ffa21f;
+  --gris-acero: #b3b6bf;
+  --gris-claro: #dadada;
+  --gris-niebla: #e8e9f1;
+  --texto: #2e3348;         /* texto de párrafo sobre blanco */
+
+  --font-display: "Russo One", "Arial Black", sans-serif;
+  --font-body: "Blinker", "Segoe UI", system-ui, sans-serif;
+
+  --max: 1240px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --nav-h: 68px;
+  --section-y: clamp(72px, 10vw, 136px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--blanco);
+  color: var(--azul);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, video, svg { display: block; max-width: 100%; }
+img { height: auto; }
+[hidden] { display: none !important; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+p { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-weight: 400; }
+
+:focus-visible { outline: 3px solid var(--naranjo); outline-offset: 3px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.skip-link {
+  position: absolute; left: 16px; top: -100px; z-index: 200;
+  background: var(--naranjo); color: var(--azul); padding: 12px 18px; font-weight: 800; text-decoration: none;
+}
+.skip-link:focus { top: 12px; }
+
+.container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--section-y); position: relative; }
+
+/* Fondos */
+.bg-azul { background: var(--azul); color: var(--blanco); }
+.bg-niebla { background: var(--gris-niebla); }
+.bg-naranjo { background: var(--naranjo); color: var(--azul); }
+.bg-negro { background: var(--negro); color: var(--blanco); }
+
+/* ---------- Tipografía ---------- */
+.display, .h1, .h2, .h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+}
+.h1 { font-size: clamp(2.6rem, 7.2vw, 6.2rem); line-height: 0.98; }
+.h2 { font-size: clamp(2.1rem, 5vw, 4.1rem); line-height: 1.02; color: var(--negro); }
+.bg-azul .h2, .bg-negro .h2 { color: var(--blanco); }
+.bg-naranjo .h2 { color: var(--azul); }
+.h3 { font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.1; }
+.lead { font-size: clamp(1.1rem, 1.6vw, 1.35rem); line-height: 1.5; color: var(--texto); }
+.bg-azul .lead, .bg-negro .lead { color: var(--gris-claro); }
+.copy { color: var(--texto); }
+.copy p + p { margin-top: 1em; }
+.bg-azul .copy { color: var(--gris-claro); }
+.accent { color: var(--naranjo); }
+.bg-naranjo .accent { color: var(--blanco); }
+
+/* Etiqueta tipo "pestaña" del manual: bloque azul con texto blanco */
+.tag-bar {
+  justify-self: start; align-self: start; width: fit-content;
+  display: inline-flex; align-items: center; gap: 12px;
+  min-height: 40px; padding: 6px 18px;
+  background: var(--azul); color: var(--blanco);
+  font-weight: 800; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.bg-azul .tag-bar, .bg-negro .tag-bar { background: var(--naranjo); color: var(--azul); }
+.bg-naranjo .tag-bar { background: var(--azul); color: var(--blanco); }
+
+.kicker {
+  font-weight: 800; font-size: 14px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--texto);
+}
+.bg-azul .kicker, .bg-negro .kicker { color: var(--naranjo-claro); }
+
+/* Viñetas cuadradas naranjas */
+.bullets { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.bullets li { position: relative; padding-left: 22px; }
+.bullets li::before {
+  content: ""; position: absolute; left: 0; top: 0.6em; width: 9px; height: 9px; background: var(--naranjo);
+}
+
+.square { display: inline-block; width: 0.42em; height: 0.42em; background: var(--naranjo); vertical-align: baseline; }
+
+/* ---------- Botones (rectos, sin sombras) ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 12px 26px;
+  border: 2px solid transparent; border-radius: 0;
+  font-family: var(--font-body); font-weight: 800; font-size: 17px; letter-spacing: 0.04em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  transition: background-color .18s, color .18s, border-color .18s;
+}
+.btn-naranjo { background: var(--naranjo); color: var(--azul); }
+.btn-naranjo:hover { background: var(--naranjo-claro); }
+.btn-azul { background: var(--azul); color: var(--blanco); }
+.btn-azul:hover { background: var(--azul-intenso); }
+.btn-borde { border-color: currentColor; background: transparent; }
+.btn-borde:hover { background: var(--azul); color: var(--blanco); border-color: var(--azul); }
+.bg-azul .btn-borde:hover, .bg-negro .btn-borde:hover, .hero .btn-borde:hover { background: var(--blanco); color: var(--azul); border-color: var(--blanco); }
+.btn[disabled], .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+
+.link-arrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; text-decoration: none;
+  border-bottom: 3px solid var(--naranjo); padding-bottom: 4px;
+}
+.link-arrow:hover { color: var(--naranjo); }
+.bg-niebla .link-arrow:hover, .section:not(.bg-azul):not(.bg-negro) .link-arrow:hover { color: var(--azul-intenso); }
+
+/* ---------- Tratamiento de imagen ---------- */
+/* Fotos de contexto en blanco y negro; recuperan su color al pasar el mouse o con foco. */
+.bn img, img.bn, .bn video, video.bn { filter: grayscale(1) contrast(1.06); transition: filter .35s ease; }
+.bn:hover img, .bn:focus-visible img, img.bn:hover { filter: none; }
+@media (hover: none) { .bn img, img.bn { filter: grayscale(1) contrast(1.06); } }
+
+/* Encabezado de sección estándar */
+.section-head { display: grid; gap: 22px; margin-bottom: clamp(36px, 5vw, 64px); max-width: 900px; }
+
+/* Header de bloque con número gigante (asimetría controlada) */
+.big-num {
+  font-family: var(--font-display); font-size: clamp(5rem, 14vw, 12rem); line-height: .8;
+  color: var(--gris-niebla); user-select: none;
+}
+
+/* Diálogos */
+dialog { border: 0; padding: 0; border-radius: 0; max-width: none; max-height: none; }
+dialog::backdrop { background: rgb(1 13 99 / .88); }
+
+/* Utilidades */
+.stack-s > * + * { margin-top: 12px; }
+.stack-m > * + * { margin-top: 24px; }
+.stack-l > * + * { margin-top: 40px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

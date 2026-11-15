@@ -1,0 +1,85 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image, getImage } from "astro:assets";
+import { getImagen } from "../lib/galeria";
+import taller from "../assets/bitacora/prototipo-modulos-ensamblados.jpg";
+import siluetaRaw from "../assets/brand/bicho-silueta.svg?raw";
+
+const render = getImagen("render-cad-bicho.jpg");
+const diagrama = getImagen("diagrama-direccion.jpg");
+const full = async (src: ImageMetadata) => (await getImage({ src, width: 1600, format: "webp" })).src;
+const [renderFull, diagramaFull, tallerFull] = await Promise.all([full(render), full(diagrama), full(taller)]);
+
+// Silueta del Bicho como fragmento ampliado (recurso permitido por el manual), en azul intenso.
+const silueta = siluetaRaw
+  .replace(/fill="#E8E9F1"/gi, 'fill="#04137A"')
+  .replace("<svg ", '<svg aria-hidden="true" focusable="false" class="prop-bicho" ');
+
+const acronimo = [["B", "Big"], ["I", "Intelligent"], ["C", "Chilean"], ["H", "Hole"], ["O", "Opener"]];
+---
+<section id="propuesta" class="section propuesta bg-azul" aria-labelledby="propuesta-title">
+  <Fragment set:html={silueta} />
+  <div class="container prop-grid">
+    <div class="prop-copy">
+      <span class="tag-bar">02 · Nuestra propuesta</span>
+      <h2 id="propuesta-title" class="prop-title">B.I.C.H.O</h2>
+      <ul class="acronimo" aria-label="Big Intelligent Chilean Hole Opener">
+        {acronimo.map(([l, w]) => (<li><span class="ac-l">{l}</span><i class="sq"></i><span class="ac-w">{w}</span></li>))}
+      </ul>
+      <p class="lead">Una micro-tuneladora modular, instrumentada y testeable. Hoy estamos en etapa preliminar: evaluando arquitecturas y preparando el primer boceto formal para presentarlo a los organizadores de la competencia.</p>
+      <p class="copy">Cada subsistema es un frente de trabajo abierto: un equipo de estudiantes, un profesor guía y —cuando la ingeniería lo pide— una empresa aliada aportando conocimiento, componentes o fabricación.</p>
+      <a class="link-arrow" href="#avances">Ver estado de cada subsistema <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="prop-media">
+      <button type="button" class="pm-main" data-lb-group="propuesta" data-lb-src={renderFull} data-lb-title="Modelo CAD de la arquitectura preliminar de B.I.C.H.O">
+        <Image src={render} alt="Modelo CAD de la arquitectura preliminar de B.I.C.H.O" widths={[640, 960, 1280]} sizes="(max-width: 900px) 92vw, 640px" />
+        <span class="pm-cap">Modelo CAD · arquitectura preliminar</span>
+      </button>
+      <div class="pm-sub">
+        <button type="button" class="pm-item bn" data-lb-group="propuesta" data-lb-src={tallerFull} data-lb-title="Taller: módulos de oruga del prototipo de tracción">
+          <Image src={taller} alt="Módulos de oruga del prototipo ensamblados en el taller" widths={[360, 640]} sizes="(max-width: 900px) 45vw, 320px" />
+          <span class="pm-cap">Taller · módulos de tracción</span>
+        </button>
+        <button type="button" class="pm-item pm-diagram" data-lb-group="propuesta" data-lb-src={diagramaFull} data-lb-title="Diagrama del sistema de dirección: giro de ±10°">
+          <Image src={diagrama} alt="Diagrama del sistema de dirección con motores A y B y anillo de giro de ±10°" widths={[360, 640]} sizes="(max-width: 900px) 45vw, 320px" />
+          <span class="pm-cap">Diagrama · dirección ±10°</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .propuesta { overflow: hidden; }
+  .propuesta :global(.prop-bicho) {
+    position: absolute; left: -120px; bottom: -260px; width: 520px; height: auto; pointer-events: none; transform: rotate(-12deg);
+  }
+  .prop-grid { position: relative; display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px 72px; align-items: start; }
+  .prop-copy { display: grid; gap: 24px; align-content: start; }
+  .prop-title { font-family: var(--font-display); font-size: clamp(4rem, 11vw, 8.5rem); line-height: .85; letter-spacing: .02em; }
+  .acronimo { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+  .acronimo li { display: inline-flex; align-items: baseline; gap: 8px; }
+  .ac-l { font-family: var(--font-display); font-size: 22px; }
+  .ac-w { font-weight: 600; font-size: 18px; color: var(--gris-claro); }
+  .sq { display: inline-block; width: 8px; height: 8px; background: var(--naranjo); }
+
+  .prop-media { display: grid; gap: 12px; }
+  .pm-main, .pm-item { position: relative; display: block; width: 100%; padding: 0; border: 0; background: var(--negro); overflow: hidden; text-align: left; }
+  .pm-main :global(img) { width: 100%; height: auto; aspect-ratio: 1280 / 493; object-fit: cover; }
+  .pm-sub { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pm-item :global(img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .pm-diagram { background: var(--blanco); }
+  .pm-diagram :global(img) { object-fit: contain; padding: 10px; }
+  .pm-cap {
+    position: absolute; left: 0; bottom: 0; padding: 6px 12px; background: var(--azul); color: var(--blanco);
+    font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .pm-main .pm-cap { background: var(--naranjo); color: var(--azul); }
+
+  @media (max-width: 900px) {
+    .prop-grid { grid-template-columns: 1fr; }
+    .pm-cap { font-size: 12px; padding: 4px 8px; }
+    .propuesta :global(.prop-bicho) { width: 320px; left: auto; right: -110px; bottom: -150px; }
+  }
+</style>

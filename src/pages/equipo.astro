@@ -1,0 +1,257 @@
+---
+import { Image, getImage } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { SITE } from "../config/site";
+import { getMiembros, getFrentes } from "../lib/miembros";
+import bichoGris from "../assets/brand/bicho-blanco.png";
+
+const miembros = await Promise.all(
+  getMiembros().map(async (m) => ({
+    ...m,
+    fotoGrande: m.foto ? (await getImage({ src: m.foto, width: 700, format: "webp" })).src : null,
+  })),
+);
+const frentes = getFrentes(miembros);
+const carreras = new Set(miembros.flatMap((m) => m.carreras)).size;
+const conRostro = miembros.filter((m) => m.foto).length;
+const proximaFicha = String(miembros.length + 1).padStart(2, "0");
+const placeholder = (await getImage({ src: bichoGris, width: 200, format: "png" })).src;
+
+const links = [
+  { href: "#frentes", label: "Frentes" },
+  { href: "#sumarse", label: "Sumarse" },
+  { href: "/", label: "Volver al sitio" },
+];
+---
+<Base
+  title="Equipo — UDD Tunnel Lab"
+  description={`Las ${SITE.totalEquipo} personas construyendo B.I.C.H.O: el equipo interdisciplinario de UDD Tunnel Lab.`}
+  path="/equipo"
+>
+  <Nav slot="header" links={links} homeHref="/" meta={`${miembros.length} fichas · ${carreras} carreras · ${frentes.length} frentes`} />
+
+  <section class="eq-hero bg-azul" aria-labelledby="eq-title">
+    <div class="container eq-hero-grid">
+      <div class="stack-m">
+        <span class="tag-bar">Archivo del equipo · Registro 001</span>
+        <h1 id="eq-title" class="h1">Las {SITE.totalEquipo} personas construyendo <span class="accent">B.I.C.H.O</span></h1>
+      </div>
+      <p class="lead">Nombre, carrera y frase propia de cada integrante. {miembros.length} fichas publicadas; el resto del equipo se suma pronto.</p>
+    </div>
+  </section>
+
+  <section id="frentes" class="filters" aria-label="Filtrar por frente">
+    <div class="container filters-row">
+      <span class="kicker">Filtrar por frente</span>
+      <div class="chips" role="group" aria-label="Frentes de trabajo">
+        <button type="button" class="chip" data-frente="Todos" aria-pressed="true">Todos</button>
+        {frentes.map((f) => <button type="button" class="chip" data-frente={f} aria-pressed="false">{f}</button>)}
+      </div>
+      <span class="filters-count" data-count aria-live="polite">{miembros.length} fichas</span>
+    </div>
+  </section>
+
+  <section class="roster-section" aria-label="Integrantes">
+    <div class="container">
+      <ul class="roster">
+        {miembros.map((m, i) => (
+          <li class="person" data-frentes={m.frentes.join("|")}>
+            <button type="button" class="person-card" data-person={i} aria-haspopup="dialog">
+              <span class="p-photo">
+                {m.foto
+                  ? <Image src={m.foto} alt="" widths={[300, 480]} sizes="(max-width: 560px) 46vw, (max-width: 1000px) 31vw, 280px" loading="lazy" />
+                  : <span class="p-ph"><img src={placeholder} alt="" /></span>}
+                <span class="p-num">{m.num}</span>
+              </span>
+              <span class="p-body">
+                <span class="p-name">{m.nombre}</span>
+                <span class="p-carrera">{m.carreras.join(" · ")}</span>
+                <span class="p-frentes">{m.frentes.map((f) => <span class="frente-tag">{f}</span>)}</span>
+                <span class="p-frase">«{m.frase}»</span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="sumarse" class="section sumarse bg-naranjo" aria-labelledby="sumarse-title">
+    <div class="container sum-grid">
+      <div class="stack-m">
+        <span class="tag-bar">Ficha {proximaFicha}</span>
+        <h2 id="sumarse-title" class="h2">Falta tu rostro en esta pared.</h2>
+        <p class="sum-copy">Cualquier carrera, cualquier año. Solo {conRostro} de las {SITE.totalEquipo} personas del equipo tienen ficha con rostro por ahora. Si te interesa excavar el primer túnel sudamericano de la competencia, hay un frente esperándote.</p>
+      </div>
+      <div class="sum-actions">
+        <a class="btn btn-azul" href={SITE.formularioInscripcion} target="_blank" rel="noopener">Inscribirme al equipo <span aria-hidden="true">→</span></a>
+        <a class="btn btn-borde" href="/#socios">Soy empresa, quiero aportar</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" note="Archivo del equipo · Registro 001" backHref="/" backLabel="← Volver al sitio" />
+
+  <dialog class="person-modal" data-person-modal aria-labelledby="pm-nombre">
+    <div class="pm-card">
+      <button type="button" class="pm-close" data-pm-close>Cerrar <span aria-hidden="true">✕</span></button>
+      <div class="pm-photo" data-pm-photo></div>
+      <div class="pm-body">
+        <span class="pm-num" data-pm-num></span>
+        <h2 id="pm-nombre" class="pm-nombre" data-pm-nombre></h2>
+        <p class="p-carrera" data-pm-carrera></p>
+        <div class="p-frentes" data-pm-frentes></div>
+        <p class="pm-frase" data-pm-frase></p>
+        <p class="pm-desc" data-pm-desc></p>
+        <div class="pm-contact" data-pm-contact></div>
+      </div>
+    </div>
+  </dialog>
+
+  <script is:inline type="application/json" id="miembros-data" set:html={JSON.stringify(miembros.map((m) => ({
+    num: m.num, nombre: m.nombre, carreras: m.carreras, frentes: m.frentes, frase: m.frase,
+    descripcion: m.descripcion, linkedin: m.linkedin, correo: m.correo, foto: m.fotoGrande,
+  }))).replace(/</g, "\\u003c")} />
+</Base>
+
+<style>
+  .eq-hero { padding-block: clamp(56px, 8vw, 104px); }
+  .eq-hero-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px 64px; align-items: end; }
+  .eq-hero .h1 { font-size: clamp(2.4rem, 6vw, 5.2rem); }
+
+  .filters { position: sticky; top: var(--nav-h); z-index: 50; background: var(--blanco); border-bottom: 2px solid var(--azul); }
+  .filters-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-block: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    min-height: 44px; padding: 6px 14px; background: var(--blanco); border: 2px solid var(--azul); color: var(--azul);
+    font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
+  }
+  .chip[aria-pressed="true"] { background: var(--azul); color: var(--blanco); }
+  .chip:hover:not([aria-pressed="true"]) { background: var(--gris-niebla); }
+  .filters-count { margin-left: auto; font-weight: 800; }
+
+  .roster-section { padding-block: 40px 96px; }
+  .roster { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .person[hidden] { display: none; }
+  .person-card { display: flex; flex-direction: column; width: 100%; height: 100%; padding: 0; border: 0; background: var(--gris-niebla); text-align: left; }
+  .person-card:hover { background: var(--gris-claro); }
+  .p-photo { position: relative; display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--azul); }
+  .p-photo :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .p-ph { display: grid; place-items: center; width: 100%; height: 100%; }
+  .p-ph img { width: 30% !important; height: auto !important; opacity: .35; }
+  .p-num { position: absolute; left: 0; bottom: 0; padding: 4px 10px; background: var(--naranjo); color: var(--azul); font-family: var(--font-display); font-size: 16px; }
+  .p-body { display: grid; gap: 8px; padding: 16px 16px 20px; }
+  .p-name { font-weight: 800; font-size: 19px; line-height: 1.2; color: var(--azul); }
+  .p-carrera { font-size: 15px; color: var(--texto); }
+  .p-frentes { display: flex; flex-wrap: wrap; gap: 4px; }
+  .frente-tag, :global(.frente-tag) { display: inline-block; padding: 2px 8px; border: 1.5px solid var(--azul); font-weight: 700; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--azul); }
+  .p-frase { font-size: 16px; color: var(--texto); font-style: italic; }
+
+  .sum-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px 64px; align-items: end; }
+  .sum-copy { color: var(--azul); font-size: 19px; }
+  .sum-actions { display: grid; gap: 12px; }
+
+  .person-modal { width: min(920px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); background: var(--blanco); color: var(--azul); overflow: auto; }
+  .pm-card { display: grid; grid-template-columns: 340px 1fr; position: relative; }
+  .pm-close { position: absolute; right: 0; top: 0; z-index: 2; min-height: 48px; padding: 8px 16px; background: var(--azul); color: var(--blanco); border: 0; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  .pm-close:hover { background: var(--naranjo); color: var(--azul); }
+  .pm-photo { background: var(--azul); min-height: 360px; }
+  .pm-photo :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .pm-photo :global(.p-ph) { min-height: 360px; }
+  .pm-body { padding: 56px 32px 32px; display: grid; gap: 12px; align-content: start; }
+  .pm-num { font-family: var(--font-display); color: var(--naranjo); font-size: 18px; }
+  .pm-nombre { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.05; text-transform: uppercase; }
+  .pm-frase { font-weight: 700; font-size: 19px; border-left: 4px solid var(--naranjo); padding-left: 14px; }
+  .pm-desc { color: var(--texto); }
+  .pm-desc.is-pending { font-style: italic; color: var(--texto); }
+  .pm-contact { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .pm-contact :global(a) { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px; border: 2px solid var(--azul); font-weight: 800; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
+  .pm-contact :global(a:hover) { background: var(--azul); color: var(--blanco); }
+
+  @media (max-width: 1000px) { .roster { grid-template-columns: repeat(3, 1fr); } .eq-hero-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 720px) {
+    .roster { grid-template-columns: repeat(2, 1fr); }
+    .pm-card { grid-template-columns: 1fr; }
+    .pm-photo { min-height: 0; aspect-ratio: 4 / 3; }
+    .sum-grid { grid-template-columns: 1fr; }
+    .filters { position: static; }
+    .filters-count { margin-left: 0; }
+  }
+  @media (max-width: 400px) { .p-name { font-size: 17px; } .p-body { padding: 12px; } }
+</style>
+
+<script>
+  interface M { num: string; nombre: string; carreras: string[]; frentes: string[]; frase: string; descripcion: string | null; linkedin: string | null; correo: string | null; foto: string | null }
+  const data: M[] = JSON.parse(document.getElementById("miembros-data")!.textContent!);
+
+  // Filtros
+  const chips = document.querySelectorAll<HTMLButtonElement>("[data-frente]");
+  const people = document.querySelectorAll<HTMLElement>(".person");
+  const count = document.querySelector<HTMLElement>("[data-count]")!;
+  chips.forEach((chip) => chip.addEventListener("click", () => {
+    const f = chip.dataset.frente!;
+    chips.forEach((c) => c.setAttribute("aria-pressed", String(c === chip)));
+    let n = 0;
+    people.forEach((p) => {
+      const show = f === "Todos" || p.dataset.frentes!.split("|").includes(f);
+      p.hidden = !show;
+      if (show) n++;
+    });
+    count.textContent = `${n} ${n === 1 ? "ficha" : "fichas"}`;
+  }));
+
+  // Ficha ampliada
+  const modal = document.querySelector<HTMLDialogElement>("[data-person-modal]")!;
+  const $ = (k: string) => modal.querySelector<HTMLElement>(`[data-pm-${k}]`)!;
+  const text = (s: string) => { const span = document.createElement("span"); span.textContent = s; return span; };
+  const icon = (d: string) => `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${d}"/></svg>`;
+  const LI = "M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z";
+  const MAIL = "M2 4h20v16H2V4zm2 2.24V18h16V6.24l-8 5.99-8-5.99zM4.5 6l7.5 5.63L19.5 6h-15z";
+  let opener: HTMLElement | null = null;
+
+  const open = (i: number, from: HTMLElement) => {
+    const m = data[i];
+    opener = from;
+    const photo = $("photo");
+    photo.replaceChildren();
+    if (m.foto) {
+      const img = document.createElement("img");
+      img.src = m.foto; img.alt = m.nombre;
+      photo.append(img);
+    } else {
+      const ph = from.querySelector(".p-ph");
+      if (ph) photo.append(ph.cloneNode(true));
+    }
+    $("num").textContent = `Ficha ${m.num}`;
+    $("nombre").textContent = m.nombre;
+    $("carrera").textContent = m.carreras.join(" · ");
+    $("frentes").replaceChildren(...m.frentes.map((f) => { const s = text(f); s.className = "frente-tag"; return s; }));
+    $("frase").textContent = `«${m.frase}»`;
+    const desc = $("desc");
+    desc.textContent = m.descripcion ?? "La descripción pronto se subirá.";
+    desc.classList.toggle("is-pending", !m.descripcion);
+    const contact = $("contact");
+    contact.replaceChildren();
+    if (m.linkedin) {
+      const a = document.createElement("a");
+      a.href = m.linkedin; a.target = "_blank"; a.rel = "noopener";
+      a.innerHTML = icon(LI); a.append(text("LinkedIn"));
+      contact.append(a);
+    }
+    if (m.correo) {
+      const a = document.createElement("a");
+      a.href = `mailto:${m.correo}`;
+      a.innerHTML = icon(MAIL); a.append(text(m.correo));
+      contact.append(a);
+    }
+    modal.showModal();
+  };
+
+  document.querySelectorAll<HTMLButtonElement>("[data-person]").forEach((b) =>
+    b.addEventListener("click", () => open(Number(b.dataset.person), b)));
+  modal.querySelector("[data-pm-close]")!.addEventListener("click", () => modal.close());
+  modal.addEventListener("click", (e) => { if (e.target === modal) modal.close(); });
+  modal.addEventListener("close", () => opener?.focus());
+</script>

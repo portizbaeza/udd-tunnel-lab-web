@@ -1,0 +1,111 @@
+---
+import { Image } from "astro:assets";
+import logoNegativo from "../assets/brand/logo-negativo.png";
+import uddBlanco from "../assets/brand/udd-blanco.png";
+
+interface Link { href: string; label: string; external?: boolean }
+interface Props {
+  links: Link[];
+  cta?: Link;
+  homeHref?: string;
+  meta?: string;
+}
+const { links, cta, homeHref = "#inicio", meta } = Astro.props;
+---
+<header class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href={homeHref} aria-label="B.I.C.H.O by Tunnel Lab · Universidad del Desarrollo, ir al inicio">
+      <Image src={logoNegativo} alt="" class="nav-logo" width={400} loading="eager" />
+      <span class="nav-sep" aria-hidden="true"></span>
+      <Image src={uddBlanco} alt="" class="nav-udd" width={220} loading="eager" />
+    </a>
+
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-panel">
+      <span class="sr-only">Abrir menú</span>
+      <span class="bar" aria-hidden="true"></span><span class="bar" aria-hidden="true"></span><span class="bar" aria-hidden="true"></span>
+    </button>
+
+    <div class="nav-panel" id="nav-panel">
+      <nav aria-label="Principal">
+        <ul class="nav-links">
+          {links.map((l) => (
+            <li><a href={l.href}>{l.label}{l.external && <span aria-hidden="true" class="ext">↗</span>}</a></li>
+          ))}
+        </ul>
+      </nav>
+      {meta && <span class="nav-meta">{meta}</span>}
+      {cta && <a class="btn btn-naranjo nav-cta" href={cta.href}>{cta.label}</a>}
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--azul); color: var(--blanco);
+    border-bottom: 1px solid var(--azul-intenso);
+  }
+  .nav-inner {
+    max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter);
+    height: var(--nav-h); display: flex; align-items: center; gap: 24px;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 14px; text-decoration: none; flex: none; }
+  .nav-brand :global(.nav-logo) { width: 196px; height: auto; }
+  .nav-brand :global(.nav-udd) { width: 104px; height: auto; }
+  .nav-sep { width: 1px; height: 30px; background: var(--gris-acero); }
+
+  .nav-panel { margin-left: auto; display: flex; align-items: center; gap: 22px; }
+  .nav-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 22px; }
+  .nav-links a {
+    text-decoration: none; font-weight: 700; font-size: 16px; letter-spacing: 0.04em; text-transform: uppercase;
+    padding-block: 6px; border-bottom: 3px solid transparent;
+  }
+  .nav-links a:hover { border-bottom-color: var(--naranjo); }
+  .ext { font-size: 12px; margin-left: 4px; }
+  .nav-meta { font-weight: 600; font-size: 15px; color: var(--gris-claro); white-space: nowrap; }
+  .nav-cta { min-height: 44px; padding: 8px 20px; font-size: 15px; }
+
+  .nav-toggle {
+    display: none; margin-left: auto; width: 48px; height: 48px; background: transparent; border: 0;
+    flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+  }
+  .nav-toggle .bar { width: 26px; height: 3px; background: var(--blanco); transition: transform .2s, opacity .2s; }
+  .nav-toggle[aria-expanded="true"] .bar:nth-of-type(1) { transform: translateY(9px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .bar:nth-of-type(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] .bar:nth-of-type(3) { transform: translateY(-9px) rotate(-45deg); }
+
+  @media (max-width: 1080px) {
+    .nav-toggle { display: flex; }
+    .nav-panel {
+      display: none; position: absolute; left: 0; right: 0; top: var(--nav-h);
+      background: var(--azul); border-top: 1px solid var(--azul-intenso);
+      flex-direction: column; align-items: stretch; gap: 0; padding: 8px var(--gutter) 24px;
+    }
+    .nav-panel.is-open { display: flex; }
+    .nav-links { flex-direction: column; gap: 0; }
+    .nav-links a { display: block; padding: 14px 0; border-bottom: 1px solid var(--azul-intenso); font-size: 18px; }
+    .nav-meta { padding: 14px 0; }
+    .nav-cta { margin-top: 16px; }
+  }
+  @media (max-width: 420px) {
+    .nav-brand :global(.nav-logo) { width: 132px; }
+    .nav-brand :global(.nav-udd) { width: 64px; }
+    .nav-brand { gap: 10px; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>(".nav-toggle").forEach((toggle) => {
+    const panel = document.getElementById(toggle.getAttribute("aria-controls") ?? "");
+    if (!panel) return;
+    const label = toggle.querySelector(".sr-only");
+    const set = (open: boolean) => {
+      panel.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      if (label) label.textContent = open ? "Cerrar menú" : "Abrir menú";
+    };
+    toggle.addEventListener("click", () => set(!panel.classList.contains("is-open")));
+    panel.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => set(false)));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
+  });
+</script>

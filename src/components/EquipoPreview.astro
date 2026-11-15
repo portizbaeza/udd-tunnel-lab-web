@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import { SITE } from "../config/site";
+import { getMiembros } from "../lib/miembros";
+
+const miembros = getMiembros();
+const destacados = [
+  { slug: "daniel-merino", nombre: "Daniel Merino Dezar", rol: "Gestión y sponsors · Software", texto: "Gestión de sponsors, software y control del proyecto." },
+  { slug: "vicente-seckel", nombre: "Vicente Seckel", rol: "Software y control", texto: "Codificador en Python que busca grandes desafíos." },
+  { slug: "maria-fernanda-zuniga-hernandez", nombre: "María Fernanda Zúñiga", rol: "Gestión y sponsors · Casing/Soporte", texto: "Ingeniería en Obras Civiles, gestión y soporte estructural." },
+].map((d) => ({ ...d, foto: miembros.find((m) => m.slug === d.slug)?.foto ?? null }));
+const conRostro = miembros.filter((m) => m.foto).length;
+---
+<section id="equipo" class="section equipo" aria-labelledby="equipo-title">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag-bar">05 · Equipo</span>
+      <h2 id="equipo-title" class="h2">Interdisciplinario por diseño, no por accidente.</h2>
+    </div>
+    <ul class="eq-grid">
+      {destacados.map((d) => (
+        <li class="member">
+          <div class="m-photo">
+            {d.foto ? <Image src={d.foto} alt={d.nombre} widths={[320, 520]} sizes="(max-width: 600px) 90vw, 290px" loading="lazy" /> : <span class="m-ph" aria-hidden="true"></span>}
+          </div>
+          <div class="m-body">
+            <h3>{d.nombre}</h3>
+            <span class="m-role">{d.rol}</span>
+            <p>{d.texto}</p>
+          </div>
+        </li>
+      ))}
+      <li class="member m-more bg-azul">
+        <span class="m-value">{SITE.totalEquipo}</span>
+        <p>integrantes en el equipo, <strong>{conRostro} ya con rostro</strong> y frase propia.</p>
+        <a class="link-arrow" href="/equipo">Ver el equipo completo <span aria-hidden="true">→</span></a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .eq-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .member { display: flex; flex-direction: column; background: var(--gris-niebla); }
+  .m-photo { aspect-ratio: 4 / 5; overflow: hidden; background: var(--gris-claro); }
+  .m-photo :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .m-body { padding: 18px 18px 22px; display: grid; gap: 6px; }
+  .m-body h3 { font-weight: 800; font-size: 20px; line-height: 1.2; }
+  .m-role { font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--azul-intenso); }
+  .m-body p { color: var(--texto); font-size: 16px; }
+  .m-more { padding: 28px 24px; justify-content: flex-end; gap: 16px; background: var(--azul); color: var(--blanco); }
+  .m-value { font-family: var(--font-display); font-size: clamp(5rem, 9vw, 7.5rem); line-height: .85; color: var(--naranjo); }
+  .m-more p { color: var(--gris-claro); }
+  .m-more strong { color: var(--blanco); }
+  .m-more .link-arrow { align-self: flex-start; }
+  @media (max-width: 1000px) { .eq-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .eq-grid { grid-template-columns: 1fr; } }
+</style>
