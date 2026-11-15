@@ -159,6 +159,18 @@ h1, h2, h3, h4 { margin: 0; font-weight: 400; }
   color: var(--gris-niebla); user-select: none;
 }
 
+/* Chips de filtro (Galería, Equipo) */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  min-height: 44px; padding: 8px 16px; background: var(--blanco); border: 2px solid var(--azul); color: var(--azul);
+  font-weight: 700; font-size: 15px; letter-spacing: .04em; text-transform: uppercase;
+}
+.chip[aria-pressed="true"] { background: var(--azul); color: var(--blanco); }
+.chip:hover:not([aria-pressed="true"]) { background: var(--gris-niebla); }
+
+/* Aviso visual de enlace que abre pestaña nueva */
+.ext { font-size: .8em; margin-left: 4px; }
+
 /* Diálogos */
 dialog { border: 0; padding: 0; border-radius: 0; max-width: none; max-height: none; }
 dialog::backdrop { background: rgb(1 13 99 / .88); }

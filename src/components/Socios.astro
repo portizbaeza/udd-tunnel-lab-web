@@ -10,12 +10,12 @@ const beneficios = [
 <section id="socios" class="section socios bg-azul" aria-labelledby="socios-title">
   <div class="container soc-grid">
     <div class="soc-copy">
-      <span class="tag-bar">04 · Socios del proyecto</span>
+      <span class="tag-bar">05 · Socios del proyecto</span>
       <h2 id="socios-title" class="h2">No buscamos un logo en una polera. <span class="accent">Buscamos socios de ingeniería.</span></h2>
       <p class="lead">Una empresa puede financiar un subsistema completo, aportar materiales, mecanizado, software, sensores, asesoría técnica, campo de pruebas o logística hacia Texas. En cambio obtiene contacto temprano con talento, un desafío técnico real donde probar sus capacidades y presencia en un proyecto chileno con proyección internacional.</p>
       <div class="soc-actions">
-        <a class="btn btn-naranjo" href="#contacto">Conversemos</a>
-        <a class="btn btn-borde" href="#contacto">Solicitar dossier (PDF)</a>
+        <a class="btn btn-naranjo" href="#contacto" data-motivo="socio">Quiero ser socio</a>
+        <p class="soc-hint">Te respondemos con el dossier del proyecto y una propuesta de colaboración.</p>
       </div>
     </div>
     <ul class="soc-benefits">
@@ -33,7 +33,8 @@ const beneficios = [
 <style>
   .soc-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px 80px; align-items: start; }
   .soc-copy { display: grid; gap: 28px; }
-  .soc-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .soc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; }
+  .soc-hint { color: var(--gris-claro); font-size: 16px; max-width: 34ch; }
   .soc-benefits { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .benefit { background: var(--azul-intenso); padding: 26px 24px 28px; display: grid; gap: 10px; align-content: start; min-height: 210px; }
   .benefit:nth-child(1) { background: var(--naranjo); color: var(--azul); }

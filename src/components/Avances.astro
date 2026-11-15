@@ -59,6 +59,7 @@ const bitacora = await Promise.all(
           <h3 class="h3">{r.titulo}</h3>
           <time>{r.fecha}</time>
           <p>{r.texto}</p>
+          {r.estado === "blocked" && <a class="rm-cta" href="#socios">Ayúdanos a desbloquearlo <span aria-hidden="true">→</span></a>}
         </article>
       ))}
     </div>
@@ -123,6 +124,8 @@ const bitacora = await Promise.all(
   .rm-blocked .dot { background: var(--negro); }
   .rm-item time { font-weight: 700; color: var(--azul); }
   .rm-item p { color: var(--texto); font-size: 16px; }
+  .rm-cta { justify-self: start; font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; border-bottom: 3px solid var(--naranjo); padding-bottom: 2px; }
+  .rm-cta:hover { color: var(--azul-intenso); }
   .rm-current { background: var(--blanco); padding-left: 18px; }
   .rm-current::before { left: 18px; }
 

@@ -18,19 +18,13 @@ const carreras = new Set(miembros.flatMap((m) => m.carreras)).size;
 const conRostro = miembros.filter((m) => m.foto).length;
 const proximaFicha = String(miembros.length + 1).padStart(2, "0");
 const placeholder = (await getImage({ src: bichoGris, width: 200, format: "png" })).src;
-
-const links = [
-  { href: "#frentes", label: "Frentes" },
-  { href: "#sumarse", label: "Sumarse" },
-  { href: "/", label: "Volver al sitio" },
-];
 ---
 <Base
   title="Equipo — UDD Tunnel Lab"
   description={`Las ${SITE.totalEquipo} personas construyendo B.I.C.H.O: el equipo interdisciplinario de UDD Tunnel Lab.`}
   path="/equipo"
 >
-  <Nav slot="header" links={links} homeHref="/" meta={`${miembros.length} fichas · ${carreras} carreras · ${frentes.length} frentes`} />
+  <Nav slot="header" />
 
   <section class="eq-hero bg-azul" aria-labelledby="eq-title">
     <div class="container eq-hero-grid">
@@ -38,7 +32,10 @@ const links = [
         <span class="tag-bar">Archivo del equipo · Registro 001</span>
         <h1 id="eq-title" class="h1">Las {SITE.totalEquipo} personas construyendo <span class="accent">B.I.C.H.O</span></h1>
       </div>
-      <p class="lead">Nombre, carrera y frase propia de cada integrante. {miembros.length} fichas publicadas; el resto del equipo se suma pronto.</p>
+      <div class="stack-s">
+        <p class="lead">Nombre, carrera y frase propia de cada integrante. Toca una ficha para ver más y contactar.</p>
+        <p class="eq-meta">{miembros.length} fichas · {carreras} carreras · {frentes.length} frentes</p>
+      </div>
     </div>
   </section>
 
@@ -86,7 +83,7 @@ const links = [
         <p class="sum-copy">Cualquier carrera, cualquier año. Solo {conRostro} de las {SITE.totalEquipo} personas del equipo tienen ficha con rostro por ahora. Si te interesa excavar el primer túnel sudamericano de la competencia, hay un frente esperándote.</p>
       </div>
       <div class="sum-actions">
-        <a class="btn btn-azul" href={SITE.formularioInscripcion} target="_blank" rel="noopener">Inscribirme al equipo <span aria-hidden="true">→</span></a>
+        <a class="btn btn-azul" href={SITE.formularioInscripcion} target="_blank" rel="noopener">Inscribirme al equipo <span aria-hidden="true">↗</span><span class="sr-only">(se abre en una pestaña nueva)</span></a>
         <a class="btn btn-borde" href="/#socios">Soy empresa, quiero aportar</a>
       </div>
     </div>
@@ -120,16 +117,10 @@ const links = [
   .eq-hero { padding-block: clamp(56px, 8vw, 104px); }
   .eq-hero-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px 64px; align-items: end; }
   .eq-hero .h1 { font-size: clamp(2.4rem, 6vw, 5.2rem); }
+  .eq-meta { font-weight: 700; color: var(--blanco); letter-spacing: .04em; text-transform: uppercase; font-size: 15px; }
 
   .filters { position: sticky; top: var(--nav-h); z-index: 50; background: var(--blanco); border-bottom: 2px solid var(--azul); }
   .filters-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-block: 14px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip {
-    min-height: 44px; padding: 6px 14px; background: var(--blanco); border: 2px solid var(--azul); color: var(--azul);
-    font-weight: 700; font-size: 14px; letter-spacing: .04em; text-transform: uppercase;
-  }
-  .chip[aria-pressed="true"] { background: var(--azul); color: var(--blanco); }
-  .chip:hover:not([aria-pressed="true"]) { background: var(--gris-niebla); }
   .filters-count { margin-left: auto; font-weight: 800; }
 
   .roster-section { padding-block: 40px 96px; }
@@ -238,6 +229,7 @@ const links = [
       const a = document.createElement("a");
       a.href = m.linkedin; a.target = "_blank"; a.rel = "noopener";
       a.innerHTML = icon(LI); a.append(text("LinkedIn"));
+      const sr = text(" (se abre en una pestaña nueva)"); sr.className = "sr-only"; a.append(sr);
       contact.append(a);
     }
     if (m.correo) {

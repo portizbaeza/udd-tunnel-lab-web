@@ -2,15 +2,18 @@
 import { Image } from "astro:assets";
 import logoNegativo from "../assets/brand/logo-negativo.png";
 import uddBlanco from "../assets/brand/udd-blanco.png";
+import { NAV_LINKS, NAV_CTA } from "../config/site";
 
-interface Link { href: string; label: string; external?: boolean }
+interface Link { href: string; label: string }
 interface Props {
-  links: Link[];
-  cta?: Link;
+  links?: Link[];
+  cta?: Link | null;
   homeHref?: string;
   meta?: string;
 }
-const { links, cta, homeHref = "#inicio", meta } = Astro.props;
+const { links = NAV_LINKS, cta = NAV_CTA, homeHref = "/", meta } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isCurrent = (href: string) => !href.includes("#") && (href.replace(/\/$/, "") || "/") === path;
 ---
 <header class="nav">
   <div class="nav-inner">
@@ -29,7 +32,7 @@ const { links, cta, homeHref = "#inicio", meta } = Astro.props;
       <nav aria-label="Principal">
         <ul class="nav-links">
           {links.map((l) => (
-            <li><a href={l.href}>{l.label}{l.external && <span aria-hidden="true" class="ext">↗</span>}</a></li>
+            <li><a href={l.href} aria-current={isCurrent(l.href) ? "page" : undefined} data-spy={l.href.includes("#") ? l.href.split("#")[1] : undefined}>{l.label}</a></li>
           ))}
         </ul>
       </nav>
@@ -60,8 +63,9 @@ const { links, cta, homeHref = "#inicio", meta } = Astro.props;
     text-decoration: none; font-weight: 700; font-size: 16px; letter-spacing: 0.04em; text-transform: uppercase;
     padding-block: 6px; border-bottom: 3px solid transparent;
   }
-  .nav-links a:hover { border-bottom-color: var(--naranjo); }
-  .ext { font-size: 12px; margin-left: 4px; }
+  .nav-links a:hover { border-bottom-color: var(--gris-acero); }
+  /* "Estás aquí": página actual o sección visible en la home */
+  .nav-links a[aria-current] { border-bottom-color: var(--naranjo); color: var(--blanco); }
   .nav-meta { font-weight: 600; font-size: 15px; color: var(--gris-claro); white-space: nowrap; }
   .nav-cta { min-height: 44px; padding: 8px 20px; font-size: 15px; }
 
@@ -84,6 +88,7 @@ const { links, cta, homeHref = "#inicio", meta } = Astro.props;
     .nav-panel.is-open { display: flex; }
     .nav-links { flex-direction: column; gap: 0; }
     .nav-links a { display: block; padding: 14px 0; border-bottom: 1px solid var(--azul-intenso); font-size: 18px; }
+    .nav-links a[aria-current] { border-bottom-color: var(--azul-intenso); border-left: 4px solid var(--naranjo); padding-left: 12px; }
     .nav-meta { padding: 14px 0; }
     .nav-cta { margin-top: 16px; }
   }
@@ -108,4 +113,25 @@ const { links, cta, homeHref = "#inicio", meta } = Astro.props;
     panel.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => set(false)));
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") set(false); });
   });
+
+  // Scroll-spy: en la página que contiene las secciones, marca en el menú la sección visible.
+  const spyLinks = [...document.querySelectorAll<HTMLAnchorElement>(".nav-links a[data-spy]")];
+  const sections = spyLinks
+    .map((a) => document.getElementById(a.dataset.spy!))
+    .filter((s): s is HTMLElement => !!s);
+  if (sections.length && "IntersectionObserver" in window) {
+    const visible = new Set<string>();
+    const update = () => {
+      const current = sections.find((s) => visible.has(s.id))?.id;
+      spyLinks.forEach((a) => {
+        if (a.dataset.spy === current) a.setAttribute("aria-current", "location");
+        else a.removeAttribute("aria-current");
+      });
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => (e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id)));
+      update();
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    sections.forEach((s) => io.observe(s));
+  }
 </script>

@@ -6,12 +6,12 @@ const { id = "unete" } = Astro.props;
 <section id={id} class="section unete bg-naranjo" aria-labelledby={`${id}-title`}>
   <div class="container un-grid">
     <div class="stack-m">
-      <span class="tag-bar">06 · Únete al equipo</span>
+      <span class="tag-bar">08 · Únete al equipo</span>
       <h2 id={`${id}-title`} class="h2">No necesitas experiencia.<br />Necesitas ganas.</h2>
       <p class="un-copy">Buscamos estudiantes de todas las carreras y todos los años: diseño, fabricación, control, geología, gestión, comunicaciones y búsqueda de sponsors. Hay tareas para cada nivel.</p>
     </div>
     <div class="un-actions">
-      <a class="btn btn-azul un-btn" href={SITE.formularioInscripcion} target="_blank" rel="noopener">Inscribirme al equipo <span aria-hidden="true">→</span></a>
+      <a class="btn btn-azul un-btn" href={SITE.formularioInscripcion} target="_blank" rel="noopener">Inscribirme al equipo <span aria-hidden="true">↗</span><span class="sr-only">(se abre en una pestaña nueva)</span></a>
       <p class="un-note">Formulario oficial de Ingeniería UDD.<br />Dudas: <a href={`mailto:${SITE.correoDudasInscripcion}`}>{SITE.correoDudasInscripcion}</a></p>
     </div>
   </div>

@@ -12,3 +12,15 @@ export const SITE = {
   correoDudasInscripcion: "pablo.ortiz@udd.cl",
   youtubeCanal: "https://www.youtube.com/watch?v=jONJG6_QA3c",
 } as const;
+
+/** Menú principal: mismo orden que las secciones de la home y mismo set en todas las páginas. */
+export const NAV_LINKS = [
+  { href: "/#competencia", label: "Competencia" },
+  { href: "/#propuesta", label: "Propuesta" },
+  { href: "/#avances", label: "Avances" },
+  { href: "/#galeria", label: "Galería" },
+  { href: "/#socios", label: "Socios" },
+  { href: "/#apoya", label: "Apoya" },
+  { href: "/equipo", label: "Equipo" },
+];
+export const NAV_CTA = { href: "/#unete", label: "Únete" };

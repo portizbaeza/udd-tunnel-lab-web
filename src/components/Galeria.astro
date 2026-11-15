@@ -15,7 +15,7 @@ const cats = Object.entries(CATEGORIAS).filter(([k]) => fotos.some((f) => f.cate
   <div class="container">
     <div class="gal-head">
       <div class="stack-m">
-        <span class="tag-bar">Galería</span>
+        <span class="tag-bar">04 · Galería</span>
         <h2 id="galeria-title" class="h2">Del taller a la planta.</h2>
       </div>
       <div class="chips" role="group" aria-label="Filtrar fotos por categoría">
@@ -41,7 +41,7 @@ const cats = Object.entries(CATEGORIAS).filter(([k]) => fotos.some((f) => f.cate
       <div class="gal-videos">
         <div class="gv-head">
           <h3 class="h3">En video</h3>
-          <a class="link-arrow" href={SITE_YT} target="_blank" rel="noopener">Ver en YouTube <span aria-hidden="true">↗</span></a>
+          <a class="link-arrow" href={SITE_YT} target="_blank" rel="noopener">Ver video en YouTube <span aria-hidden="true">↗</span><span class="sr-only">(se abre en una pestaña nueva)</span></a>
         </div>
         <div class={`gv-grid ${YOUTUBE_VIDEOS.length === 1 ? "is-single" : ""}`}>
           {YOUTUBE_VIDEOS.map((v) => <YouTubeLite id={v.id} titulo={v.titulo} />)}
@@ -53,27 +53,20 @@ const cats = Object.entries(CATEGORIAS).filter(([k]) => fotos.some((f) => f.cate
 
 <style>
   .gal-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 40px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip {
-    min-height: 44px; padding: 8px 16px; background: var(--blanco); border: 2px solid var(--azul);
-    font-weight: 700; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; color: var(--azul);
-  }
   .chip span { font-weight: 400; margin-left: 4px; }
-  .chip[aria-pressed="true"] { background: var(--azul); color: var(--blanco); }
-  .chip:hover:not([aria-pressed="true"]) { background: var(--gris-niebla); }
 
   .gal-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-flow: dense; gap: 10px; }
   .gal-item.is-wide { grid-column: span 2; grid-row: span 2; }
   .gal-item[hidden] { display: none; }
   .gal-card { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: var(--gris-niebla); overflow: hidden; }
   .gal-card :global(img) { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; }
+  /* Título siempre visible: no se esconde información detrás del hover. */
   .gal-title {
-    position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; background: var(--azul); color: var(--blanco);
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 8px 12px; background: var(--azul); color: var(--blanco);
     font-weight: 600; font-size: 15px; line-height: 1.3; text-align: left;
-    transform: translateY(100%); transition: transform .25s ease;
   }
-  .gal-card:hover .gal-title, .gal-card:focus-visible .gal-title { transform: none; }
-  @media (hover: none) { .gal-title { transform: none; font-size: 13px; padding: 6px 8px; } }
+  .gal-card:hover .gal-title, .gal-card:focus-visible .gal-title { background: var(--naranjo); color: var(--azul); }
+  @media (max-width: 560px) { .gal-title { font-size: 13px; padding: 6px 8px; } }
 
   .gal-videos { margin-top: clamp(56px, 7vw, 88px); }
   .gv-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 20px; border-top: 2px solid var(--azul); padding-top: 18px; }

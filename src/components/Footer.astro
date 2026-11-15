@@ -4,6 +4,7 @@ import logoNegativo from "../assets/brand/logo-negativo.png";
 import uddBlanco from "../assets/brand/udd-blanco.png";
 import sudamerica from "../assets/brand/sudamerica-naranjo.png";
 import ChileFlag from "./ChileFlag.astro";
+import { SITE, NAV_LINKS, NAV_CTA } from "../config/site";
 
 interface Props { note?: string; backHref?: string; backLabel?: string }
 const { note = "Facultad de Ingeniería UDD · Chile", backHref = "#inicio", backLabel = "Volver arriba ↑" } = Astro.props;
@@ -22,6 +23,17 @@ const { note = "Facultad de Ingeniería UDD · Chile", backHref = "#inicio", bac
     </div>
     <a class="footer-back" href={backHref}>{backLabel}</a>
   </div>
+  <div class="container footer-nav">
+    <nav aria-label="Pie de página">
+      <ul>
+        {[...NAV_LINKS, NAV_CTA, { href: "/#contacto", label: "Contacto" }].map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="footer-contact">
+      <a href={`mailto:${SITE.correoEquipo}`}>{SITE.correoEquipo}</a>
+      <a href={SITE.youtubeCanal} target="_blank" rel="noopener">YouTube <span aria-hidden="true" class="ext">↗</span><span class="sr-only">(se abre en una pestaña nueva)</span></a>
+    </div>
+  </div>
   <div class="container footer-legal">
     <span>© {new Date().getFullYear()} UDD Tunnel Lab · Universidad del Desarrollo</span>
     <span>Proyecto independiente, no patrocinado ni respaldado por The Boring Company.</span>
@@ -39,6 +51,11 @@ const { note = "Facultad de Ingeniería UDD · Chile", backHref = "#inicio", bac
   .footer-flags :global(.f-sa) { width: 22px; height: auto; }
   .footer-back { font-weight: 800; text-transform: uppercase; letter-spacing: .06em; text-decoration: none; border-bottom: 3px solid var(--naranjo); padding-bottom: 4px; }
   .footer-back:hover { color: var(--naranjo-claro); }
+  .footer-nav { margin-top: 36px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; }
+  .footer-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 22px; }
+  .footer-nav a, .footer-contact a { display: inline-block; padding-block: 8px; font-weight: 700; text-decoration: none; }
+  .footer-nav a:hover, .footer-contact a:hover { color: var(--naranjo-claro); text-decoration: underline; }
+  .footer-contact { display: flex; flex-wrap: wrap; gap: 4px 22px; }
   .footer-legal {
     margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--azul-intenso);
     display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 15px; color: var(--gris-acero);

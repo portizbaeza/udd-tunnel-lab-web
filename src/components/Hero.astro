@@ -18,26 +18,25 @@ import ChileFlag from "./ChileFlag.astro";
       <span class="hero-flag"><ChileFlag width={30} /> Chile</span>
     </div>
 
-    <h1 id="hero-title" class="h1">El primer y único<br /> equipo <span class="accent">sudamericano</span><br /> de la competencia</h1>
+    <h1 id="hero-title" class="h1">Construimos la primera tuneladora <span class="accent">sudamericana</span> para competir en Texas</h1>
 
     <div class="hero-lead-grid">
-      <p class="hero-lead">Somos <strong>UDD Tunnel Lab</strong>: {SITE.totalEquipo} estudiantes y profesores de todas las carreras diseñando, fabricando y probando una tuneladora a escala funcional para competir en la <strong>Not-a-Boring Competition</strong> en Bastrop, Texas.</p>
-      <p class="hero-note">Proyecto en etapa preliminar.<br />Primer boceto de la máquina en camino a los organizadores.</p>
+      <p class="hero-lead">Somos <strong>UDD Tunnel Lab</strong>: {SITE.totalEquipo} estudiantes y profesores de la Universidad del Desarrollo en la <strong>Not-a-Boring Competition</strong> de Bastrop, Texas.</p>
+      <p class="hero-note">Hoy: diseño preliminar en curso.</p>
     </div>
 
     <div class="hero-actions">
       <a class="btn btn-naranjo" href="#propuesta">Conoce el proyecto</a>
-      <a class="btn btn-borde" href="#socios">Ser socio del equipo</a>
+      <a class="btn btn-borde" href="#socios">Apoya como empresa</a>
     </div>
   </div>
 
   <div class="hero-bottom">
     <div class="container hero-bottom-inner">
-      <div class="countdown" aria-label="Cuenta atrás hasta la entrega en Texas">
+      <div class="countdown" role="group" aria-label="Cuenta atrás hasta la entrega en Texas">
         <div class="countdown-label">
-          <span class="kicker">Cuenta atrás · Texas 2027</span>
-          <strong>Deadline de entrega</strong>
-          <span>FEB 2027 · Bastrop, TX</span>
+          <strong>Entrega en Texas</strong>
+          <span>Feb 2027 · Bastrop, TX</span>
         </div>
         <div class="countdown-units" data-deadline={SITE.deadline}>
           <div class="unit"><span class="value" data-cd="d">—</span><span class="label">días</span></div>
@@ -69,9 +68,8 @@ import ChileFlag from "./ChileFlag.astro";
   .hero-inner { padding-block: clamp(40px, 7vh, 96px) 36px; display: grid; gap: 24px; }
   .hero-eyebrow { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
   .hero .tag-bar { background: var(--naranjo); color: var(--azul); }
-  .hero .kicker { color: var(--naranjo-claro); }
   .hero-flag { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 15px; }
-  .hero .h1 { font-size: clamp(2.4rem, 5.6vw, 5.4rem); }
+  .hero .h1 { font-size: clamp(2.2rem, 5vw, 4.8rem); max-width: 18ch; }
   .hero-lead-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 32px 48px; align-items: end; max-width: 1080px; }
   .hero-lead { font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; }
   .hero-note { font-weight: 600; color: var(--gris-claro); border-left: 3px solid var(--naranjo); padding-left: 16px; }

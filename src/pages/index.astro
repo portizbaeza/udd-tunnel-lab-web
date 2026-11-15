@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
-import Carousel from "../components/Carousel.astro";
 import Cifras from "../components/Cifras.astro";
 import Competencia from "../components/Competencia.astro";
 import Propuesta from "../components/Propuesta.astro";
@@ -16,25 +15,14 @@ import Unete from "../components/Unete.astro";
 import Contacto from "../components/Contacto.astro";
 import Footer from "../components/Footer.astro";
 import Lightbox from "../components/Lightbox.astro";
-
-const links = [
-  { href: "#competencia", label: "Competencia" },
-  { href: "#propuesta", label: "Propuesta" },
-  { href: "#avances", label: "Avances" },
-  { href: "#galeria", label: "Galería" },
-  { href: "/equipo", label: "Equipo", external: true },
-  { href: "#socios", label: "Socios" },
-  { href: "#apoya", label: "Apoya" },
-];
 ---
 <Base
   title="UDD Tunnel Lab — B.I.C.H.O."
   description="UDD Tunnel Lab: equipo de la Facultad de Ingeniería de la Universidad del Desarrollo que construye B.I.C.H.O, su tuneladora para la Not-a-Boring Competition."
 >
   <link slot="head" rel="preload" as="image" href="/videos/hero-poster.jpg" />
-  <Nav slot="header" links={links} cta={{ href: "#unete", label: "Únete" }} />
+  <Nav slot="header" />
   <Hero />
-  <Carousel />
   <Cifras />
   <Competencia />
   <Propuesta />

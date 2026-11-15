@@ -1,10 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { SITE } from "../config/site";
-import uddBlanco from "../assets/brand/udd-blanco.png";
 import saNaranjo from "../assets/brand/sudamerica-naranjo.png";
-import saBlanco from "../assets/brand/sudamerica-blanco.png";
-import ChileFlag from "./ChileFlag.astro";
 
 const frases = [
   "B.I.C.H.O · Big Intelligent Chilean Hole Opener",
@@ -40,23 +37,6 @@ const frases = [
   </div>
 </section>
 
-<section class="badges bg-azul" aria-label="Respaldo del proyecto">
-  <div class="container badges-grid">
-    <div class="badge">
-      <Image src={uddBlanco} alt="Universidad del Desarrollo" width={140} class="b-udd" />
-      <p>Proyecto oficial de la Facultad de Ingeniería de la Universidad del Desarrollo.</p>
-    </div>
-    <div class="badge">
-      <ChileFlag width={54} />
-      <p>Diseñado y fabricado en Chile, con industria y talento local.</p>
-    </div>
-    <div class="badge">
-      <Image src={saBlanco} alt="Sudamérica" width={44} class="b-sa" />
-      <p>Representando a Sudamérica en una competencia global de ingeniería.</p>
-    </div>
-  </div>
-</section>
-
 <style>
   .ticker { overflow: hidden; border-block: 0; }
   .ticker-track { display: flex; width: max-content; animation: ticker 38s linear infinite; }
@@ -72,21 +52,11 @@ const frases = [
   .stat { padding: 8px 28px 8px 0; border-left: 2px solid var(--azul); padding-left: 24px; }
   .stat p { margin-top: 10px; color: var(--texto); font-size: 17px; max-width: 22ch; }
   .value { font-family: var(--font-display); font-size: clamp(3.6rem, 8vw, 6.4rem); line-height: .9; color: var(--azul); }
-  .stat:first-child .value { color: var(--naranjo); }
   .value-row { display: flex; align-items: end; gap: 12px; }
   .value-row :global(.sa) { width: 36px; height: auto; margin-bottom: 8px; }
 
-  .badges { padding-block: 40px; }
-  .badges-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .badge { display: flex; align-items: center; gap: 20px; }
-  .badge p { color: var(--gris-claro); font-size: 17px; }
-  .badge :global(.b-udd) { width: 110px; height: auto; flex: none; }
-  .badge :global(.b-sa) { width: 40px; height: auto; flex: none; }
-  .badge :global(svg) { flex: none; }
-
   @media (max-width: 900px) {
     .stats-grid { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
-    .badges-grid { grid-template-columns: 1fr; gap: 24px; }
   }
   @media (max-width: 420px) {
     .stat { padding-left: 16px; padding-right: 8px; }
