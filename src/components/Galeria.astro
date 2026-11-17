@@ -1,47 +1,48 @@
 ---
+// Galería de /avances: muestra 6 fotos y el resto con "VER MÁS". Clic en una foto abre el visor (Lightbox).
+// Las fotos se agregan en src/data/galeria.json (ver README).
 import { Image, getImage } from "astro:assets";
-import { getFotos, CATEGORIAS } from "../lib/galeria";
+import { getFotos } from "../lib/galeria";
 import { YOUTUBE_VIDEOS } from "../config/videos";
 import { SITE } from "../config/site";
-const SITE_YT = SITE.youtubeCanal;
 import YouTubeLite from "./YouTubeLite.astro";
 
+const VISIBLES = 6;
 const fotos = await Promise.all(
   getFotos().map(async (f) => ({ ...f, full: (await getImage({ src: f.img, width: 1600, format: "webp" })).src })),
 );
-const cats = Object.entries(CATEGORIAS).filter(([k]) => fotos.some((f) => f.categoria === k));
 ---
-<section id="galeria" class="section galeria" aria-labelledby="galeria-title">
+<section id="galeria" class="section galeria bg-naranjo-claro" aria-labelledby="galeria-title">
   <div class="container">
-    <div class="gal-head">
-      <div class="stack-m">
-        <span class="tag-bar">04 · Galería</span>
-        <h2 id="galeria-title" class="h2">Del taller a la planta.</h2>
-      </div>
-      <div class="chips" role="group" aria-label="Filtrar fotos por categoría">
-        <button type="button" class="chip" data-gal-filter="todas" aria-pressed="true">Todas <span>{fotos.length}</span></button>
-        {cats.map(([k, label]) => (
-          <button type="button" class="chip" data-gal-filter={k} aria-pressed="false">{label} <span>{fotos.filter((f) => f.categoria === k).length}</span></button>
-        ))}
-      </div>
+    <div class="gal-head reveal">
+      <span class="kicker">Galería</span>
+      <h2 id="galeria-title" class="h2">Del taller a la planta</h2>
     </div>
 
-    <ul class="gal-grid">
+    <ul class="gal-grid" id="gal-grid">
       {fotos.map((f, i) => (
-        <li class={`gal-item ${i % 7 === 0 ? "is-wide" : ""}`} data-cat={f.categoria}>
+        <li class="gal-item" hidden={i >= VISIBLES} data-gal-extra={i >= VISIBLES ? "" : undefined}>
           <button type="button" class="gal-card bn" data-lb-group="galeria" data-lb-src={f.full} data-lb-title={f.titulo}>
-            <Image src={f.img} alt={f.titulo} widths={[320, 480, 720]} sizes="(max-width: 560px) 46vw, (max-width: 900px) 31vw, 300px" loading="lazy" />
+            <Image src={f.img} alt={f.titulo} widths={[320, 480, 720]} sizes="(max-width: 760px) 46vw, (max-width: 1240px) 31vw, 400px" loading="lazy" />
             <span class="gal-title">{f.titulo}</span>
           </button>
         </li>
       ))}
     </ul>
 
+    {fotos.length > VISIBLES && (
+      <div class="gal-more">
+        <button type="button" class="link-arrow gal-more-btn" data-gal-more aria-controls="gal-grid" aria-expanded="false">
+          Ver más <span class="gal-more-n">({fotos.length - VISIBLES})</span>
+        </button>
+      </div>
+    )}
+
     {YOUTUBE_VIDEOS.length > 0 && (
       <div class="gal-videos">
         <div class="gv-head">
           <h3 class="h3">En video</h3>
-          <a class="link-arrow" href={SITE_YT} target="_blank" rel="noopener">Ver video en YouTube <span aria-hidden="true">↗</span><span class="sr-only">(se abre en una pestaña nueva)</span></a>
+          <a class="link-arrow" href={SITE.youtubeCanal} target="_blank" rel="noopener">Ver en YouTube <span aria-hidden="true">↗</span><span class="sr-only">(se abre en una pestaña nueva)</span></a>
         </div>
         <div class={`gv-grid ${YOUTUBE_VIDEOS.length === 1 ? "is-single" : ""}`}>
           {YOUTUBE_VIDEOS.map((v) => <YouTubeLite id={v.id} titulo={v.titulo} />)}
@@ -52,40 +53,47 @@ const cats = Object.entries(CATEGORIAS).filter(([k]) => fotos.some((f) => f.cate
 </section>
 
 <style>
-  .gal-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 40px; }
-  .chip span { font-weight: 400; margin-left: 4px; }
+  .gal-head { display: grid; gap: 16px; margin-bottom: 32px; }
 
-  .gal-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-flow: dense; gap: 10px; }
-  .gal-item.is-wide { grid-column: span 2; grid-row: span 2; }
+  .gal-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .gal-item[hidden] { display: none; }
-  .gal-card { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: var(--gris-niebla); overflow: hidden; }
-  .gal-card :global(img) { width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; }
+  .gal-card { position: relative; display: block; width: 100%; padding: 0; border: 0; background: var(--gris-niebla); overflow: hidden; }
+  .gal-card :global(img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
   /* Título siempre visible: no se esconde información detrás del hover. */
   .gal-title {
     position: absolute; left: 0; right: 0; bottom: 0; padding: 8px 12px; background: var(--azul); color: var(--blanco);
     font-weight: 600; font-size: 15px; line-height: 1.3; text-align: left;
   }
   .gal-card:hover .gal-title, .gal-card:focus-visible .gal-title { background: var(--naranjo); color: var(--azul); }
-  @media (max-width: 560px) { .gal-title { font-size: 13px; padding: 6px 8px; } }
+
+  .gal-more { display: flex; justify-content: center; margin-top: 28px; }
+  .gal-more-n { font-weight: 600; }
+  .gal-more-btn { background: none; border-top: 0; border-left: 0; border-right: 0; padding-inline: 0; color: var(--azul); font-size: 17px; }
 
   .gal-videos { margin-top: clamp(56px, 7vw, 88px); }
   .gv-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 20px; border-top: 2px solid var(--azul); padding-top: 18px; }
   .gv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .gv-grid.is-single { grid-template-columns: minmax(0, 880px); }
 
-  @media (max-width: 900px) { .gal-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 560px) {
+  @media (max-width: 760px) {
     .gal-grid { grid-template-columns: repeat(2, 1fr); }
+    .gal-title { font-size: 13px; padding: 6px 8px; }
     .gv-grid { grid-template-columns: 1fr; }
   }
 </style>
 
 <script>
-  const chips = document.querySelectorAll<HTMLButtonElement>("[data-gal-filter]");
-  const items = document.querySelectorAll<HTMLElement>(".gal-item");
-  chips.forEach((chip) => chip.addEventListener("click", () => {
-    const f = chip.dataset.galFilter;
-    chips.forEach((c) => c.setAttribute("aria-pressed", String(c === chip)));
-    items.forEach((it) => { it.hidden = f !== "todas" && it.dataset.cat !== f; });
-  }));
+  const more = document.querySelector<HTMLButtonElement>("[data-gal-more]");
+  if (more) {
+    const extras = [...document.querySelectorAll<HTMLElement>("[data-gal-extra]")];
+    const label = more.innerHTML;
+    more.addEventListener("click", () => {
+      const abrir = more.getAttribute("aria-expanded") !== "true";
+      extras.forEach((el) => { el.hidden = !abrir; });
+      more.setAttribute("aria-expanded", String(abrir));
+      more.innerHTML = abrir ? "Ver menos" : label;
+      if (abrir) extras[0]?.querySelector<HTMLElement>("button")?.focus();
+      else more.scrollIntoView({ block: "center" });
+    });
+  }
 </script>

@@ -35,3 +35,16 @@ export const YOUTUBE_VIDEOS: YoutubeVideo[] = [
   { id: "jONJG6_QA3c", titulo: "UDD Tunnel Lab en video" },
   // { id: "XXXXXXXXXXX", titulo: "Título del video" },
 ];
+
+/**
+ * Video de YouTube de la máquina (sección "El primer equipo de Latinoamérica" del inicio).
+ * Pega aquí el link completo (sirven youtube.com/watch?v=…, youtu.be/…, /shorts/… o /embed/…).
+ * Si queda vacío, se muestra un recuadro gris.
+ */
+export const VIDEO_MAQUINA_URL = "https://www.youtube.com/watch?v=jONJG6_QA3c";
+
+/** Extrae el ID de un link de YouTube; devuelve null si no lo reconoce. */
+export function youtubeId(url: string): string | null {
+  const m = url.trim().match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{11})/);
+  return m ? m[1] : null;
+}

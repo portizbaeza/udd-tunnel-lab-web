@@ -1,11 +1,16 @@
 ---
 import { BANDA_VIDEOS } from "../config/videos";
+
+// En /avances es la primera sección de la página, así que su título va como h1.
+interface Props { tituloComo?: "h1" | "h2" }
+const { tituloComo = "h2" } = Astro.props;
+const Titulo = tituloComo;
 ---
 <section class="band bg-negro" aria-labelledby="band-title">
   <div class="container band-grid">
-    <div class="band-copy">
+    <div class="band-copy reveal">
       <span class="tag-bar">En terreno</span>
-      <h2 id="band-title" class="h2">Probar, fallar, <span class="accent">iterar.</span></h2>
+      <Titulo id="band-title" class="h2">Probar, fallar, <span class="accent">iterar.</span></Titulo>
       <p class="lead">Antes de la máquina real vienen las pruebas pequeñas. Así se ven nuestros primeros ensayos en el laboratorio.</p>
     </div>
     <div class="band-videos">

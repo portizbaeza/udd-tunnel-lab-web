@@ -1,39 +1,22 @@
 ---
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
-import Hero from "../components/Hero.astro";
-import Cifras from "../components/Cifras.astro";
+import HeroVideo from "../components/HeroVideo.astro";
+import Pionero from "../components/Pionero.astro";
 import Competencia from "../components/Competencia.astro";
-import Propuesta from "../components/Propuesta.astro";
-import VideoBand from "../components/VideoBand.astro";
-import Avances from "../components/Avances.astro";
-import Galeria from "../components/Galeria.astro";
-import Socios from "../components/Socios.astro";
 import Apoyo from "../components/Apoyo.astro";
-import EquipoPreview from "../components/EquipoPreview.astro";
-import Unete from "../components/Unete.astro";
-import Contacto from "../components/Contacto.astro";
+import Redes from "../components/Redes.astro";
 import Footer from "../components/Footer.astro";
-import Lightbox from "../components/Lightbox.astro";
 ---
 <Base
   title="UDD Tunnel Lab — B.I.C.H.O."
-  description="UDD Tunnel Lab: equipo de la Facultad de Ingeniería de la Universidad del Desarrollo que construye B.I.C.H.O, su tuneladora para la Not-a-Boring Competition."
+  description="UDD Tunnel Lab: equipo de la Facultad de Ingeniería de la Universidad del Desarrollo que construye B.I.C.H.O, su microtuneladora para la Not-a-Boring Competition."
 >
-  <link slot="head" rel="preload" as="image" href="/videos/hero-poster.jpg" />
-  <Nav slot="header" />
-  <Hero />
-  <Cifras />
+  <Nav slot="header" transparente />
+  <HeroVideo />
+  <Pionero />
   <Competencia />
-  <Propuesta />
-  <VideoBand />
-  <Avances />
-  <Galeria />
-  <Socios />
   <Apoyo />
-  <EquipoPreview />
-  <Unete />
-  <Contacto />
+  <Redes />
   <Footer slot="footer" />
-  <Lightbox />
 </Base>

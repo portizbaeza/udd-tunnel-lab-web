@@ -1,0 +1,45 @@
+---
+import { REDES } from "../config/site";
+import SocialIcon from "./SocialIcon.astro";
+---
+<section id="siguenos" class="section redes bg-azul" aria-labelledby="redes-title">
+  <div class="container redes-grid reveal">
+    <div class="stack-m">
+      <span class="tag-bar">Redes sociales</span>
+      <h2 id="redes-title" class="h2">Síguenos</h2>
+      <p class="lead">Pruebas, taller y avances de B.I.C.H.O, a medida que van pasando.</p>
+    </div>
+    <ul class="redes-list">
+      {REDES.map((r) => (
+        <li>
+          <a class="red" href={r.href} target="_blank" rel="noopener">
+            <span class="red-icon"><SocialIcon red={r.red} size={36} /></span>
+            <span class="red-txt">
+              <span class="red-nombre">{r.nombre}</span>
+              <span class="red-user">{r.usuario}</span>
+            </span>
+            <span class="red-arrow" aria-hidden="true">↗</span>
+            <span class="sr-only">(se abre en una pestaña nueva)</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .redes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 72px; align-items: center; }
+  .redes-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .red {
+    display: flex; align-items: center; gap: 20px; padding: 20px 24px; min-height: 88px;
+    border: 2px solid var(--blanco); color: var(--blanco); text-decoration: none;
+    transition: color .18s, border-color .18s;
+  }
+  .red:hover, .red:focus-visible { color: var(--naranjo); border-color: var(--naranjo); }
+  .red-icon { display: grid; place-items: center; flex: none; }
+  .red-txt { display: grid; gap: 2px; }
+  .red-nombre { font-weight: 700; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; }
+  .red-user { font-family: var(--font-display); font-size: clamp(1.2rem, 2.4vw, 1.6rem); line-height: 1.1; word-break: break-all; }
+  .red-arrow { margin-left: auto; font-size: 22px; font-weight: 700; }
+  @media (max-width: 860px) { .redes-grid { grid-template-columns: 1fr; } }
+</style>

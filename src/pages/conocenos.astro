@@ -4,7 +4,7 @@ import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import { SITE } from "../config/site";
-import { getMiembros, getFrentes } from "../lib/miembros";
+import { getMiembros, getFrentes, getCapitanes } from "../lib/miembros";
 import bichoGris from "../assets/brand/bicho-blanco.png";
 
 const miembros = await Promise.all(
@@ -15,29 +15,57 @@ const miembros = await Promise.all(
 );
 const frentes = getFrentes(miembros);
 const carreras = new Set(miembros.flatMap((m) => m.carreras)).size;
-const conRostro = miembros.filter((m) => m.foto).length;
-const proximaFicha = String(miembros.length + 1).padStart(2, "0");
+const capitanes = getCapitanes();
 const placeholder = (await getImage({ src: bichoGris, width: 200, format: "png" })).src;
 ---
 <Base
-  title="Equipo — UDD Tunnel Lab"
+  title="Conócenos — UDD Tunnel Lab"
   description={`Las ${SITE.totalEquipo} personas construyendo B.I.C.H.O: el equipo interdisciplinario de UDD Tunnel Lab.`}
-  path="/equipo"
+  path="/conocenos"
 >
   <Nav slot="header" />
 
   <section class="eq-hero bg-azul" aria-labelledby="eq-title">
     <div class="container eq-hero-grid">
       <div class="stack-m">
-        <span class="tag-bar">Archivo del equipo · Registro 001</span>
+        <span class="tag-bar">Conócenos</span>
         <h1 id="eq-title" class="h1">Las {SITE.totalEquipo} personas construyendo <span class="accent">B.I.C.H.O</span></h1>
       </div>
       <div class="stack-s">
-        <p class="lead">Nombre, carrera y frase propia de cada integrante. Toca una ficha para ver más y contactar.</p>
+        <p class="lead">Estudiantes y profesores de distintas carreras, organizados por frente de trabajo. Toca una ficha para ver más y contactar.</p>
         <p class="eq-meta">{miembros.length} fichas · {carreras} carreras · {frentes.length} frentes</p>
       </div>
     </div>
   </section>
+
+  {capitanes.length > 0 && (
+    <section id="capitanes" class="section capitanes bg-naranjo-claro" aria-labelledby="cap-title">
+      <div class="container">
+        <div class="cap-head reveal">
+          <span class="kicker">Quienes lideran</span>
+          <h2 id="cap-title" class="h2">Capitanes</h2>
+        </div>
+        <ul class="cap-grid">
+          {capitanes.map(({ miembro: m, index, rol }) => (
+            <li class="reveal">
+              <button type="button" class="cap-card" data-person={index} aria-haspopup="dialog">
+                <span class="cap-photo">
+                  {m.foto
+                    ? <Image src={m.foto} alt="" widths={[400, 640]} sizes="(max-width: 720px) 92vw, 400px" loading="lazy" />
+                    : <span class="p-ph"><img src={placeholder} alt="" /></span>}
+                </span>
+                <span class="cap-body">
+                  <span class="cap-rol">{rol}</span>
+                  <span class="cap-name">{m.nombre}</span>
+                  <span class="p-carrera">{m.frentes.join(" · ")}</span>
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <section id="frentes" class="filters" aria-label="Filtrar por frente">
     <div class="container filters-row">
@@ -64,9 +92,7 @@ const placeholder = (await getImage({ src: bichoGris, width: 200, format: "png" 
               </span>
               <span class="p-body">
                 <span class="p-name">{m.nombre}</span>
-                <span class="p-carrera">{m.carreras.join(" · ")}</span>
-                <span class="p-frentes">{m.frentes.map((f) => <span class="frente-tag">{f}</span>)}</span>
-                <span class="p-frase">«{m.frase}»</span>
+                <span class="p-rol">{m.frentes.join(" · ")}</span>
               </span>
             </button>
           </li>
@@ -75,21 +101,7 @@ const placeholder = (await getImage({ src: bichoGris, width: 200, format: "png" 
     </div>
   </section>
 
-  <section id="sumarse" class="section sumarse bg-naranjo" aria-labelledby="sumarse-title">
-    <div class="container sum-grid">
-      <div class="stack-m">
-        <span class="tag-bar">Ficha {proximaFicha}</span>
-        <h2 id="sumarse-title" class="h2">Falta tu rostro en esta pared.</h2>
-        <p class="sum-copy">Cualquier carrera, cualquier año. Solo {conRostro} de las {SITE.totalEquipo} personas del equipo tienen ficha con rostro por ahora. Si te interesa excavar el primer túnel sudamericano de la competencia, hay un frente esperándote.</p>
-      </div>
-      <div class="sum-actions">
-        <a class="btn btn-azul" href={SITE.formularioInscripcion} target="_blank" rel="noopener">Inscribirme al equipo <span aria-hidden="true">↗</span><span class="sr-only">(se abre en una pestaña nueva)</span></a>
-        <a class="btn btn-borde" href="/#socios">Soy empresa, quiero aportar</a>
-      </div>
-    </div>
-  </section>
-
-  <Footer slot="footer" note="Archivo del equipo · Registro 001" backHref="/" backLabel="← Volver al sitio" />
+  <Footer slot="footer" />
 
   <dialog class="person-modal" data-person-modal aria-labelledby="pm-nombre">
     <div class="pm-card">
@@ -119,7 +131,7 @@ const placeholder = (await getImage({ src: bichoGris, width: 200, format: "png" 
   .eq-hero .h1 { font-size: clamp(2.4rem, 6vw, 5.2rem); }
   .eq-meta { font-weight: 700; color: var(--blanco); letter-spacing: .04em; text-transform: uppercase; font-size: 15px; }
 
-  .filters { position: sticky; top: var(--nav-h); z-index: 50; background: var(--blanco); border-bottom: 2px solid var(--azul); }
+  .filters { position: sticky; top: var(--nav-offset, var(--nav-h)); transition: top .25s ease; z-index: 50; background: var(--blanco); border-bottom: 2px solid var(--azul); }
   .filters-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding-block: 14px; }
   .filters-count { margin-left: auto; font-weight: 800; }
 
@@ -138,11 +150,19 @@ const placeholder = (await getImage({ src: bichoGris, width: 200, format: "png" 
   .p-carrera { font-size: 15px; color: var(--texto); }
   .p-frentes { display: flex; flex-wrap: wrap; gap: 4px; }
   .frente-tag, :global(.frente-tag) { display: inline-block; padding: 2px 8px; border: 1.5px solid var(--azul); font-weight: 700; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--azul); }
-  .p-frase { font-size: 16px; color: var(--texto); font-style: italic; }
+  .p-rol { font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--texto); }
 
-  .sum-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px 64px; align-items: end; }
-  .sum-copy { color: var(--azul); font-size: 19px; }
-  .sum-actions { display: grid; gap: 12px; }
+  /* Capitanes */
+  .cap-head { display: grid; gap: 16px; margin-bottom: 32px; }
+  .cap-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .cap-card { display: grid; grid-template-rows: auto 1fr; width: 100%; height: 100%; padding: 0; border: 0; background: var(--azul); color: var(--blanco); text-align: left; }
+  .cap-card:hover .cap-body, .cap-card:focus-visible .cap-body { background: var(--azul-intenso); }
+  .cap-photo { display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--azul-intenso); }
+  .cap-photo :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .cap-body { display: grid; gap: 6px; padding: 18px 20px 22px; border-top: 6px solid var(--naranjo); }
+  .cap-rol { font-weight: 800; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--naranjo); }
+  .cap-name { font-family: var(--font-display); font-size: clamp(1.3rem, 2.2vw, 1.7rem); line-height: 1.05; text-transform: uppercase; }
+  .cap-body .p-carrera { color: var(--gris-claro); font-size: 15px; }
 
   .person-modal { width: min(920px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); background: var(--blanco); color: var(--azul); overflow: auto; }
   .pm-card { display: grid; grid-template-columns: 340px 1fr; position: relative; }
@@ -166,7 +186,6 @@ const placeholder = (await getImage({ src: bichoGris, width: 200, format: "png" 
     .roster { grid-template-columns: repeat(2, 1fr); }
     .pm-card { grid-template-columns: 1fr; }
     .pm-photo { min-height: 0; aspect-ratio: 4 / 3; }
-    .sum-grid { grid-template-columns: 1fr; }
     .filters { position: static; }
     .filters-count { margin-left: 0; }
   }

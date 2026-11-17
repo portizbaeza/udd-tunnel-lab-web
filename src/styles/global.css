@@ -25,9 +25,11 @@
 
   --max: 1240px;
   --gutter: clamp(16px, 4vw, 40px);
-  --nav-h: 68px;
-  --section-y: clamp(72px, 10vw, 136px);
+  --nav-h: 56px;
+  /* Aire entre secciones: 72px en celular, 128px en computador. */
+  --section-y: 72px;
 }
+@media (min-width: 900px) { :root { --section-y: 128px; } }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -73,6 +75,8 @@ h1, h2, h3, h4 { margin: 0; font-weight: 400; }
 .bg-niebla { background: var(--gris-niebla); }
 .bg-naranjo { background: var(--naranjo); color: var(--azul); }
 .bg-negro { background: var(--negro); color: var(--blanco); }
+.bg-naranjo-claro { background: var(--naranjo-claro); color: var(--azul); }
+.bg-naranjo-claro .kicker, .bg-naranjo-claro .lead, .bg-naranjo-claro .copy { color: var(--azul); }
 
 /* ---------- Tipografía ---------- */
 .display, .h1, .h2, .h3 {
@@ -89,6 +93,8 @@ h1, h2, h3, h4 { margin: 0; font-weight: 400; }
 .bg-azul .lead, .bg-negro .lead { color: var(--gris-claro); }
 .copy { color: var(--texto); }
 .copy p + p { margin-top: 1em; }
+/* Líneas de texto cómodas de leer: máximo ~65 caracteres. */
+.lead, .copy, .section p { max-width: 65ch; }
 .bg-azul .copy { color: var(--gris-claro); }
 .accent { color: var(--naranjo); }
 .bg-naranjo .accent { color: var(--blanco); }
@@ -182,4 +188,17 @@ dialog::backdrop { background: rgb(1 13 99 / .88); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* ---------- Aparición suave al hacer scroll (sin brillos) ---------- */
+/* Solo se oculta si hay JS (clase .js en <html>), así el contenido nunca queda invisible. */
+.js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; } }
+
+/* ---------- Recuadro de imagen pendiente ---------- */
+.ph-img {
+  display: grid; place-items: center; width: 100%; height: 100%; min-height: 220px; padding: 16px;
+  background: var(--gris-claro); color: var(--azul); text-align: center;
+  font-weight: 700; font-size: 15px; letter-spacing: .04em; word-break: break-all;
 }

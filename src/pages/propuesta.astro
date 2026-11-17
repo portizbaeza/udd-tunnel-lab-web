@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Propuesta from "../components/Propuesta.astro";
+import CompetenciaDetalle from "../components/CompetenciaDetalle.astro";
+import Footer from "../components/Footer.astro";
+import Lightbox from "../components/Lightbox.astro";
+---
+<Base
+  title="Propuesta — UDD Tunnel Lab"
+  description="B.I.C.H.O (Big Intelligent Chilean Hole Opener): la microtuneladora modular que UDD Tunnel Lab diseña para la Not-a-Boring Competition."
+  path="/propuesta"
+>
+  <Nav slot="header" />
+  <Propuesta />
+  <CompetenciaDetalle />
+  <Footer slot="footer" />
+  <Lightbox />
+</Base>

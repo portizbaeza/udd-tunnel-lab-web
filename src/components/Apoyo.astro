@@ -1,68 +1,228 @@
 ---
-import { Image } from "astro:assets";
-import { PACKS, pagosActivos, formatCLP } from "../config/packs";
-import bichoAzul from "../assets/brand/bicho-azul.png";
+// Sección Apoyo del inicio: a) contacto (formulario → /api/contacto) y b) datos para donar.
+// Los datos de la cuenta se editan en src/config/donaciones.ts.
+import { SITE } from "../config/site";
+import { DONACIONES } from "../config/donaciones";
+import { getImage } from "astro:assets";
+import bichoSilueta from "../assets/brand/bicho-naranjo.png";
+
+// Bicho de fondo, tono sobre tono: silueta original del manual usada como máscara y pintada en #EF8B01.
+const bichoMask = (await getImage({ src: bichoSilueta, format: "png" })).src;
+const bichoRatio = `${bichoSilueta.width} / ${bichoSilueta.height}`;
+
+const textoCopia = DONACIONES.map((d) => `${d.campo}: ${d.valor}`).join("\n");
 ---
-<section id="apoya" class="section apoyo bg-niebla" aria-labelledby="apoyo-title">
-  <div class="container">
-    <div class="ap-head">
-      <div class="stack-m">
-        <span class="tag-bar">06 · Apoya al equipo</span>
-        <h2 id="apoyo-title" class="h2">Cada aporte nos acerca a Texas.</h2>
-        <p class="lead">Además de las empresas socias, cualquier persona puede apoyar al equipo. Los fondos van a materiales, fabricación y al traslado del prototipo a Bastrop.</p>
-      </div>
-      <Image src={bichoAzul} alt="" width={120} class="ap-bicho" />
+<section id="apoya" class="section apoyo" aria-labelledby="apoyo-title" style={`--bicho-mask: url("${bichoMask}"); --bicho-ratio: ${bichoRatio};`}>
+  <div class="ap-bicho" aria-hidden="true"></div>
+  <div class="container ap-inner">
+    <div class="ap-head reveal">
+      <span class="tag-bar">Apoya al equipo</span>
+      <h2 id="apoyo-title" class="ap-title">Cada aporte nos acerca a <span class="ap-texas">Texas</span></h2>
+      <p class="lead">Los fondos van a materiales, fabricación y al traslado de la máquina a Bastrop. Dona directo o escríbenos si quieres apoyar como empresa.</p>
     </div>
 
-    {pagosActivos ? (
-      <ul class="packs">
-        {PACKS.map((p, i) => (
-          <li class={`pack ${p.destacado ? "is-featured" : ""}`}>
-            <div class="pack-top">
-              <span class="pack-num">{String(i + 1).padStart(2, "0")}</span>
-              {p.destacado && <span class="pack-flag">Recomendado</span>}
-            </div>
-            <h3 class="h3">{p.nombre}</h3>
-            {p.monto != null && <p class="pack-price">{formatCLP(p.monto)}</p>}
-            <ul class="bullets">
-              {p.beneficios.map((b) => <li>{b}</li>)}
-            </ul>
-            <a class="btn btn-azul pack-cta" href={`/apoyar/${p.id}`}>Elegir pack</a>
-          </li>
-        ))}
-      </ul>
-    ) : (
-      <div class="ap-soon">
-        <p><strong>Los packs de apoyo se publican pronto.</strong> Si quieres aportar desde ya, escríbenos y te contamos cómo.</p>
-        <a class="btn btn-azul" href="#contacto" data-motivo="pack">Quiero aportar</a>
+    <div class="ap-grid reveal">
+      <!-- a) Contacto -->
+      <div class="ap-col">
+        <div class="ap-col-head">
+          <h3 class="h3">Escríbenos</h3>
+          <p class="copy">O directamente a <a class="ap-mail" href={`mailto:${SITE.correoEquipo}`}>{SITE.correoEquipo}</a></p>
+        </div>
+
+        <div class="ap-empresa">
+          <p class="ap-empresa-txt">¿Quieres apoyar como empresa, con piezas o conocimiento?</p>
+          <a class="btn ap-empresa-btn" href="#ct-form" data-empresa>Soy empresa, quiero aportar <span aria-hidden="true">→</span></a>
+        </div>
+
+        <form id="ct-form" class="ct-form" action="/api/contacto" method="post" data-contact-form data-fallback-email={SITE.correoEquipo} novalidate>
+          <input type="hidden" name="motivo" value="Apoyo" />
+          <div class="field">
+            <label for="ct-nombre">Nombre</label>
+            <input id="ct-nombre" name="nombre" type="text" autocomplete="name" required maxlength="120" aria-describedby="err-nombre" />
+            <p class="field-err" id="err-nombre" data-err="Escribe tu nombre."></p>
+          </div>
+          <div class="field">
+            <label for="ct-email">Correo</label>
+            <input id="ct-email" name="email" type="email" autocomplete="email" required maxlength="160" aria-describedby="err-email" />
+            <p class="field-err" id="err-email" data-err="Escribe un correo válido, por ejemplo nombre@empresa.cl."></p>
+          </div>
+          <div class="field">
+            <label for="ct-mensaje">Mensaje</label>
+            <textarea id="ct-mensaje" name="mensaje" rows="5" required maxlength="4000" aria-describedby="err-mensaje"></textarea>
+            <p class="field-err" id="err-mensaje" data-err="Cuéntanos en qué te podemos ayudar."></p>
+          </div>
+          <!-- Campo trampa anti-spam: las personas no lo ven ni lo completan -->
+          <div class="hp" aria-hidden="true">
+            <label for="ct-web">Sitio web</label>
+            <input id="ct-web" name="web" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <button type="submit" class="link-arrow ct-submit">Enviar mensaje <span aria-hidden="true">→</span></button>
+          <p class="ct-status" data-contact-status role="status" aria-live="polite"></p>
+        </form>
       </div>
-    )}
+
+      <!-- b) Donaciones (destino del botón APÓYANOS de la portada) -->
+      <div id="donaciones" class="ap-col">
+        <div class="ap-col-head">
+          <h3 class="h3">Transferencia directa</h3>
+        </div>
+        <div class="don-card">
+          <dl class="don-list">
+            {DONACIONES.map((d) => (
+              <div class="don-row">
+                <dt>{d.campo}</dt>
+                <dd>{d.valor}</dd>
+              </div>
+            ))}
+          </dl>
+          <button type="button" class="link-arrow don-copy" data-copy={textoCopia}>Copiar datos <span aria-hidden="true">→</span></button>
+          <p class="don-status" data-copy-status role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
-  .ap-head { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 32px; }
-  .ap-head .stack-m { max-width: 820px; }
-  .ap-head :global(.ap-bicho) { width: 90px; height: auto; flex: none; }
-  .ap-soon {
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px 32px;
-    border-left: 6px solid var(--naranjo); background: var(--blanco); padding: 24px 28px; color: var(--texto);
+  .apoyo { background: var(--naranjo-claro); color: var(--azul); overflow: hidden; }
+  .ap-inner { position: relative; z-index: 1; }
+  /* Bicho grande y recortado, tono sobre tono, detrás del contenido. */
+  .ap-bicho {
+    position: absolute; top: -12%; right: -6vw; height: 125%; aspect-ratio: var(--bicho-ratio);
+    background: var(--naranjo);
+    -webkit-mask: var(--bicho-mask) center / contain no-repeat;
+    mask: var(--bicho-mask) center / contain no-repeat;
+    pointer-events: none;
   }
-  .ap-soon p { max-width: 60ch; }
-  .ap-soon strong { color: var(--azul); }
+  .ap-head { display: grid; gap: 24px; max-width: 960px; margin-bottom: clamp(36px, 5vw, 56px); }
+  .ap-title { font-family: var(--font-display); text-transform: uppercase; color: var(--azul); font-size: clamp(2.6rem, 7vw, 6rem); line-height: .96; }
+  .ap-texas { color: var(--blanco); }
+  .apoyo .lead, .apoyo .copy, .apoyo .kicker { color: var(--azul); }
+  .apoyo .lead { font-weight: 600; }
+  .ap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .ap-col { display: grid; gap: 20px; }
+  .ap-col-head { display: grid; gap: 10px; }
+  .ap-mail { color: var(--azul); font-weight: 800; }
+  .ap-mail:hover { color: var(--azul-intenso); }
 
-  .packs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .pack { background: var(--blanco); padding: 24px; display: flex; flex-direction: column; gap: 14px; border-top: 6px solid var(--azul); }
-  .pack.is-featured { background: var(--azul); color: var(--blanco); border-top-color: var(--naranjo); }
-  .pack-top { display: flex; justify-content: space-between; align-items: center; }
-  .pack-num { font-family: var(--font-display); font-size: 18px; }
-  .pack-flag { background: var(--naranjo); color: var(--azul); font-weight: 800; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; padding: 4px 8px; }
-  .pack-price { font-family: var(--font-display); font-size: clamp(1.6rem, 2.4vw, 2.1rem); line-height: 1; text-transform: uppercase; }
-  .pack .bullets { color: var(--texto); font-size: 16px; flex: 1; }
-  .pack.is-featured .bullets { color: var(--gris-claro); }
-  .pack-cta { width: 100%; margin-top: 8px; font-size: 14px; padding-inline: 12px; }
-  .pack.is-featured .btn-azul { background: var(--naranjo); color: var(--azul); }
+  /* Apoyo como empresa: lleva al formulario con el mensaje empezado. */
+  .ap-empresa { display: grid; gap: 12px; justify-items: start; }
+  .ap-empresa-txt { font-weight: 700; color: var(--azul); }
+  .ap-empresa-btn { background: var(--azul); color: var(--blanco); }
+  .ap-empresa-btn:hover, .ap-empresa-btn:focus-visible { background: var(--naranjo); color: var(--azul); }
+  #donaciones { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
-  @media (max-width: 1000px) { .packs { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 560px) { .packs { grid-template-columns: 1fr; } .ap-head :global(.ap-bicho) { display: none; } }
+  /* Formulario */
+  .ct-form { display: grid; gap: 18px; background: var(--blanco); padding: clamp(22px, 3vw, 32px); border: 3px solid var(--azul); }
+  .field { display: grid; gap: 6px; }
+  label { font-weight: 800; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--azul); }
+  input, textarea {
+    width: 100%; min-height: 50px; padding: 12px 14px; border: 2px solid var(--azul); border-radius: 0;
+    background: var(--blanco); color: var(--azul); font: inherit; font-size: 17px;
+  }
+  textarea { resize: vertical; }
+  input:focus-visible, textarea:focus-visible { outline: 3px solid var(--naranjo); outline-offset: 0; }
+  [aria-invalid="true"] { border-color: var(--naranjo); border-width: 3px; }
+  .field-err { font-size: 15px; font-weight: 700; color: var(--azul); border-left: 4px solid var(--naranjo); padding-left: 8px; }
+  .field-err:empty { display: none; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .ct-status { min-height: 1.5em; font-weight: 700; color: var(--azul); }
+  .ct-status.err { border-left: 4px solid var(--naranjo); padding-left: 8px; }
+
+  /* Tarjeta de donaciones */
+  .don-card { background: var(--azul); color: var(--blanco); padding: clamp(22px, 3vw, 32px); display: grid; gap: 20px; border-top: 6px solid var(--naranjo); }
+  .don-list { margin: 0; display: grid; gap: 0; }
+  .don-row { display: grid; grid-template-columns: 160px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--azul-intenso); }
+  .don-row dt { font-weight: 700; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--gris-acero); }
+  .don-row dd { margin: 0; font-weight: 700; font-size: 18px; word-break: break-word; }
+  .ct-submit, .don-copy { justify-self: start; background: none; border-top: 0; border-left: 0; border-right: 0; padding-inline: 0; font-family: var(--font-body); font-size: 17px; cursor: pointer; }
+  .ct-submit { color: var(--azul); }
+  .ct-submit:hover { color: var(--azul-intenso); }
+  .ct-submit[disabled] { opacity: .55; cursor: not-allowed; }
+  .don-copy { color: var(--blanco); }
+  .don-card .don-copy:hover, .don-card .don-copy:focus-visible { color: var(--naranjo); }
+  .don-status { min-height: 1.5em; font-weight: 700; color: var(--gris-claro); }
+
+  @media (max-width: 900px) { .ap-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .don-row { grid-template-columns: 1fr; gap: 2px; } }
 </style>
+
+<script>
+  // ---------- Formulario de contacto ----------
+  const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
+  const status = document.querySelector<HTMLElement>("[data-contact-status]");
+  if (form && status) {
+    const btn = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
+    const fallback = form.dataset.fallbackEmail ?? "";
+    const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[required]")];
+
+    const check = (el: HTMLInputElement | HTMLTextAreaElement) => {
+      const ok = el.value.trim() !== "" && el.checkValidity();
+      const err = document.getElementById(el.getAttribute("aria-describedby") ?? "");
+      el.setAttribute("aria-invalid", String(!ok));
+      if (err) err.textContent = ok ? "" : err.dataset.err ?? "";
+      return ok;
+    };
+    // Una vez marcado con error, se revalida mientras la persona corrige.
+    fields.forEach((el) => el.addEventListener("input", () => { if (el.getAttribute("aria-invalid") === "true") check(el); }));
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      status.className = "ct-status";
+      const valid = fields.map(check).every(Boolean);
+      if (!valid) {
+        status.textContent = "Revisa los campos marcados.";
+        status.classList.add("err");
+        form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+        return;
+      }
+      btn.disabled = true;
+      status.textContent = "Enviando…";
+      try {
+        const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || "No se pudo enviar el mensaje.");
+        form.reset();
+        fields.forEach((el) => el.removeAttribute("aria-invalid"));
+        status.textContent = "Gracias. Recibimos tu mensaje y te responderemos pronto.";
+      } catch (err) {
+        status.textContent = `${(err as Error).message} También puedes escribirnos a ${fallback}.`;
+        status.classList.add("err");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+
+  // ---------- Soy empresa: baja al formulario y deja el mensaje empezado ----------
+  document.querySelector("[data-empresa]")?.addEventListener("click", (e) => {
+    const msg = document.querySelector<HTMLTextAreaElement>("#ct-mensaje");
+    const nombre = document.querySelector<HTMLInputElement>("#ct-nombre");
+    if (!msg || !nombre) return;
+    e.preventDefault();
+    if (!msg.value.trim()) msg.value = "Soy empresa y quiero apoyar a B.I.C.H.O con ";
+    nombre.focus({ preventScroll: true });
+    nombre.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+  });
+
+  // ---------- Copiar datos de la cuenta ----------
+  const copyBtn = document.querySelector<HTMLButtonElement>("[data-copy]");
+  const copyStatus = document.querySelector<HTMLElement>("[data-copy-status]");
+  if (copyBtn && copyStatus) {
+    const fallbackCopy = (text: string) => {
+      const ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "absolute"; ta.style.left = "-9999px";
+      document.body.append(ta); ta.select();
+      const ok = document.execCommand("copy");
+      ta.remove();
+      return ok;
+    };
+    copyBtn.addEventListener("click", async () => {
+      const text = copyBtn.dataset.copy ?? "";
+      let ok = false;
+      try { await navigator.clipboard.writeText(text); ok = true; } catch { ok = fallbackCopy(text); }
+      copyStatus.textContent = ok ? "Datos copiados al portapapeles." : "No se pudo copiar. Selecciona los datos y cópialos a mano.";
+      window.setTimeout(() => { copyStatus.textContent = ""; }, 4000);
+    });
+  }
+</script>

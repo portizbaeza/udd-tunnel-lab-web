@@ -9,7 +9,8 @@ export default defineConfig({
   output: "static",
   adapter: vercel(),
   redirects: {
-    "/equipo.html": "/equipo",
+    "/equipo": "/conocenos",
+    "/equipo.html": "/conocenos",
     "/index.html": "/",
   },
 });

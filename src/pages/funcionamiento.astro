@@ -1,0 +1,43 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import { SIMULADOR_URL } from "../config/site";
+---
+<Base
+  title="Funcionamiento — UDD Tunnel Lab"
+  description="Muestra visual interactiva de B.I.C.H.O: cómo funciona la microtuneladora de UDD Tunnel Lab."
+  path="/funcionamiento"
+>
+  <Nav slot="header" />
+
+  <section class="fn" aria-labelledby="fn-title">
+    <div class="fn-bar">
+      <h1 id="fn-title" class="fn-title">Funcionamiento</h1>
+      <a class="link-arrow fn-btn" href={SIMULADOR_URL} target="_blank" rel="noopener">
+        Abrir en pantalla completa <span aria-hidden="true">→</span><span class="sr-only">(se abre en una pestaña nueva)</span>
+      </a>
+    </div>
+    <iframe
+      class="fn-frame"
+      src={SIMULADOR_URL}
+      title="Muestra visual de la máquina B.I.C.H.O"
+      allow="fullscreen; accelerometer; gyroscope"
+      allowfullscreen
+      loading="eager"
+    ></iframe>
+  </section>
+</Base>
+
+<style>
+  .fn { --fn-bar-h: 64px; display: flex; flex-direction: column; height: calc(100svh - var(--nav-h)); background: var(--azul); }
+  .fn-bar {
+    flex: none; min-height: var(--fn-bar-h); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: 8px 16px; padding: 8px var(--gutter); background: var(--azul); color: var(--blanco); border-bottom: 1px solid var(--azul-intenso);
+  }
+  .fn-title { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.1rem, 2.4vw, 1.5rem); }
+  .fn-btn { font-size: 15px; }
+  .fn-frame { flex: 1; width: 100%; min-height: 0; border: 0; display: block; background: var(--negro); }
+  @media (max-width: 520px) {
+    .fn-btn { font-size: 13px; letter-spacing: .02em; }
+  }
+</style>

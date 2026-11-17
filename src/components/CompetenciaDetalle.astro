@@ -1,0 +1,51 @@
+---
+// Detalle de la competencia (página /propuesta). Texto movido desde la sección Competencia del inicio.
+const fases = [
+  { titulo: "Diseñar", texto: "Subsistemas reales de una tuneladora experimental: corte, propulsión, extracción, control." },
+  { titulo: "Fabricar", texto: "Prototipos, mecanismos y componentes testeables, con industria chilena como aliada." },
+  { titulo: "Competir", texto: "Representando a la UDD, a Chile y a Sudamérica en un desafío global de ingeniería." },
+];
+---
+<section id="competencia" class="section comp-det" aria-labelledby="comp-det-title">
+  <div class="container">
+    <div class="cd-head reveal">
+      <span class="kicker">Qué exige la competencia</span>
+      <h2 id="comp-det-title" class="h2">Así se compite</h2>
+    </div>
+
+    <div class="cd-grid reveal">
+      <div class="cd-block">
+        <h3 class="h3">Qué tiene que lograr la máquina</h3>
+        <p>En Bastrop, Texas, cada máquina debe excavar un túnel de 30 m de largo y cerca de 50 cm de diámetro, avanzar instalando su propio revestimiento y mantener el rumbo hasta salir en el punto objetivo, operando de forma segura. Se evalúa velocidad, precisión de navegación, diseño, innovación y seguridad.</p>
+      </div>
+      <div class="cd-block">
+        <h3 class="h3">Qué queremos demostrar</h3>
+        <p>Que desde Chile, un país que sabe trabajar bajo tierra, un equipo universitario interdisciplinario puede diseñar y construir una tuneladora competitiva, con la industria local como aliada.</p>
+      </div>
+    </div>
+
+    <ol class="cd-fases reveal">
+      {fases.map((f, i) => (
+        <li>
+          <span class="cd-num">{String(i + 1).padStart(2, "0")}</span>
+          <h3 class="h3">{f.titulo}</h3>
+          <p>{f.texto}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .comp-det .h2 { color: var(--azul); }
+  .cd-head { display: grid; gap: 20px; margin-bottom: clamp(32px, 4vw, 56px); }
+  .cd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 64px; }
+  .cd-block { display: grid; gap: 12px; align-content: start; }
+  .cd-block p, .cd-fases p { color: var(--texto); }
+  .cd-fases { list-style: none; margin: clamp(48px, 6vw, 72px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .cd-fases li { display: grid; gap: 8px; align-content: start; }
+  .cd-num { font-family: var(--font-display); font-size: 2.4rem; line-height: 1; color: var(--naranjo); }
+  @media (max-width: 860px) {
+    .cd-grid, .cd-fases { grid-template-columns: 1fr; }
+  }
+</style>

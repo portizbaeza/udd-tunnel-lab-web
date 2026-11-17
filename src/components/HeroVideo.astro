@@ -1,0 +1,134 @@
+---
+// Primera vista: video de la máquina de fondo a pantalla completa, logotipo encima y botón APÓYANOS.
+// - Video: /public/videos/hero-bicho.mp4 (comprimido desde material/Tuneladora_BICHO_HQ.mp4, 1080p H.264,
+//   sin audio) y su portada /public/videos/hero-bicho-poster.jpg (primer cuadro).
+// - Logo: /public/img/logo-bicho.png o .svg (fondo transparente). Se pinta en blanco con una máscara CSS,
+//   sin redibujarlo. Respaldo: src/assets/brand/logo-negativo.png. Los PNG se recortan en el build
+//   para quitar el margen vacío (src/lib/recortar.ts).
+// - El botón baja a la tarjeta de transferencia (id="donaciones" en Apoyo.astro).
+import { getImage } from "astro:assets";
+import logoRespaldo from "../assets/brand/logo-negativo.png";
+import { primeraPublicImg, publicImgSize } from "../lib/publicImg";
+import { recortarMargenes, type Recorte } from "../lib/recortar";
+
+// Logotipo
+const logoPublico = primeraPublicImg(["img/logo-bicho.svg", "img/logo-bicho.png"]);
+let logo: Recorte | null = null;
+if (logoPublico?.endsWith(".svg")) {
+  const size = publicImgSize(logoPublico);
+  if (size) logo = { src: logoPublico, ...size };
+} else if (logoPublico) {
+  const size = publicImgSize(logoPublico);
+  logo = (await recortarMargenes(`public${logoPublico}`)) ?? (size ? { src: logoPublico, ...size } : null);
+}
+logo ??= (await recortarMargenes("src/assets/brand/logo-negativo.png"))
+  ?? { src: (await getImage({ src: logoRespaldo, format: "png" })).src, width: logoRespaldo.width, height: logoRespaldo.height };
+
+const VIDEO = "/videos/hero-bicho.mp4";
+const POSTER = "/videos/hero-bicho-poster.jpg";
+---
+<section id="inicio" class="hv" aria-labelledby="hv-title">
+  <video
+    class="hv-video"
+    src={VIDEO}
+    poster={POSTER}
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    disablepictureinpicture
+    aria-hidden="true"
+    tabindex="-1"
+  ></video>
+  <div class="hv-shade" aria-hidden="true"></div>
+
+  <div class="hv-content">
+    <h1 id="hv-title" class="hv-title">
+      <span
+        class="hv-logo"
+        role="img"
+        aria-label="B.I.C.H.O by Tunnel Lab"
+        style={`--logo: url("${logo.src}"); --logo-ratio: ${logo.width} / ${logo.height};`}
+      ></span>
+    </h1>
+    <a class="hv-btn" href="#donaciones" data-hv-apoyo>Apóyanos</a>
+  </div>
+</section>
+
+<style>
+  /* La barra de navegación va encima (transparente), por eso la sección empieza en el borde superior. */
+  .hv {
+    position: relative; overflow: hidden;
+    height: 100vh; height: 100svh; min-height: 480px;
+    background: var(--azul);
+    display: grid; place-items: center;
+  }
+  .hv-video {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; display: block; pointer-events: none;
+  }
+  /* Velo azul marino sólido y parejo (sin degradado) para que el logo se lea sobre cualquier cuadro. */
+  .hv-shade { position: absolute; inset: 0; background: var(--azul); opacity: .5; }
+
+  .hv-content {
+    position: relative; z-index: 1;
+    display: grid; justify-items: center; gap: clamp(28px, 4vw, 48px);
+    padding-top: var(--nav-h);
+  }
+  .hv-title { margin: 0; width: min(72vw, 920px); }
+  .hv-logo {
+    display: block; width: 100%; aspect-ratio: var(--logo-ratio);
+    background: var(--blanco);
+    -webkit-mask: var(--logo) center / contain no-repeat;
+    mask: var(--logo) center / contain no-repeat;
+  }
+
+  /* APÓYANOS: naranjo, recto, con un pulso suave y continuo. */
+  .hv-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 60px; padding: 18px 48px;
+    background: var(--naranjo); color: var(--azul);
+    font-family: var(--font-body); font-weight: 800; font-size: clamp(17px, 1.6vw, 20px);
+    letter-spacing: .08em; text-transform: uppercase; text-decoration: none;
+    border-radius: 0;
+    animation: hv-pulso 1.6s ease-in-out infinite;
+    transition: background-color .18s, color .18s;
+  }
+  .hv-btn:hover, .hv-btn:focus-visible { background: var(--blanco); color: var(--azul); animation-play-state: paused; }
+  .hv-btn:focus-visible { outline: 3px solid var(--naranjo); outline-offset: 4px; }
+  @keyframes hv-pulso {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+  }
+
+  /* Movimiento reducido: imagen fija y botón quieto. */
+  @media (prefers-reduced-motion: reduce) {
+    .hv-video { display: none; }
+    .hv { background: var(--azul) url("/videos/hero-bicho-poster.jpg") center / cover no-repeat; }
+    .hv-btn { animation: none; }
+  }
+  @media (max-width: 760px) {
+    .hv-title { width: 88vw; }
+    .hv-btn { padding: 16px 40px; }
+  }
+</style>
+
+<script>
+  // Scroll suave hasta la tarjeta de donaciones (salto directo si hay movimiento reducido).
+  document.querySelector<HTMLAnchorElement>("[data-hv-apoyo]")?.addEventListener("click", (e) => {
+    const destino = document.getElementById("donaciones");
+    if (!destino) return;
+    e.preventDefault();
+    const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    destino.scrollIntoView({ behavior: quieto ? "auto" : "smooth", block: "start" });
+    history.replaceState(null, "", "#donaciones");
+  });
+
+  // Algunos navegadores de celular no arrancan solos el video aunque esté silenciado: se reintenta.
+  const video = document.querySelector<HTMLVideoElement>(".hv-video");
+  if (video && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    video.muted = true;
+    video.play().catch(() => { /* queda la imagen de portada */ });
+  }
+</script>

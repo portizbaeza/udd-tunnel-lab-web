@@ -1,0 +1,43 @@
+---
+// Sección "El primer equipo de Latinoamérica…": título a la izquierda y video de la máquina a la derecha.
+// El link del video se cambia en VIDEO_MAQUINA_URL (src/config/videos.ts). Si está vacío, recuadro gris.
+import { VIDEO_MAQUINA_URL, youtubeId } from "../config/videos";
+
+const videoId = youtubeId(VIDEO_MAQUINA_URL);
+---
+<section class="section pionero bg-azul" aria-labelledby="pionero-title">
+  <div class="container pi-grid">
+    <h2 id="pionero-title" class="pi-title reveal">
+      <span class="pi-accent">El primer</span> equipo de Latinoamérica en ir a Not a Boring Competition
+    </h2>
+
+    <div class="pi-video reveal">
+      {videoId
+        ? <iframe
+            src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0`}
+            title="Video de B.I.C.H.O, la máquina de UDD Tunnel Lab"
+            loading="lazy"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        : <div class="ph-img" role="img" aria-label="Video pendiente: pegar link en src/config/videos.ts">Video de YouTube pendiente · VIDEO_MAQUINA_URL en src/config/videos.ts</div>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pi-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 40px 64px; align-items: center; }
+  .pi-title {
+    font-family: var(--font-display); text-transform: uppercase; color: var(--blanco);
+    /* Tamaño calculado para que "LATINOAMÉRICA" quepa en su columna. */
+    font-size: clamp(2rem, 3.6vw, 3.3rem); line-height: 1.02; overflow-wrap: break-word;
+  }
+  .pi-accent { color: var(--naranjo); }
+  .pi-video { position: relative; aspect-ratio: 16 / 9; background: var(--negro); }
+  .pi-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .pi-video .ph-img { position: absolute; inset: 0; height: auto; min-height: 0; }
+
+  @media (max-width: 900px) {
+    .pi-grid { grid-template-columns: 1fr; }
+  }
+</style>

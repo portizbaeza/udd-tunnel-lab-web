@@ -1,31 +1,22 @@
 ---
-const fases = [
-  { tag: "Fase 01", titulo: "Diseñar", texto: "Subsistemas reales de una tuneladora experimental: corte, propulsión, extracción, control." },
-  { tag: "Fase 02", titulo: "Fabricar", texto: "Prototipos, mecanismos y componentes testeables, con industria chilena como aliada." },
-  { tag: "Fase 03", titulo: "Competir", texto: "Representando a la UDD, a Chile y a Sudamérica en un desafío global de ingeniería." },
-];
+// Competencia en el inicio: una idea, dos líneas y las tres fases como elemento visual.
+// El detalle (qué tiene que lograr la máquina, qué queremos demostrar) está en /propuesta#competencia.
+const fases = ["Diseñar", "Fabricar", "Competir"];
 ---
 <section id="competencia" class="section competencia" aria-labelledby="competencia-title">
   <div class="container">
-    <div class="comp-grid">
-      <div class="stack-m">
-        <span class="tag-bar">01 · La competencia</span>
-        <h2 id="competencia-title" class="h2">Un desafío mundial para acelerar la tecnología subterránea.</h2>
-      </div>
-      <div class="copy comp-copy">
-        <p>La <strong>Not-a-Boring Competition</strong> es organizada por The Boring Company y desafía a equipos universitarios de todo el mundo a construir máquinas tuneladoras capaces de excavar más rápido, más seguro y más barato. El lema lo dice todo: <strong>beat the snail</strong> — superar a un caracol.</p>
-        <p>Los equipos trabajan durante el año en diseño, fabricación y pruebas, y luego compiten presencialmente en Bastrop, Texas. Se evalúa avance de excavación, diseño, innovación, seguridad, navegación y desempeño del sistema completo.</p>
-        <p class="comp-note">UDD Tunnel Lab es un proyecto independiente de la Universidad del Desarrollo. No es patrocinado ni respaldado por The Boring Company.</p>
-      </div>
+    <div class="comp-head reveal">
+      <span class="kicker">La competencia</span>
+      <h2 id="competencia-title" class="h2">Excavar más rápido que un caracol</h2>
+      <p class="lead">La Not-a-Boring Competition, de The Boring Company, desafía a universidades de todo el mundo a hacer túneles más rápidos, seguros y baratos. La meta: superar a un caracol.</p>
+      <a class="link-arrow" href="/propuesta#competencia">Qué exige la competencia <span aria-hidden="true">→</span></a>
     </div>
 
-    <ol class="phases">
+    <ol class="phases reveal" aria-label="Fases del proyecto">
       {fases.map((f, i) => (
         <li class="phase">
           <span class="phase-num" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-          <span class="kicker">{f.tag}</span>
-          <h3 class="h3">{f.titulo}</h3>
-          <p>{f.texto}</p>
+          <span class="phase-name">{f}</span>
         </li>
       ))}
     </ol>
@@ -33,28 +24,24 @@ const fases = [
 </section>
 
 <style>
-  .comp-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px 72px; align-items: start; }
-  .comp-copy { font-size: 18px; padding-top: 56px; }
-  .comp-note { font-size: 15px; color: var(--texto); border-top: 1px solid var(--gris-claro); padding-top: 14px; }
+  .competencia .h2 { color: var(--azul); }
+  .comp-head { display: grid; gap: 24px; justify-items: start; }
 
-  .phases { list-style: none; margin: clamp(56px, 7vw, 96px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .phase { position: relative; overflow: hidden; padding: 28px 28px 32px; background: var(--gris-niebla); display: grid; gap: 10px; align-content: start; min-height: 260px; }
-  .phase:nth-child(2) { background: var(--azul); color: var(--blanco); }
-  .phase:nth-child(2) .kicker { color: var(--naranjo-claro); }
-  .phase:nth-child(2) p { color: var(--gris-claro); }
-  .phase p { color: var(--texto); max-width: 30ch; }
-  .phase .h3 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
-  .phase-num {
-    position: absolute; right: -6px; bottom: -22px; font-family: var(--font-display); font-size: 9rem; line-height: 1;
-    color: var(--blanco); transform: scaleX(1.35); transform-origin: right bottom; pointer-events: none;
+  .phases { list-style: none; margin: clamp(48px, 6vw, 80px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .phase {
+    position: relative; overflow: hidden; min-height: 200px; padding: 28px;
+    display: flex; align-items: flex-end; background: var(--azul); color: var(--blanco);
   }
-  .phase:nth-child(2) .phase-num { color: var(--azul-intenso); }
-  .phase > :not(.phase-num) { position: relative; }
+  .phase:nth-child(2) { background: var(--naranjo); color: var(--azul); }
+  .phase-name { position: relative; font-family: var(--font-display); text-transform: uppercase; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1; }
+  .phase-num {
+    position: absolute; right: -6px; top: -18px; font-family: var(--font-display); font-size: 8rem; line-height: 1;
+    color: var(--azul-intenso); transform: scaleX(1.35); transform-origin: right top; pointer-events: none;
+  }
+  .phase:nth-child(2) .phase-num { color: var(--naranjo-claro); }
 
-  @media (max-width: 900px) {
-    .comp-grid { grid-template-columns: 1fr; }
-    .comp-copy { padding-top: 0; }
+  @media (max-width: 760px) {
     .phases { grid-template-columns: 1fr; }
-    .phase { min-height: 0; }
+    .phase { min-height: 120px; }
   }
 </style>

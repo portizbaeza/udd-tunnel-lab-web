@@ -5,6 +5,7 @@
 // Las fotos viven en src/assets/team/<slug>.jpg (las genera el mismo comando).
 import type { ImageMetadata } from "astro";
 import data from "../data/miembros.json";
+import capitanesData from "../data/capitanes.json";
 
 export interface Miembro {
   slug: string;
@@ -49,4 +50,20 @@ export function getFrentes(miembros: Miembro[]): string[] {
   const orden = ["Cabezal erosionador", "Propulsión", "Muck removal", "Casing/Soporte", "Software y control", "Dirección", "Gestión y sponsors", "Redes sociales", "Consultores"];
   const set = new Set(miembros.flatMap((m) => m.frentes));
   return [...orden.filter((f) => set.has(f)), ...[...set].filter((f) => !orden.includes(f))];
+}
+
+// Capitanes: se editan en src/data/capitanes.json (slug del integrante + rol a mostrar).
+
+export interface Capitan { miembro: Miembro; index: number; rol: string }
+
+export function getCapitanes(): Capitan[] {
+  const miembros = getMiembros();
+  return (capitanesData as { slug: string; rol: string }[]).flatMap(({ slug, rol }) => {
+    const index = miembros.findIndex((m) => m.slug === slug);
+    if (index === -1) {
+      console.warn(`[capitanes] No existe un integrante con slug "${slug}" en miembros.json`);
+      return [];
+    }
+    return [{ miembro: miembros[index], index, rol }];
+  });
 }
